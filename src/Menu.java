@@ -38,7 +38,8 @@ public class Menu {
         System.out.println("    4. Inserir informació");
         System.out.println("    5. Esborrar informació");
         System.out.println("    6. Cercar informació");
-        System.out.println("    7. Configurar Autocompletar \n");
+        System.out.println("    7. Configurar Autocompletar");
+        System.out.println("    8. Exit \n");
 
         return llegeixOpcioInicial();
     }
@@ -69,14 +70,15 @@ public class Menu {
         System.out.println("    2. R-Tree");
         System.out.println("    3. AVL Tree");
         System.out.println("    4. Taula de Hash");
-        System.out.println("    5. Graph \n");
+        System.out.println("    5. Graph");
         System.out.println("    6. Array \n");
     }
 
     private int llegeixOpcioInicial() {
         try {
             this.opcioInicial = input.nextInt();
-            while (opcioInicial < 0 || opcioInicial > 7) {
+            input.nextLine();
+            while (opcioInicial < 0 || opcioInicial > 8) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioInicial();
             }
@@ -90,6 +92,8 @@ public class Menu {
     private int llegeixOpcioEstructures() {
         try {
             this.opcioEstrutures = input.nextInt();
+            input.nextLine();
+
             while (opcioEstrutures < 0 || opcioEstrutures > 6) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioEstructures();
@@ -181,6 +185,8 @@ public class Menu {
     private int llegeixOpcioInsercio() {
         try {
             this.opcioInsericio = input.nextInt();
+            input.nextLine();
+
             while (opcioInsericio < 0 || opcioInsericio > 2) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioInsercio();
@@ -197,12 +203,14 @@ public class Menu {
         String nouUser = input.nextLine();
         //Comprovem que no existeixi ja el usuari
 
-        System.out.println("Data creació");
+        System.out.println("Data creació:");
         int dataCreacio = input.nextInt();
+        input.nextLine();
+
 
         System.out.println("Usuaris que seguirà {Y/N]:");
         String answer = input.nextLine();
-        follow = (answer.equalsIgnoreCase("Y"));
+        follow = (answer.equalsIgnoreCase("Y")? true : false);
 
 
         while (follow) {
@@ -211,7 +219,7 @@ public class Menu {
             // Afegim usuari als follow de nouUser
             System.out.println("Usuaris que seguirà {Y/N]:");
             answer = input.nextLine();
-            follow = (answer.equalsIgnoreCase("Y"));
+            follow = (answer.equalsIgnoreCase("Y")? true : false);
         }
 
         System.out.println("Usuari afegit amb èxit!");
@@ -223,6 +231,8 @@ public class Menu {
 
         System.out.println("Data creació:");
         int dataPost = input.nextInt();
+        input.nextLine();
+
 
         System.out.println("Usuari del post:");
         String userPost = input.nextLine();
@@ -230,15 +240,18 @@ public class Menu {
         System.out.println("Localització post X:");
         double[] location = new double[2];
         location[0] = input.nextDouble();
+        input.nextLine();
+
         System.out.println("Localització post Y:");
         location[1] = input.nextDouble();
+        input.nextLine();
 
         System.out.println("Hashtags:");
         String hashtag = input.nextLine();
 
         System.out.println("Usuaris que han donat like {Y/N]:");
         String answer = input.nextLine();
-        boolean liked = (answer.equalsIgnoreCase("Y"));
+        boolean liked = (answer.equalsIgnoreCase("Y")? true : false);
 
         String userLiked;
         while (liked) {
@@ -246,7 +259,8 @@ public class Menu {
             //Mirem si ha donat like ja, o si no existeix el usuari
 
             System.out.println("Usuaris que han donat like {Y/N]:");
-            liked = (answer.equalsIgnoreCase("Y"));
+            answer = input.nextLine();
+            liked = (answer.equalsIgnoreCase("Y")? true : false);
         }
 
         System.out.println("Post afegit amb èxit!");
@@ -275,6 +289,8 @@ public class Menu {
     private int llegeixOpcioEliminacio() {
         try {
             this.opcioEliminacio = input.nextInt();
+            input.nextLine();
+
             while (opcioEliminacio < 0 || opcioEliminacio > 2) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioEliminacio();
@@ -357,6 +373,8 @@ public class Menu {
     private int llegeixOpcioCerca() {
         try {
             this.opcioCerca = input.nextInt();
+            input.nextLine();
+
             while (opcioCerca < 0 || opcioCerca > 2) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioCerca();
@@ -383,13 +401,15 @@ public class Menu {
         System.out.println("    " + i + ". Cap dels suggerits");
 
         int seleccio = input.nextInt();
+        input.nextLine();
+
         if (seleccio != i) {
             //stringUsuari= autocompletar.getUser;
         }
 
         System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
         String answer = input.nextLine();
-        boolean carregaCerca = (answer.equalsIgnoreCase("Y"));
+        boolean carregaCerca = (answer.equalsIgnoreCase("Y")? true : false);
 
         if (carregaCerca) {
             //User usuari= getInfoUser(stringUsuari);
@@ -403,6 +423,8 @@ public class Menu {
     private void cercaPost() {
         System.out.println("ID del post:");
         int idPost = input.nextInt();
+        input.nextLine();
+
         //Post post = getInfoPost(idPost);
         //System.out.println(post.toString);
     }
@@ -426,10 +448,16 @@ public class Menu {
     private void cercaUbicacio() {
         System.out.println("Latitud:");
         double latitud = input.nextDouble();
+        input.nextLine();
+
         System.out.println("Longitud:");
         double longitud = input.nextDouble();
+        input.nextLine();
+
         System.out.println("Radi màxim:");
         int radi = input.nextInt();
+        input.nextLine();
+
         /*Arraylist de posts = getPostUbicacio(latituda,longitud)
         System.out.println("S'han trobat"+posts.size()+" post dintre el radi màxim [< "+radi+" km]");
         int i =1;
@@ -452,6 +480,8 @@ public class Menu {
         System.out.println("Actualment el limit es troba a [" + paraulesMemoria + "] paraules");
         System.out.println("Quin vols que sigui el nou limit?");
         paraulesMemoria = input.nextInt();
+        input.nextLine();
+
 
         System.out.println("Processant petició");
         //canviem el nombre de paraules de la funcio autocompletar
