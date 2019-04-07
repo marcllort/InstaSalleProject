@@ -2,6 +2,7 @@
 import Model.Post;
 import Model.User;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.lang.String;
 
@@ -159,6 +160,10 @@ public class Menu {
             case 6:
                 System.out.println("Visualitzant Array");
                 break;
+
+            default:
+                System.out.println("Opció incorrecte!");
+                break;
         }
 
     }
@@ -178,6 +183,10 @@ public class Menu {
 
             case 2:
                 insercioPost();
+                break;
+
+            default:
+                System.out.println("Opció incorrecte!");
                 break;
         }
     }
@@ -210,7 +219,7 @@ public class Menu {
 
         System.out.println("Usuaris que seguirà {Y/N]:");
         String answer = input.nextLine();
-        follow = (answer.equalsIgnoreCase("Y")? true : false);
+        follow = (answer.equalsIgnoreCase("Y") ? true : false);
 
 
         while (follow) {
@@ -219,7 +228,7 @@ public class Menu {
             // Afegim usuari als follow de nouUser
             System.out.println("Usuaris que seguirà {Y/N]:");
             answer = input.nextLine();
-            follow = (answer.equalsIgnoreCase("Y")? true : false);
+            follow = (answer.equalsIgnoreCase("Y") ? true : false);
         }
 
         System.out.println("Usuari afegit amb èxit!");
@@ -251,7 +260,7 @@ public class Menu {
 
         System.out.println("Usuaris que han donat like {Y/N]:");
         String answer = input.nextLine();
-        boolean liked = (answer.equalsIgnoreCase("Y")? true : false);
+        boolean liked = (answer.equalsIgnoreCase("Y") ? true : false);
 
         String userLiked;
         while (liked) {
@@ -260,7 +269,7 @@ public class Menu {
 
             System.out.println("Usuaris que han donat like {Y/N]:");
             answer = input.nextLine();
-            liked = (answer.equalsIgnoreCase("Y")? true : false);
+            liked = (answer.equalsIgnoreCase("Y") ? true : false);
         }
 
         System.out.println("Post afegit amb èxit!");
@@ -282,6 +291,10 @@ public class Menu {
 
             case 2:
                 eliminacioPost();
+                break;
+
+            default:
+                System.out.println("Opció incorrecte!");
                 break;
         }
     }
@@ -319,17 +332,23 @@ public class Menu {
     }
 
     private void eliminacioPost() {
-        System.out.println("Id post a eliminar:");
-        String idPost = input.nextLine();
+        try {
+            System.out.println("Id post a eliminar:");
+            String idPost = input.nextLine();
 
-        System.out.println("Processant petició...");
-        //Comprovem que existeixi el post
+            System.out.println("Processant petició...");
+            //Comprovem que existeixi el post
 
-        //if(esborraPost(idPost)){
-        System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
-        //}else{
-        System.out.println("El post [" + idPost + "] NO s'ha esborrat del sistema");
-        //}
+            //if(esborraPost(idPost)){
+            System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
+            //}else{
+            System.out.println("El post [" + idPost + "] NO s'ha esborrat del sistema");
+            //}
+        } catch (InputMismatchException e) {
+            System.out.println("Escriu un id correcte!");
+            eliminacioPost();
+        }
+
 
     }
 
@@ -397,33 +416,44 @@ public class Menu {
         for (i = 0; i < nSuggerencies; i++) {
             System.out.println("    " + i + ". ");//+ arraylist.getUsername
         }
-        i++;
+
         System.out.println("    " + i + ". Cap dels suggerits");
+        try {
+            int seleccio = input.nextInt();
+            input.nextLine();
+            if (seleccio != i) {
+                //stringUsuari= autocompletar.getUser;
+            }
 
-        int seleccio = input.nextInt();
-        input.nextLine();
+            System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
+            String answer = input.nextLine();
+            boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
 
-        if (seleccio != i) {
-            //stringUsuari= autocompletar.getUser;
-        }
+            if (carregaCerca) {
+                //User usuari= getInfoUser(stringUsuari);
+                //mostraInformacioUser(usuari); o millor sout(usuari.toString());
+            } else {
+                cercaUser();
+            }
 
-        System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
-        String answer = input.nextLine();
-        boolean carregaCerca = (answer.equalsIgnoreCase("Y")? true : false);
-
-        if (carregaCerca) {
-            //User usuari= getInfoUser(stringUsuari);
-            //mostraInformacioUser(usuari); o millor sout(usuari.toString());
-        } else {
+        } catch (InputMismatchException e) {
+            System.out.println("Opció incorrecte!");
             cercaUser();
         }
+
 
     }
 
     private void cercaPost() {
-        System.out.println("ID del post:");
-        int idPost = input.nextInt();
-        input.nextLine();
+        try {
+            System.out.println("ID del post:");
+            int idPost = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Escriu un id correcte!");
+            cercaPost();
+        }
+
 
         //Post post = getInfoPost(idPost);
         //System.out.println(post.toString);
@@ -446,18 +476,22 @@ public class Menu {
     }
 
     private void cercaUbicacio() {
-        System.out.println("Latitud:");
-        double latitud = input.nextDouble();
-        input.nextLine();
+        try {
+            System.out.println("Latitud:");
+            double latitud = input.nextDouble();
+            input.nextLine();
 
-        System.out.println("Longitud:");
-        double longitud = input.nextDouble();
-        input.nextLine();
+            System.out.println("Longitud:");
+            double longitud = input.nextDouble();
+            input.nextLine();
 
-        System.out.println("Radi màxim:");
-        int radi = input.nextInt();
-        input.nextLine();
-
+            System.out.println("Radi màxim:");
+            int radi = input.nextInt();
+            input.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Valor en format incorrecte!");
+            cercaUbicacio();
+        }
         /*Arraylist de posts = getPostUbicacio(latituda,longitud)
         System.out.println("S'han trobat"+posts.size()+" post dintre el radi màxim [< "+radi+" km]");
         int i =1;
@@ -476,17 +510,23 @@ public class Menu {
     // CONFIGURACIO AUTOCOMPLETAR
 
     public void configAutocompletar() {
-        System.out.println("Limitar memoria per autocompletar");
-        System.out.println("Actualment el limit es troba a [" + paraulesMemoria + "] paraules");
-        System.out.println("Quin vols que sigui el nou limit?");
-        paraulesMemoria = input.nextInt();
-        input.nextLine();
+        try {
+            System.out.println("Limitar memoria per autocompletar");
+            System.out.println("Actualment el limit es troba a [" + paraulesMemoria + "] paraules");
+            System.out.println("Quin vols que sigui el nou limit?");
+            paraulesMemoria = input.nextInt();
+            input.nextLine();
 
 
-        System.out.println("Processant petició");
-        //canviem el nombre de paraules de la funcio autocompletar
+            System.out.println("Processant petició");
+            //canviem el nombre de paraules de la funcio autocompletar
 
-        System.out.println("El limit de paraules s'ha actualitzat a [" + paraulesMemoria + "] paraules");
+            System.out.println("El limit de paraules s'ha actualitzat a [" + paraulesMemoria + "] paraules");
+
+        } catch (InputMismatchException e) {
+            System.out.println("Valor en format incorrecte!");
+            configAutocompletar();
+        }
 
     }
 
