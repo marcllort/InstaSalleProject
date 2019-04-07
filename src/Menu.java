@@ -1,7 +1,4 @@
 
-import Model.Post;
-import Model.User;
-
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.lang.String;
@@ -14,9 +11,6 @@ public class Menu {
     private int opcioEliminacio;
     private int opcioCerca;
     private int paraulesMemoria = 0;
-    private boolean follow = false;
-    private String userToFollow;
-    private java.lang.String stringUsuari;
     private Scanner input;
 
 
@@ -132,63 +126,19 @@ public class Menu {
     }
 
 
-    // VISUALITZACIÓ INFORMACIÓ
-
-    public void printaVisualitzacio(int mode) {
-
-        switch (mode) {
-            case 1:
-                System.out.println("Visualitzant Trie");
-                break;
-
-            case 2:
-                System.out.println("Visualitzant R-Tree");
-                break;
-
-            case 3:
-                System.out.println("Visualitzant AVL Tree");
-                break;
-
-            case 4:
-                System.out.println("Visualitzant Taula Hash");
-                break;
-
-            case 5:
-                System.out.println("Visualitzant Graph");
-                break;
-
-            case 6:
-                System.out.println("Visualitzant Array");
-                break;
-
-            default:
-                System.out.println("Opció incorrecte!");
-                break;
-        }
-
-    }
-
-
     // INSERCIÓ INFORMACIÓ
 
-    public void printaMenuInsercio() {
+    public int printaMenuInsercio() {
         System.out.println("Inserció d'informació");
         System.out.println("Quin tipus d'informació vol inserir?");
         System.out.println("    1. Nou Usuari");
         System.out.println("    2. Nou Post");
-        switch (llegeixOpcioInsercio()) {
-            case 1:
-                insercioUser();
-                break;
-
-            case 2:
-                insercioPost();
-                break;
-
-            default:
-                System.out.println("Opció incorrecte!");
-                break;
+        int opcio = llegeixOpcioInsercio();
+        if (opcio < 0 || opcio > 2) {
+            System.out.println("Opció incorrecte!");
+            return -1;
         }
+        return opcio;
     }
 
     private int llegeixOpcioInsercio() {
@@ -207,96 +157,20 @@ public class Menu {
         return opcioInsericio;
     }
 
-    private void insercioUser() {
-        System.out.println("Nom d'usuari:");
-        String nouUser = input.nextLine();
-        //Comprovem que no existeixi ja el usuari
-
-        System.out.println("Data creació:");
-        int dataCreacio = input.nextInt();
-        input.nextLine();
-
-
-        System.out.println("Usuaris que seguirà {Y/N]:");
-        String answer = input.nextLine();
-        follow = (answer.equalsIgnoreCase("Y") ? true : false);
-
-
-        while (follow) {
-            userToFollow = input.nextLine();
-            // Mirem si ja el segueix, o no existeix el usuari
-            // Afegim usuari als follow de nouUser
-            System.out.println("Usuaris que seguirà {Y/N]:");
-            answer = input.nextLine();
-            follow = (answer.equalsIgnoreCase("Y") ? true : false);
-        }
-
-        System.out.println("Usuari afegit amb èxit!");
-    }
-
-    private void insercioPost() {
-        System.out.println("Id post:");
-        String idPost = input.nextLine();
-
-        System.out.println("Data creació:");
-        int dataPost = input.nextInt();
-        input.nextLine();
-
-
-        System.out.println("Usuari del post:");
-        String userPost = input.nextLine();
-
-        System.out.println("Localització post X:");
-        double[] location = new double[2];
-        location[0] = input.nextDouble();
-        input.nextLine();
-
-        System.out.println("Localització post Y:");
-        location[1] = input.nextDouble();
-        input.nextLine();
-
-        System.out.println("Hashtags:");
-        String hashtag = input.nextLine();
-
-        System.out.println("Usuaris que han donat like {Y/N]:");
-        String answer = input.nextLine();
-        boolean liked = (answer.equalsIgnoreCase("Y") ? true : false);
-
-        String userLiked;
-        while (liked) {
-            userLiked = input.nextLine();
-            //Mirem si ha donat like ja, o si no existeix el usuari
-
-            System.out.println("Usuaris que han donat like {Y/N]:");
-            answer = input.nextLine();
-            liked = (answer.equalsIgnoreCase("Y") ? true : false);
-        }
-
-        System.out.println("Post afegit amb èxit!");
-
-    }
-
 
     // ELIMINACIÓ INFORMACIÓ
 
-    public void printaMenuEliminacio() {
+    public int printaMenuEliminacio() {
         System.out.println("Eliminació d'informació");
         System.out.println("Quin tipus d'informació vol esborrar?");
         System.out.println("    1. Usuari");
         System.out.println("    2. Post");
-        switch (llegeixOpcioEliminacio()) {
-            case 1:
-                eliminacioUser();
-                break;
-
-            case 2:
-                eliminacioPost();
-                break;
-
-            default:
-                System.out.println("Opció incorrecte!");
-                break;
+        int opcio = llegeixOpcioEliminacio();
+        if (opcio < 0 || opcio > 2) {
+            System.out.println("Opció incorrecte!");
+            return -1;
         }
+        return opcio;
     }
 
     private int llegeixOpcioEliminacio() {
@@ -315,47 +189,10 @@ public class Menu {
         return opcioEliminacio;
     }
 
-    private void eliminacioUser() {
-        System.out.println("Nom d'usuari que s'esborrarà:");
-        String eliminaUser = input.nextLine();
-
-        System.out.println("Processant petició...");
-        //Comprovem que existeixi el usuari
-        //Cal borrar tota la informació realcionada (posts...) menys localiotzacio posts, mirar enunciat
-
-        //if(esborraUser(eliminaUser)){
-        System.out.println("L'usuari [" + eliminaUser + "] s'ha esborrat correctament del sistema");
-        //}else{
-        System.out.println("L'usuari [" + eliminaUser + "] NO s'ha esborrat del sistema");
-        //}
-
-    }
-
-    private void eliminacioPost() {
-        try {
-            System.out.println("Id post a eliminar:");
-            String idPost = input.nextLine();
-
-            System.out.println("Processant petició...");
-            //Comprovem que existeixi el post
-
-            //if(esborraPost(idPost)){
-            System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
-            //}else{
-            System.out.println("El post [" + idPost + "] NO s'ha esborrat del sistema");
-            //}
-        } catch (InputMismatchException e) {
-            System.out.println("Escriu un id correcte!");
-            eliminacioPost();
-        }
-
-
-    }
-
 
     // CERCA INFORMACIÓ
 
-    public void printaMenuCerca() {
+    public int printaMenuCerca() {
         System.out.println("Cerca d'informació");
         System.out.println("Quin tipus d'informació vol cercar?");
         System.out.println("    1. Usuari");
@@ -364,29 +201,13 @@ public class Menu {
         System.out.println("    4. Segons ubicació");
         System.out.println("    5. Personalitzada");
 
-
-        switch (llegeixOpcioCerca()) {
-            case 1:
-                stringUsuari = "";
-                cercaUser();
-                break;
-
-            case 2:
-                cercaPost();
-                break;
-
-            case 3:
-                cercaHashtag();
-                break;
-
-            case 4:
-                cercaUbicacio();
-                break;
-
-            case 5:
-                cercaPersonalitzada();
-                break;
+        int opcio = llegeixOpcioCerca();
+        System.out.println(opcio);
+        if (opcio < 0 || opcio > 5) {
+            System.out.println("Opció incorrecte!");
+            return -1;
         }
+        return opcio;
     }
 
     private int llegeixOpcioCerca() {
@@ -394,7 +215,7 @@ public class Menu {
             this.opcioCerca = input.nextInt();
             input.nextLine();
 
-            while (opcioCerca < 0 || opcioCerca > 2) {
+            while (opcioCerca < 0 || opcioCerca > 5) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioCerca();
             }
@@ -403,107 +224,6 @@ public class Menu {
         }
 
         return opcioCerca;
-    }
-
-    private void cercaUser() {
-
-        stringUsuari.concat(input.nextLine()); //cal mirar si funciona
-
-        System.out.println("Possibles suggeriments:");
-        //funcio autocompletar busca a tots usuaris, retorna un arraylist, amb el size sabrem quantes opcions tenim
-        int nSuggerencies = 2;//size arraylist
-        int i;
-        for (i = 0; i < nSuggerencies; i++) {
-            System.out.println("    " + i + ". ");//+ arraylist.getUsername
-        }
-
-        System.out.println("    " + i + ". Cap dels suggerits");
-        try {
-            int seleccio = input.nextInt();
-            input.nextLine();
-            if (seleccio != i) {
-                //stringUsuari= autocompletar.getUser;
-            }
-
-            System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
-            String answer = input.nextLine();
-            boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
-
-            if (carregaCerca) {
-                //User usuari= getInfoUser(stringUsuari);
-                //mostraInformacioUser(usuari); o millor sout(usuari.toString());
-            } else {
-                cercaUser();
-            }
-
-        } catch (InputMismatchException e) {
-            System.out.println("Opció incorrecte!");
-            cercaUser();
-        }
-
-
-    }
-
-    private void cercaPost() {
-        try {
-            System.out.println("ID del post:");
-            int idPost = input.nextInt();
-            input.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Escriu un id correcte!");
-            cercaPost();
-        }
-
-
-        //Post post = getInfoPost(idPost);
-        //System.out.println(post.toString);
-    }
-
-    private void cercaHashtag() {
-        System.out.println("Hashtag a buscar:");
-        String hashtag = input.nextLine();
-        /*Arraylist de posts = getPostHashtag(hashtag)
-        System.out.println("S'han trobat"+posts.size()+" post amb el hashtag "+hashtag);
-        int i =1;
-        for (Post p : posts) {
-            System.out.println("[POST "+i+"]");
-            System.out.println(p.toString());
-            i++;
-            if(i == 6){
-            break;
-            }
-        }*/
-    }
-
-    private void cercaUbicacio() {
-        try {
-            System.out.println("Latitud:");
-            double latitud = input.nextDouble();
-            input.nextLine();
-
-            System.out.println("Longitud:");
-            double longitud = input.nextDouble();
-            input.nextLine();
-
-            System.out.println("Radi màxim:");
-            int radi = input.nextInt();
-            input.nextLine();
-        } catch (InputMismatchException e) {
-            System.out.println("Valor en format incorrecte!");
-            cercaUbicacio();
-        }
-        /*Arraylist de posts = getPostUbicacio(latituda,longitud)
-        System.out.println("S'han trobat"+posts.size()+" post dintre el radi màxim [< "+radi+" km]");
-        int i =1;
-        for (Post p : posts) {
-            System.out.println("[POST "+i+"]");
-            System.out.println(p.toString());
-            i++;
-        }*/
-    }
-
-    private void cercaPersonalitzada() {
-        //cal preguntar que ha de fer
     }
 
 

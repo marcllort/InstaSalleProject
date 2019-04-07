@@ -1,22 +1,35 @@
+import Utils.Funcions;
+
+import java.util.Scanner;
+
 public class Main {
+
+    private static Scanner input;
+    private static boolean follow = false;
+    private static Funcions funcio = new Funcions();
+
 
 
     public static void main(String[] args) {
         int menuInicial;
+        input = new Scanner(System.in);
         boolean exit = false;
         Menu menu = new Menu();
 
         while (!exit) {
             menuInicial = menu.MenuInicial();
 
+
             switch (menuInicial) {
                 case 1:
                     int importacio = menu.MenuImportacio();
-                    switchImportacio(importacio);
                     String importRoute = menu.RutaFitxer();
+                    switchImportacio(importacio, importRoute);
 
                     menu.printaCarregantInfo();
                     long initTime = System.currentTimeMillis();
+
+
                     //Mirem si existeix fitxer i importem, posem imported a true
                     boolean imported = false;//retornara true si no hi ha cap error
                     int elements = 0;        //size del arraylist de elements
@@ -30,8 +43,22 @@ public class Main {
 
                 case 2:
                     int exportacio = menu.MenuExportacio();
-                    switchExportacio(exportacio);
+                    String exportRoute = menu.RutaFitxer();
+                    switchExportacio(exportacio, exportRoute);
 
+                    menu.printaCarregantInfo();
+                    long initTime1 = System.currentTimeMillis();
+
+
+                    //Mirem si existeix fitxer i importem, posem exported a true
+                    boolean exported = false;//retornara true si no hi ha cap error
+                    int elements1 = 0;        //size del arraylist de elements
+                    if (exported) {
+                        long time = System.currentTimeMillis() - initTime1;
+                        menu.printaExportatExit(elements1, (int) time);
+                    } else {
+                        System.out.println("Error al exportar");
+                    }
                     break;
 
                 case 3:
@@ -40,15 +67,18 @@ public class Main {
                     break;
 
                 case 4:
-                    menu.printaMenuInsercio();
+                    int insercio = menu.printaMenuInsercio();
+                    switchInsercio(insercio);
                     break;
 
                 case 5:
-                    menu.printaMenuEliminacio();
+                    int eliminacio = menu.printaMenuEliminacio();
+                    switchEliminacio(eliminacio);
                     break;
 
                 case 6:
-                    menu.printaMenuCerca();
+                    int cerca = menu.printaMenuCerca();
+                    switchCerca(cerca);
                     break;
 
                 case 7:
@@ -63,7 +93,7 @@ public class Main {
         }
     }
 
-    private static void switchImportacio(int opcio) {
+    private static void switchImportacio(int opcio, String importRoute) {
         switch (opcio) {
             case 1:
                 break;
@@ -84,12 +114,13 @@ public class Main {
                 break;
 
             default:
+                System.out.println("Error de opcio! (SwitchImportacio)");
                 break;
 
         }
     }
 
-    private static void switchExportacio(int opcio) {
+    private static void switchExportacio(int opcio, String exportRoute) {
         switch (opcio) {
             case 1:
                 break;
@@ -110,6 +141,7 @@ public class Main {
                 break;
 
             default:
+                System.out.println("Error de opcio! (SwitchExportacio)");
                 break;
 
         }
@@ -136,9 +168,74 @@ public class Main {
                 break;
 
             default:
+                System.out.println("Error de opcio! (SwitchVisualitzacio)");
                 break;
 
         }
     }
+
+    private static void switchInsercio(int opcio) {
+        switch (opcio) {
+            case 1:
+                funcio.insercioUser();
+                break;
+
+            case 2:
+                funcio.insercioPost();
+                break;
+
+            default:
+                System.out.println("Error de opcio! (SwitchInsercio)");
+                break;
+
+        }
+    }
+
+    private static void switchEliminacio(int opcio) {
+        switch (opcio) {
+            case 1:
+                funcio.eliminacioUser();
+                break;
+
+            case 2:
+                funcio.eliminacioPost();
+                break;
+
+            default:
+                System.out.println("Error de opcio! (SwitchEliminacio)");
+                break;
+
+        }
+    }
+
+    private static void switchCerca(int opcio) {
+        switch (opcio) {
+            case 1:
+                funcio.cercaUser(true);
+                break;
+
+            case 2:
+                funcio.cercaPost();
+                break;
+
+            case 3:
+                funcio.cercaHashtag();
+                break;
+
+            case 4:
+                funcio.cercaUbicacio();
+                break;
+
+            case 5:
+                funcio.cercaPersonalitzada();
+                break;
+
+            default:
+                System.out.println("Error de opcio! (SwitchCerca)  Opcio:" + opcio);
+                break;
+        }
+
+    }
+
 
 }
