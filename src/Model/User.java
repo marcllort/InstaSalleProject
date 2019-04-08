@@ -1,21 +1,62 @@
 package Model;
 
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class User {
 
-    private void mostraInformacioPost(Post post) {              //PASSAR A TO STRING DE POST
+    private String username;
+    private Timestamp creation;
+    private ArrayList<User> to_follow;
 
-        //System.out.println("\n\n id:"+post.id);
+    public User(String username, Timestamp creation) {
+        this.username = username;
+        this.creation = creation;
+    }
 
-        //System.out.println("liked_by:"+post.getLikes.toArray);
+    public String getUsername() {
+        return username;
+    }
 
-        //System.out.println("published_by:"+post.getUser);
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-        //System.out.println("published_when:"+post.getDate);
+    public Timestamp getCreation() {
+        return creation;
+    }
 
-        //System.out.println("location:"+post.getLocation);
+    public void setCreation(Timestamp creation) {
+        this.creation = creation;
+    }
 
-        //System.out.println("hashtags:"+post.getHashtags);
+    public ArrayList<User> getTo_follow() {
+        return to_follow;
+    }
 
+    public void setTo_follow(ArrayList<User> to_follow) {
+        this.to_follow = to_follow;
+    }
+
+    @Override
+    public String toString() {
+        return username;
+    }
+
+
+    private void mostraInformacioUser() {
+
+        System.out.println("Nom d'usuari:");
+        System.out.println(username);
+        System.out.println("Data creació:");
+        System.out.println(creation.toString());
+        System.out.println("Usuaris que segueix:");
+        System.out.println(Arrays.toString(to_follow.toArray()));
+        System.out.println("Número de posts:");
+        System.out.println(to_follow.size() );               //cal canviar per la funcio getPosts(user) i fer un size()
 
     }
+
+
 }
