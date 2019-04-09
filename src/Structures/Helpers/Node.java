@@ -5,7 +5,7 @@ public class Node<E> {                                                          
 
     // Variables
 
-    private int key;                                                                // Clau de cada node, per evitar-nos comparar strings
+    private int key;                                                                // Clau de cada node, per evitar-nos comparar strings, i aixi saber on ha de colocar el arbre
     private String elementsName;                                                    // String identificador del post o usuari
     private E element;                                                              // Objecte/Element que "guarda" el node
     private Node<E> leftSon;                                                        // Fill esquerre
@@ -71,6 +71,33 @@ public class Node<E> {                                                          
         return balanceFactor;
     }
 
+    public void setKey(int key) {
+        this.key = key;
+    }
+
+    public void setElementsName(String elementsName) {
+        this.elementsName = elementsName;
+    }
+
+    public void setElement(E element) {
+        this.element = element;
+    }
+
+    public void setLeftSon(Node<E> leftSon) {
+        this.leftSon = leftSon;
+    }
+
+    public void setRightSon(Node<E> rightSon) {
+        this.rightSon = rightSon;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setBalanceFactor(int balanceFactor) {
+        this.balanceFactor = balanceFactor;
+    }
 
     // Overrides
 
