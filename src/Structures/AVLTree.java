@@ -48,6 +48,69 @@ public class AVLTree<E> {                                                       
     }
 
 
+    private void LeftLeft(Node<E> node) {
+
+        Node<E> left = node.getLeftSon();
+
+        Node<E> llnode = null;
+        Node<E> lrnode = null;
+        if (node.getLeftSon() != null) {                                                                                        // Si te fill esquerre, guardem els dos fills del fill esquerre
+            llnode = node.getLeftSon().getLeftSon();
+            lrnode = node.getLeftSon().getRightSon();
+        }
+
+
+        node.setLeftSon(llnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
+        node.setRightSon(new Node<>(node.getKey(), node.getElement(), lrnode, node.getRightSon(), node.getElementsName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setKey(left.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
+        node.setElement(left.getElement());                                                                                     // Copiem el objecte
+        node.setElementsName(left.getElementsName());                                                                           // Copiem el seu nom
+
+        if (node.getLeftSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+            node.getLeftSon().setHeight(calculateHeight(node.getLeftSon()));
+        }
+        if (node.getRightSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+            node.getRightSon().setHeight(calculateHeight(node.getRightSon()));
+        }
+
+        node.setHeight(calculateHeight(node));                                                                                  // Recalculem l'alçada del node inicial
+
+
+    }
+
+
+    private void RightRight(Node<E> node) {
+
+        Node<E> right = node.getRightSon();
+
+        Node<E> rrnode = null;
+        Node<E> rlnode = null;
+        if (node.getLeftSon() != null) {                                                                                         // Si te fill esquerre, guardem els dos fills del fill esquerre
+            rlnode = node.getRightSon().getLeftSon();
+            rrnode = node.getRightSon().getRightSon();
+        }
+
+
+        node.setRightSon(rrnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
+        node.setLeftSon(new Node<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementsName()));        // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setKey(right.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
+        node.setElement(right.getElement());                                                                                     // Copiem el objecte
+        node.setElementsName(right.getElementsName());                                                                           // Copiem el seu nom
+
+        if (node.getLeftSon() != null) {                                                                                         // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+            node.getLeftSon().setHeight(calculateHeight(node.getLeftSon()));
+        }
+        if (node.getRightSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+            node.getRightSon().setHeight(calculateHeight(node.getRightSon()));
+        }
+
+        node.setHeight(calculateHeight(node));                                                                                   // Recalculem l'alçada del node inicial
+
+
+    }
+
+
+
 
 
 }
