@@ -1,4 +1,14 @@
 package Structures;
 
-public class AVLTree {
+import Structures.Helpers.Node;
+
+public class AVLTree<E> {
+
+    private Node<E> root;
+
+    public AVLTree() {
+        root = null;
+    }
+
+
 }
