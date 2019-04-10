@@ -2,7 +2,6 @@ package Structures;
 
 import Structures.Helpers.Node;
 
-import static java.lang.Math.abs;
 
 public class AVLTree<E> {                                                                                                       // Fem un AVLTree genèric, aligual que el Node, per poder fer-lo servir tant per posts com per users
 
@@ -171,6 +170,37 @@ public class AVLTree<E> {                                                       
     }
 
 
+    // Busqueda
+
+    public E search(int key) {
+        if (root == null) {                                                                                                     // En cas de no tenir root, error, i en cas de tenir-ne crida la cerca de element
+            System.out.println("Error! ArbreAVL buit");
+            return null;
+        } else {
+            return searchElementByNode(root, key);
+        }
+    }
+
+    private E searchElementByNode(Node<E> node, int key) {
+        if (key == node.getKey()) {
+            return node.getElement();                                                                                           // Retornem el Element guardat, quan trobem que el key coincideix amb el buscat
+        } else if (key > node.getKey()) {
+            if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, node no trobat, retornem null
+                return null;
+            } else {
+                return searchElementByNode(node.getRightSon(), key);                                                            // Seguim buscant per la dreta
+            }
+        } else if (key < node.getKey()) {
+            if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, node no trobat, retornem null
+                return null;
+            } else {
+                return searchElementByNode(node.getRightSon(), key);                                                            // Seguim buscant per la esquerra
+            }
+        }
+        return null;
+    }
+
+
     // Balanceig
 
     private void balanceFactor(Node<E> node, int keyInsert) {
@@ -221,6 +251,16 @@ public class AVLTree<E> {                                                       
         return 0;
     }
 
+
+    // Test
+
+    void preOrder(Node node) {                                                                                                  // Serveix per visualitzar el preOrdre del arbre/subarbre
+        if (node != null) {
+            System.out.print(node.getKey() + " (" + node.getElementsName() + ") -");
+            preOrder(node.getLeftSon());
+            preOrder(node.getRightSon());
+        }
+    }
 
 
 }
