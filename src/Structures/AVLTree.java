@@ -112,6 +112,65 @@ public class AVLTree<E> {                                                       
     }
 
 
+    public void deleteElement(int key) {
+        if (root == null) {                                                                                                     // En cas de no tenir root, error, i en cas de tenir-ne crida la el deleteTo, el qual buscarà el node
+            System.out.println("Error al borrar, l'arrel de l'arbre és null");
+        } else {
+            deleteTo(root, key);
+        }
+    }
+
+
+    private void deleteTo(Node<E> node, int key) {
+        if (key == node.getKey()) {
+            deleteNode(node, key);                                                                                              // Borrem el node
+        } else if (key > node.getKey()) {
+            if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, no podem borrar
+                System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
+            } else {
+                deleteTo(node.getRightSon(), key);                                                                              // Crida recursiva, on el root sera el fill dret
+                node.setHeight(recalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
+                balance(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+            }
+
+        } else if (key < node.getKey()) {
+            if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, no podem borrar
+                System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
+            } else {
+                deleteTo(node.getLeftSon(), key);                                                                               // Crida recursiva, on el root sera el fill esquerre
+                node.setHeight(recalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
+                balance(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+            }
+        }
+    }
+
+    private void deleteNode(Node<E> node, int key) {
+
+        if ((node.getRightSon() == null) && (root.getLeftSon() == null)) {                                                      // Si no tenim cap fill, posem el node a null (el borrem)
+            node = null;
+        } else if ((node.getRightSon() == null) || (root.getLeftSon() == null)) {                                               // Si només tenim 1 fill, substituim el node, per el seu únic fill
+            if (node.getLeftSon() != null) {
+                node = node.getLeftSon();
+            } else if (node.getRightSon() != null) {
+                node = node.getRightSon();
+            }
+        } else {                                                                                                                // Si tenim els dos fills, subtituim el node eliminat per el node mes petit del subarbre dret
+            Node<E> nodeTemp = lowerNodeRight(node.getRightSon());
+            node = nodeTemp;
+            deleteTo(node.getRightSon(), node.getKey());
+        }
+
+    }
+
+    private Node<E> lowerNodeRight(Node<E> node) {                                                                              // Funcio recursiva per trobar el node més baix del subarbre
+        if (node.getLeftSon() == null) {
+            return node;
+        } else {
+            return lowerNodeRight(node.getLeftSon());
+        }
+    }
+
+
 
 
 
