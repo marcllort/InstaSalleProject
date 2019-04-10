@@ -7,7 +7,7 @@ import java.util.Arrays;
 public class Post {
 
     private int id;
-    private ArrayList<User> liked_by;
+    private ArrayList<String> liked_by;
     private Timestamp published_when;
     private String published_by;
     private Double[] location;
@@ -15,6 +15,17 @@ public class Post {
 
 
     public Post() {
+        liked_by = new ArrayList<>();
+        hashtags = new ArrayList<>();
+    }
+
+    public Post(int id, ArrayList<String> liked_by, Timestamp published_when, String published_by, Double[] location, ArrayList<String> hashtags) {
+        this.id = id;
+        this.liked_by = liked_by;
+        this.published_when = published_when;
+        this.published_by = published_by;
+        this.location = location;
+        this.hashtags = hashtags;
     }
 
     public int getId() {
@@ -25,11 +36,11 @@ public class Post {
         this.id = id;
     }
 
-    public ArrayList<User> getLiked_by() {
+    public ArrayList<String> getLiked_by() {
         return liked_by;
     }
 
-    public void setLiked_by(ArrayList<User> liked_by) {
+    public void setLiked_by(ArrayList<String> liked_by) {
         this.liked_by = liked_by;
     }
 
@@ -64,6 +75,15 @@ public class Post {
     public void setHashtags(ArrayList<String> hashtags) {
         this.hashtags = hashtags;
     }
+
+    public void addHashtag(String hashtag) {
+        hashtags.add(hashtag);
+    }
+
+    public void addLike(String user) {
+        liked_by.add(user);
+    }
+
 
     @Override
     public String toString() {

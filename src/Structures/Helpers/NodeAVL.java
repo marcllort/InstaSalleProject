@@ -1,26 +1,26 @@
 package Structures.Helpers;
 
 
-public class Node<E> {                                                              // Node<E> per d'aquesta forma fer una classe generica que puguem aprofitar tant per Usuaris com Posts
+public class NodeAVL<E> {                                                              // Node<E> per d'aquesta forma fer una classe generica que puguem aprofitar tant per Usuaris com Posts
 
     // Variables
 
     private int key;                                                                // Clau de cada node, per evitar-nos comparar strings, i aixi saber on ha de colocar el arbre
     private String elementsName;                                                    // String identificador del post o usuari
     private E element;                                                              // Objecte/Element que "guarda" el node
-    private Node<E> leftSon;                                                        // Fill esquerre
-    private Node<E> rightSon;                                                       // Fill dret
+    private NodeAVL<E> leftSon;                                                        // Fill esquerre
+    private NodeAVL<E> rightSon;                                                       // Fill dret
     private int height;                                                             // Alçada arbre
     private int balanceFactor;                                                      // Balance factor de tot l'arbre
 
 
     //Constructors
 
-    public Node(int key, E element, String elementKey) {                            // Constructor de node simple (sense fills)
+    public NodeAVL(int key, E element, String elementKey) {                            // Constructor de node simple (sense fills)
         this(key, element, null, null, elementKey);
     }
 
-    public Node(int key, E element, Node<E> leftSon, Node<E> rightSon, String elementKey) {         // Constructor amb fills inclosos
+    public NodeAVL(int key, E element, NodeAVL<E> leftSon, NodeAVL<E> rightSon, String elementKey) {         // Constructor amb fills inclosos
 
         this.key = key;
         this.element = element;
@@ -55,11 +55,11 @@ public class Node<E> {                                                          
         return element;
     }
 
-    public Node<E> getLeftSon() {
+    public NodeAVL<E> getLeftSon() {
         return leftSon;
     }
 
-    public Node<E> getRightSon() {
+    public NodeAVL<E> getRightSon() {
         return rightSon;
     }
 
@@ -83,11 +83,11 @@ public class Node<E> {                                                          
         this.element = element;
     }
 
-    public void setLeftSon(Node<E> leftSon) {
+    public void setLeftSon(NodeAVL<E> leftSon) {
         this.leftSon = leftSon;
     }
 
-    public void setRightSon(Node<E> rightSon) {
+    public void setRightSon(NodeAVL<E> rightSon) {
         this.rightSon = rightSon;
     }
 

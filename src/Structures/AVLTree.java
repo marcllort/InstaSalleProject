@@ -1,11 +1,11 @@
 package Structures;
 
-import Structures.Helpers.Node;
+import Structures.Helpers.NodeAVL;
 
 
 public class AVLTree<E> {                                                                                                       // Fem un AVLTree genèric, aligual que el Node, per poder fer-lo servir tant per posts com per users
 
-    private Node<E> root;                                                                                                       // Guardem el node root, del qual dependràn la resta de nodes que anirem afegint
+    public NodeAVL<E> root;                                                                                                       // Guardem el node root, del qual dependràn la resta de nodes que anirem afegint
 
     public AVLTree() {
         root = null;                                                                                                            // Al crear un tree, inicialment root serà null fins afegir-ne un
@@ -16,19 +16,19 @@ public class AVLTree<E> {                                                       
 
     public void addElement(int key, E element, String elementKey) {                                                             // Funció de add nodes simplificada, comprova si tenim root inicial
         if (root == null) {                                                                                                     // En cas de no tenir-ne, el crea, i en cas de tenir-ne crida la inserció normal a partir de root
-            root = new Node<>(key, element, elementKey);
+            root = new NodeAVL<>(key, element, elementKey);
         } else {
             insertTo(root, key, element, elementKey);
         }
     }
 
-    private void insertTo(Node<E> node, int keyInsert, E elementInsert, String elementNameInsert) {
+    private void insertTo(NodeAVL<E> node, int keyInsert, E elementInsert, String elementNameInsert) {
         if (keyInsert == node.getKey()) {
             System.out.println("Ja existeix aquest node! No s'ha pogut inserir el node: " + keyInsert + "(" + elementNameInsert + ")");
 
         } else if (keyInsert > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, creem el node i el posem
-                node.setRightSon(new Node<>(keyInsert, elementInsert, elementNameInsert));                                      // En cas de caldre un balanceig, es faria als nivells superiors, i si ja som als fills del root no cal fer-ne
+                node.setRightSon(new NodeAVL<>(keyInsert, elementInsert, elementNameInsert));                                      // En cas de caldre un balanceig, es faria als nivells superiors, i si ja som als fills del root no cal fer-ne
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem la alçada del node
             } else {
                 insertTo(node.getRightSon(), keyInsert, elementInsert, elementNameInsert);                                      // Crida recursiva, on el root sera el fill dret
@@ -38,7 +38,7 @@ public class AVLTree<E> {                                                       
 
         } else if (keyInsert < node.getKey()) {
             if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, creem el node i el posem
-                node.setLeftSon(new Node<>(keyInsert, elementInsert, elementNameInsert));                                       // En cas de caldre un balanceig, es faria als nivells superiors, i si ja som als fills del root no cal fer-ne
+                node.setLeftSon(new NodeAVL<>(keyInsert, elementInsert, elementNameInsert));                                       // En cas de caldre un balanceig, es faria als nivells superiors, i si ja som als fills del root no cal fer-ne
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem la alçada del node
             } else {
                 insertTo(node.getLeftSon(), keyInsert, elementInsert, elementNameInsert);                                       // Crida recursiva, on el root sera el fill esquerre
@@ -49,12 +49,12 @@ public class AVLTree<E> {                                                       
 
     }
 
-    private void LeftLeft(Node<E> node) {
+    private void LeftLeft(NodeAVL<E> node) {
 
-        Node<E> left = node.getLeftSon();
+        NodeAVL<E> left = node.getLeftSon();
 
-        Node<E> llnode = null;
-        Node<E> lrnode = null;
+        NodeAVL<E> llnode = null;
+        NodeAVL<E> lrnode = null;
         if (node.getLeftSon() != null) {                                                                                        // Si te fill esquerre, guardem els dos fills del fill esquerre
             llnode = node.getLeftSon().getLeftSon();
             lrnode = node.getLeftSon().getRightSon();
@@ -62,7 +62,7 @@ public class AVLTree<E> {                                                       
 
 
         node.setLeftSon(llnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
-        node.setRightSon(new Node<>(node.getKey(), node.getElement(), lrnode, node.getRightSon(), node.getElementsName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setRightSon(new NodeAVL<>(node.getKey(), node.getElement(), lrnode, node.getRightSon(), node.getElementsName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
         node.setKey(left.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
         node.setElement(left.getElement());                                                                                     // Copiem el objecte
         node.setElementsName(left.getElementsName());                                                                           // Copiem el seu nom
@@ -79,12 +79,12 @@ public class AVLTree<E> {                                                       
 
     }
 
-    private void RightRight(Node<E> node) {
+    private void RightRight(NodeAVL<E> node) {
 
-        Node<E> right = node.getRightSon();
+        NodeAVL<E> right = node.getRightSon();
 
-        Node<E> rrnode = null;
-        Node<E> rlnode = null;
+        NodeAVL<E> rrnode = null;
+        NodeAVL<E> rlnode = null;
         if (node.getLeftSon() != null) {                                                                                         // Si te fill esquerre, guardem els dos fills del fill esquerre
             rlnode = node.getRightSon().getLeftSon();
             rrnode = node.getRightSon().getRightSon();
@@ -92,7 +92,7 @@ public class AVLTree<E> {                                                       
 
 
         node.setRightSon(rrnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
-        node.setLeftSon(new Node<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementsName()));        // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setLeftSon(new NodeAVL<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementsName()));        // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
         node.setKey(right.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
         node.setElement(right.getElement());                                                                                     // Copiem el objecte
         node.setElementsName(right.getElementsName());                                                                           // Copiem el seu nom
@@ -120,7 +120,7 @@ public class AVLTree<E> {                                                       
         }
     }
 
-    private void deleteTo(Node<E> node, int key) {
+    private void deleteTo(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
             deleteNode(node, key);                                                                                              // Borrem el node
         } else if (key > node.getKey()) {
@@ -143,7 +143,7 @@ public class AVLTree<E> {                                                       
         }
     }
 
-    private void deleteNode(Node<E> node, int key) {
+    private void deleteNode(NodeAVL<E> node, int key) {
 
         if ((node.getRightSon() == null) && (root.getLeftSon() == null)) {                                                      // Si no tenim cap fill, posem el node a null (el borrem)
             node = null;
@@ -154,14 +154,14 @@ public class AVLTree<E> {                                                       
                 node = node.getRightSon();
             }
         } else {                                                                                                                // Si tenim els dos fills, subtituim el node eliminat per el node mes petit del subarbre dret
-            Node<E> nodeTemp = lowerNodeRight(node.getRightSon());
+            NodeAVL<E> nodeTemp = lowerNodeRight(node.getRightSon());
             node = nodeTemp;
             deleteTo(node.getRightSon(), node.getKey());
         }
 
     }
 
-    private Node<E> lowerNodeRight(Node<E> node) {                                                                              // Funcio recursiva per trobar el node més baix del subarbre
+    private NodeAVL<E> lowerNodeRight(NodeAVL<E> node) {                                                                              // Funcio recursiva per trobar el node més baix del subarbre
         if (node.getLeftSon() == null) {
             return node;
         } else {
@@ -181,7 +181,7 @@ public class AVLTree<E> {                                                       
         }
     }
 
-    private E searchElementByNode(Node<E> node, int key) {
+    private E searchElementByNode(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
             return node.getElement();                                                                                           // Retornem el Element guardat, quan trobem que el key coincideix amb el buscat
         } else if (key > node.getKey()) {
@@ -203,7 +203,7 @@ public class AVLTree<E> {                                                       
 
     // Balanceig
 
-    private void balanceFactor(Node<E> node, int keyInsert) {
+    private void balanceFactor(NodeAVL<E> node, int keyInsert) {
         node.setBalanceFactor(calculateBalanceFactor(node));
 
         if (node.getBalanceFactor() > 1) {
@@ -227,7 +227,7 @@ public class AVLTree<E> {                                                       
         }
     }
 
-    private int calculateBalanceFactor(Node<E> node) {
+    private int calculateBalanceFactor(NodeAVL<E> node) {
         int leftHeight = 0;
         int rightHeight = 0;
 
@@ -237,7 +237,7 @@ public class AVLTree<E> {                                                       
         return leftHeight - rightHeight;
     }
 
-    private int reCalculateHeight(Node<E> node) {
+    private int reCalculateHeight(NodeAVL<E> node) {
 
         if (node.getLeftSon() != null && node.getRightSon() != null) {                                                          // En cas de que cap sigui null, tornem l'alçada max dels dos més 1
             return Math.max(node.getLeftSon().getHeight(), node.getRightSon().getHeight()) + 1;
@@ -254,11 +254,11 @@ public class AVLTree<E> {                                                       
 
     // Test
 
-    void preOrder(Node node) {                                                                                                  // Serveix per visualitzar el preOrdre del arbre/subarbre
+    public void inOrder(NodeAVL node) {                                                                                                  // Serveix per visualitzar el inOrdre del arbre/subarbre
         if (node != null) {
+            inOrder(node.getLeftSon());
             System.out.print(node.getKey() + " (" + node.getElementsName() + ") -");
-            preOrder(node.getLeftSon());
-            preOrder(node.getRightSon());
+            inOrder(node.getRightSon());
         }
     }
 

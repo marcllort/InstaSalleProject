@@ -8,11 +8,16 @@ public class User {
 
     private String username;
     private Timestamp creation;
-    private ArrayList<User> to_follow;
+    private ArrayList<String> to_follow;
+
+    public User() {
+        to_follow = new ArrayList<>();
+    }
 
     public User(String username, Timestamp creation) {
         this.username = username;
         this.creation = creation;
+        to_follow = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -31,12 +36,16 @@ public class User {
         this.creation = creation;
     }
 
-    public ArrayList<User> getTo_follow() {
+    public ArrayList<String> getTo_follow() {
         return to_follow;
     }
 
-    public void setTo_follow(ArrayList<User> to_follow) {
+    public void setTo_follow(ArrayList<String> to_follow) {
         this.to_follow = to_follow;
+    }
+
+    public void addFollwing(String user) {
+        to_follow.add(user);
     }
 
     @Override
@@ -54,7 +63,7 @@ public class User {
         System.out.println("Usuaris que segueix:");
         System.out.println(Arrays.toString(to_follow.toArray()));
         System.out.println("Número de posts:");
-        System.out.println(to_follow.size() );               //cal canviar per la funcio getPosts(user) i fer un size()
+        System.out.println(to_follow.size());               //cal canviar per la funcio getPosts(user) i fer un size()
 
     }
 

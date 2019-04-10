@@ -1,5 +1,9 @@
 package Utils;
 
+import Model.Post;
+import Model.User;
+
+import java.sql.Timestamp;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -9,25 +13,30 @@ public class Funcions {
     private boolean follow = false;
     private String stringUsuari;
 
-    public Funcions(){
+    public Funcions() {
         input = new Scanner(System.in);
     }
+
+    //TOTES AQUESTES FUNCIONS, CAL SABER A QUINA ESTRUCTURA FER? HEM DE PREGUNTAR A PERNIA------------------------------
 
 
     // INSERCIÓ INFORMACIÓ
 
-    public void insercioUser() {               //Cal substituir tots els String per un constructor de un tipus User
+    public void insercioUser() {
 
-        //User usuari = new User;
+        User usuari = new User();
         //usuari.setUsername=input.nextLine ....
 
         System.out.println("Nom d'usuari:");
         String nouUser = input.nextLine();
-        //Comprovem que no existeixi ja el usuari
+        //Comprovem que no existeixi ja el usuari-----------------------------------------------------------------------
+
+        usuari.setUsername(nouUser);
+
 
         System.out.println("Data creació:");
         int dataCreacio = input.nextInt();
-        input.nextLine();
+        usuari.setCreation(Timestamp.valueOf(input.nextLine()));
 
 
         System.out.println("Usuaris que seguirà {Y/N]:");
@@ -36,31 +45,39 @@ public class Funcions {
 
 
         while (follow) {
-            String userToFollow = input.nextLine();
-            // Mirem si ja el segueix, o no existeix el usuari
+            // Mirem si ja el segueix, o no existeix el usuari----------------------------------------------------------
+            usuari.addFollwing(input.nextLine());
             // Afegim usuari als follow de nouUser
             System.out.println("Usuaris que seguirà {Y/N]:");
             answer = input.nextLine();
             follow = (answer.equalsIgnoreCase("Y") ? true : false);
         }
 
+        // Funcio afegir a la estructura que toqui----------------------------------------------------------------------
+
         System.out.println("Usuari afegit amb èxit!");
     }
 
-    public void insercioPost() {           //Cal substituir tots els String per un constructor de un tipus Post
+    public void insercioPost() {
+
+        Post post = new Post();
+
         System.out.println("Id post:");
         String idPost = input.nextLine();
+        // Cal comprovar que aquest id no existeixi ja------------------------------------------------------------------
+        post.setId(Integer.valueOf(idPost));
 
         System.out.println("Data creació:");
-        int dataPost = input.nextInt();
-        input.nextLine();
-
+        post.setPublished_when(Timestamp.valueOf(input.nextLine()));// cal mirar d'adaptar el format amb el que rebem---
 
         System.out.println("Usuari del post:");
+        //Cal comprovar que existeixi el usuari-------------------------------------------------------------------------
         String userPost = input.nextLine();
+        post.setPublished_by(userPost);
+
 
         System.out.println("Localització post X:");
-        double[] location = new double[2];
+        Double[] location = new Double[2];
         location[0] = input.nextDouble();
         input.nextLine();
 
@@ -68,22 +85,43 @@ public class Funcions {
         location[1] = input.nextDouble();
         input.nextLine();
 
+        post.setLocation(location);
+
         System.out.println("Hashtags:");
         String hashtag = input.nextLine();
 
-        System.out.println("Usuaris que han donat like {Y/N]:");
+        System.out.println("Hashtags {Y/N]:");
         String answer = input.nextLine();
+        boolean yes = (answer.equalsIgnoreCase("Y") ? true : false);
+
+        String hashtags;
+        while (yes) {
+            hashtags = input.nextLine();
+            //Comprovem que no estigui ja afegit------------------------------------------------------------------------
+            post.addHashtag(hashtags);
+
+            System.out.println("Hashtags {Y/N]:");
+            answer = input.nextLine();
+            yes = (answer.equalsIgnoreCase("Y") ? true : false);
+        }
+
+
+        System.out.println("Usuaris que han donat like {Y/N]:");
+        answer = input.nextLine();
         boolean liked = (answer.equalsIgnoreCase("Y") ? true : false);
 
         String userLiked;
         while (liked) {
             userLiked = input.nextLine();
             //Mirem si ha donat like ja, o si no existeix el usuari
+            post.addLike(userLiked);
 
             System.out.println("Usuaris que han donat like {Y/N]:");
             answer = input.nextLine();
             liked = (answer.equalsIgnoreCase("Y") ? true : false);
         }
+
+        // Funcio afegir a la estructura que toqui----------------------------------------------------------------------
 
         System.out.println("Post afegit amb èxit!");
 
@@ -125,8 +163,6 @@ public class Funcions {
             System.out.println("Escriu un id correcte!");
             eliminacioPost();
         }
-
-
     }
 
 
@@ -134,7 +170,7 @@ public class Funcions {
 
     public void cercaUser(boolean start) {
 
-        if(start) {
+        if (start) {
             stringUsuari = "";
         }
 

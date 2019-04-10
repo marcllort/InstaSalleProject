@@ -1,4 +1,5 @@
 import Utils.Funcions;
+import Utils.Importador;
 
 import java.util.Scanner;
 
@@ -94,6 +95,7 @@ public class Main {
     }
 
     private static void switchImportacio(int opcio, String importRoute) {
+        Importador importer = new Importador();
         switch (opcio) {
             case 1:
                 break;
@@ -102,6 +104,7 @@ public class Main {
                 break;
 
             case 3:
+                importer.AVLImporter();
                 break;
 
             case 4:
