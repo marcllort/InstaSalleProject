@@ -16,6 +16,10 @@ public class NodeAVL<E> {                                                       
 
     //Constructors
 
+
+    public NodeAVL() {
+    }
+
     public NodeAVL(int key, E element, String elementKey) {                            // Constructor de node simple (sense fills)
         this(key, element, null, null, elementKey);
     }

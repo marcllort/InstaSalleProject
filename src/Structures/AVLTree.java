@@ -1,5 +1,6 @@
 package Structures;
 
+import Model.User;
 import Structures.Helpers.NodeAVL;
 
 
@@ -85,7 +86,7 @@ public class AVLTree<E> {                                                       
 
         NodeAVL<E> rrnode = null;
         NodeAVL<E> rlnode = null;
-        if (node.getLeftSon() != null) {                                                                                         // Si te fill esquerre, guardem els dos fills del fill esquerre
+        if (node.getRightSon() != null) {                                                                                         // Si te fill esquerre, guardem els dos fills del fill esquerre
             rlnode = node.getRightSon().getLeftSon();
             rrnode = node.getRightSon().getRightSon();
         }
@@ -116,38 +117,42 @@ public class AVLTree<E> {                                                       
         if (root == null) {                                                                                                     // En cas de no tenir root, error, i en cas de tenir-ne crida la el deleteTo, el qual buscarà el node
             System.out.println("Error al borrar, l'arrel de l'arbre és null");
         } else {
-            deleteTo(root, key);
+            root = deleteTo(root, key);
+            System.out.println("sd");
         }
     }
 
-    private void deleteTo(NodeAVL<E> node, int key) {
+    private NodeAVL<E> deleteTo(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
-            deleteNode(node, key);                                                                                              // Borrem el node
+            node = deleteNode(node);                                                                                              // Borrem el node
         } else if (key > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, no podem borrar
                 System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
             } else {
-                deleteTo(node.getRightSon(), key);                                                                              // Crida recursiva, on el root sera el fill dret
+                node.setRightSon(deleteTo(node.getRightSon(), key));                                                                              // Crida recursiva, on el root sera el fill dret
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
                 balanceFactor(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+
             }
 
         } else if (key < node.getKey()) {
             if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, no podem borrar
                 System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
             } else {
-                deleteTo(node.getLeftSon(), key);                                                                               // Crida recursiva, on el root sera el fill esquerre
+                node.setLeftSon(deleteTo(node.getLeftSon(), key));                                                                             // Crida recursiva, on el root sera el fill esquerre
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
                 balanceFactor(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+
             }
         }
+        return node;
     }
 
-    private void deleteNode(NodeAVL<E> node, int key) {
+    private NodeAVL<E> deleteNode(NodeAVL<E> node) {
 
-        if ((node.getRightSon() == null) && (root.getLeftSon() == null)) {                                                      // Si no tenim cap fill, posem el node a null (el borrem)
+        if ((node.getRightSon() == null) && (node.getLeftSon() == null)) {                                                      // Si no tenim cap fill, posem el node a null (el borrem)
             node = null;
-        } else if ((node.getRightSon() == null) || (root.getLeftSon() == null)) {                                               // Si només tenim 1 fill, substituim el node, per el seu únic fill
+        } else if ((node.getRightSon() == null) || (node.getLeftSon() == null)) {                                               // Si només tenim 1 fill, substituim el node, per el seu únic fill
             if (node.getLeftSon() != null) {
                 node = node.getLeftSon();
             } else if (node.getRightSon() != null) {
@@ -155,10 +160,13 @@ public class AVLTree<E> {                                                       
             }
         } else {                                                                                                                // Si tenim els dos fills, subtituim el node eliminat per el node mes petit del subarbre dret
             NodeAVL<E> nodeTemp = lowerNodeRight(node.getRightSon());
-            node = nodeTemp;
-            deleteTo(node.getRightSon(), node.getKey());
-        }
+            node.setKey(nodeTemp.getKey());
+            node.setElement(nodeTemp.getElement());
+            node.setElementsName(nodeTemp.getElementsName());
+            node.setRightSon(deleteTo(node.getRightSon(), node.getKey()));
 
+        }
+        return node;
     }
 
     private NodeAVL<E> lowerNodeRight(NodeAVL<E> node) {                                                                              // Funcio recursiva per trobar el node més baix del subarbre
@@ -183,18 +191,21 @@ public class AVLTree<E> {                                                       
 
     private E searchElementByNode(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
+            System.out.println(node.getElementsName() + "trobat");
             return node.getElement();                                                                                           // Retornem el Element guardat, quan trobem que el key coincideix amb el buscat
         } else if (key > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, node no trobat, retornem null
+                System.out.println("Node no trobat");
                 return null;
             } else {
                 return searchElementByNode(node.getRightSon(), key);                                                            // Seguim buscant per la dreta
             }
         } else if (key < node.getKey()) {
             if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, node no trobat, retornem null
+                System.out.println("Node no trobat");
                 return null;
             } else {
-                return searchElementByNode(node.getRightSon(), key);                                                            // Seguim buscant per la esquerra
+                return searchElementByNode(node.getLeftSon(), key);                                                            // Seguim buscant per la esquerra
             }
         }
         return null;
@@ -238,8 +249,9 @@ public class AVLTree<E> {                                                       
     }
 
     private int reCalculateHeight(NodeAVL<E> node) {
-
-        if (node.getLeftSon() != null && node.getRightSon() != null) {                                                          // En cas de que cap sigui null, tornem l'alçada max dels dos més 1
+        if (node == null) {
+            return 0;
+        } else if (node.getLeftSon() != null && node.getRightSon() != null) {                                                          // En cas de que cap sigui null, tornem l'alçada max dels dos més 1
             return Math.max(node.getLeftSon().getHeight(), node.getRightSon().getHeight()) + 1;
         } else if (node.getLeftSon() == null && node.getRightSon() == null) {                                                   // Si no té cap fill, alçada es 0 perque és node fulla
             return 0;
@@ -254,12 +266,21 @@ public class AVLTree<E> {                                                       
 
     // Test
 
-    public void inOrder(NodeAVL node) {                                                                                                  // Serveix per visualitzar el inOrdre del arbre/subarbre
+    public void inOrder(NodeAVL node, int nivell) {                                                                                                  // Serveix per visualitzar el inOrdre del arbre/subarbre
+
         if (node != null) {
-            inOrder(node.getLeftSon());
-            System.out.print(node.getKey() + " (" + node.getElementsName() + ") -");
-            inOrder(node.getRightSon());
+            inOrder(node.getLeftSon(), nivell + 1);
+            if (nivell == 0) {
+                System.out.println(root.getKey() + " (" + root.getElementsName() + ") N:" + nivell + "  --> ");
+            } else {
+                System.out.println(node.getKey() + " (" + node.getElementsName() + ") N:" + nivell + "  --> ");
+            }
+            inOrder(node.getRightSon(), nivell + 1);
         }
+    }
+
+    public void printaArbre() {
+
     }
 
 
