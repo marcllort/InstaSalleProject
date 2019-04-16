@@ -6,7 +6,7 @@ public class NodeAVL<E> {                                                       
     // Variables
 
     private int key;                                                                // Clau de cada node, per evitar-nos comparar strings, i aixi saber on ha de colocar el arbre
-    private String elementsName;                                                    // String identificador del post o usuari
+    private String elementName;                                                    // String identificador del post o usuari
     private E element;                                                              // Objecte/Element que "guarda" el node
     private NodeAVL<E> leftSon;                                                        // Fill esquerre
     private NodeAVL<E> rightSon;                                                       // Fill dret
@@ -20,15 +20,15 @@ public class NodeAVL<E> {                                                       
     public NodeAVL() {
     }
 
-    public NodeAVL(int key, E element, String elementKey) {                            // Constructor de node simple (sense fills)
-        this(key, element, null, null, elementKey);
+    public NodeAVL(int key, E element, String elementName) {                            // Constructor de node simple (sense fills)
+        this(key, element, null, null, elementName);
     }
 
-    public NodeAVL(int key, E element, NodeAVL<E> leftSon, NodeAVL<E> rightSon, String elementKey) {         // Constructor amb fills inclosos
+    public NodeAVL(int key, E element, NodeAVL<E> leftSon, NodeAVL<E> rightSon, String elementName) {         // Constructor amb fills inclosos
 
         this.key = key;
         this.element = element;
-        this.elementsName = elementKey;
+        this.elementName = elementName;
         this.leftSon = leftSon;
         this.rightSon = rightSon;
 
@@ -51,8 +51,8 @@ public class NodeAVL<E> {                                                       
         return key;
     }
 
-    public String getElementsName() {
-        return elementsName;
+    public String getElementName() {
+        return elementName;
     }
 
     public E getElement() {
@@ -79,8 +79,8 @@ public class NodeAVL<E> {                                                       
         this.key = key;
     }
 
-    public void setElementsName(String elementsName) {
-        this.elementsName = elementsName;
+    public void setElementName(String elementName) {
+        this.elementName = elementName;
     }
 
     public void setElement(E element) {
@@ -108,8 +108,8 @@ public class NodeAVL<E> {                                                       
     @Override
 
     public String toString() {
-        return "Key: " + key + " Name: " + elementsName + " LeftSon (Name): "
-                + leftSon.getElementsName() + " RightSon (Name): " + rightSon.getElementsName()
+        return "Key: " + key + " Name: " + elementName + " LeftSon (Name): "
+                + leftSon.getElementName() + " RightSon (Name): " + rightSon.getElementName()
                 + " Height: " + height + " Balance: " + balanceFactor;
     }
 

@@ -1,3 +1,4 @@
+import Model.User;
 import Utils.Funcions;
 import Utils.Importador;
 
@@ -181,7 +182,8 @@ public class Main {
         //Primer cal demanar a quina estructura volem afegirho
         switch (opcio) {
             case 1:
-                //funcio.insercioUser();
+                User user = funcio.insercioUser(3);
+                if (user != null) importer.tree.addElement(user.getUsername().hashCode(),user,user.getUsername());
                 break;
 
             case 2:

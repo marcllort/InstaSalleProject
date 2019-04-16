@@ -14,11 +14,11 @@ public class AVLTree<E> {                                                       
 
     // Inserció
 
-    public void addElement(int key, E element, String elementKey) {                                                             // Funció de add nodes simplificada, comprova si tenim root inicial
+    public void addElement(int key, E element, String elementName) {                                                             // Funció de add nodes simplificada, comprova si tenim root inicial
         if (root == null) {                                                                                                     // En cas de no tenir-ne, el crea, i en cas de tenir-ne crida la inserció normal a partir de root
-            root = new NodeAVL<>(key, element, elementKey);
+            root = new NodeAVL<>(key, element, elementName);
         } else {
-            insertTo(root, key, element, elementKey);
+            insertTo(root, key, element, elementName);
         }
     }
 
@@ -62,10 +62,10 @@ public class AVLTree<E> {                                                       
 
 
         node.setLeftSon(llnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
-        node.setRightSon(new NodeAVL<>(node.getKey(), node.getElement(), lrnode, node.getRightSon(), node.getElementsName()));  // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setRightSon(new NodeAVL<>(node.getKey(), node.getElement(), lrnode, node.getRightSon(), node.getElementName()));  // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
         node.setKey(left.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
         node.setElement(left.getElement());                                                                                     // Copiem el objecte
-        node.setElementsName(left.getElementsName());                                                                           // Copiem el seu nom
+        node.setElementName(left.getElementName());                                                                           // Copiem el seu nom
 
         if (node.getLeftSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
             node.getLeftSon().setHeight(reCalculateHeight(node.getLeftSon()));
@@ -91,10 +91,10 @@ public class AVLTree<E> {                                                       
 
 
         node.setRightSon(rrnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
-        node.setLeftSon(new NodeAVL<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementsName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
+        node.setLeftSon(new NodeAVL<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
         node.setKey(right.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
         node.setElement(right.getElement());                                                                                     // Copiem el objecte
-        node.setElementsName(right.getElementsName());                                                                           // Copiem el seu nom
+        node.setElementName(right.getElementName());                                                                           // Copiem el seu nom
 
         if (node.getLeftSon() != null) {                                                                                         // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
             node.getLeftSon().setHeight(reCalculateHeight(node.getLeftSon()));
@@ -162,7 +162,7 @@ public class AVLTree<E> {                                                       
             NodeAVL<E> nodeTemp = lowerNodeRight(node.getRightSon());
             node.setKey(nodeTemp.getKey());
             node.setElement(nodeTemp.getElement());
-            node.setElementsName(nodeTemp.getElementsName());
+            node.setElementName(nodeTemp.getElementName());
             node.setRightSon(deleteTo(node.getRightSon(), node.getKey()));
 
         }
@@ -191,7 +191,7 @@ public class AVLTree<E> {                                                       
 
     private E searchElementByNode(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
-            System.out.println(node.getElementsName() + "trobat");
+            System.out.println(node.getElementName() + "trobat");
             return node.getElement();                                                                                           // Retornem el Element guardat, quan trobem que el key coincideix amb el buscat
         } else if (key > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, node no trobat, retornem null
@@ -297,9 +297,9 @@ public class AVLTree<E> {                                                       
         if (node != null) {
             inOrder(node.getLeftSon(), nivell + 1);
             if (nivell == 0) {
-                System.out.println(root.getKey() + " (" + root.getElementsName() + ") N:" + nivell + "  --> ");
+                System.out.println(root.getKey() + " (" + root.getElementName() + ") N:" + nivell + "  --> ");
             } else {
-                System.out.println(node.getKey() + " (" + node.getElementsName() + ") N:" + nivell + "  --> ");
+                System.out.println(node.getKey() + " (" + node.getElementName() + ") N:" + nivell + "  --> ");
             }
             inOrder(node.getRightSon(), nivell + 1);
         }

@@ -29,14 +29,13 @@ public class Funcions {
         System.out.println("Nom d'usuari:");
         String nouUser = input.nextLine();
 
-        boolean exists = checkUserExists(nouUser, structure);                                                                            //Comprovem que no existeixi ja el usuari
+        boolean exists = checkUserExists(nouUser, structure);                                                                    //Comprovem que no existeixi ja el usuari
 
         if (!exists) {
             usuari.setUsername(nouUser);
 
-            System.out.println("Data creació:");
-            //int dataCreacio = input.nextInt();
-            usuari.setCreation(Timestamp.valueOf(input.nextLine()));
+            System.out.println("Data creació: (yyyy-mm-dd)");
+            usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00"));
 
 
             System.out.println("Usuaris que seguirà {Y/N]:");
@@ -45,11 +44,14 @@ public class Funcions {
 
             while (follow) {
                 String userToFollow = input.nextLine();
-                boolean followed = usuari.getTo_follow().contains(userToFollow) ? true : false;                                  // Mirem si ja el segueix, o no existeix el usuari
-                if (followed) {
-                    System.out.println("Usuari " + userToFollow + " ja seguit!");
-                } else {
-                    usuari.addFollwing(userToFollow);
+                exists = checkUserExists(userToFollow, structure);                                                               //Comprovem que no existeixi ja el usuari
+                if (exists) {
+                    boolean followed = usuari.getTo_follow().contains(userToFollow) ? true : false;                              // Mirem si ja el segueix, o no existeix el usuari
+                    if (followed) {
+                        System.out.println("Usuari " + userToFollow + " ja seguit!");
+                    } else {
+                        usuari.addFollwing(userToFollow);
+                    }
                 }
                 // Afegim usuari als follow de nouUser
                 System.out.println("Usuaris que seguirà {Y/N]:");
