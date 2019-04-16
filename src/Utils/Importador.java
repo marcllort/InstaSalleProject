@@ -61,31 +61,52 @@ public class Importador {
 
     public boolean AVLImporter() {
 
-        //User[] data = importDataUser("");
+        AVLTester();
 
-        ArrayList<User> data = new ArrayList<>();
-
-        for (int i =0; i < 10; i++){
-            data.add(new User("User"+i,new Timestamp(System.currentTimeMillis())));
-        }
-
+        /*User[] data = importDataUser("");
         for (User info : data) {
             tree.addElement(info.getUsername().hashCode(), info, info.getUsername());
         }
-
+        */
         /*Post[] data2 = importDataPost("");
         for (Post info : data2) {
             tree.addElement(info.getId(), info, info.getPublished_by());
         }*/
 
-        //tree.inOrder(tree.root,0);
-        tree.deleteElement(82025895);
-        tree.deleteElement(82025896);
-        tree.deleteElement(82025893);
-        System.out.println("ELIMINANT");
-        tree.deleteElement(82025894);
-        tree.inOrder(tree.root,0);
         return true;
+    }
+
+    private void AVLTester() {
+
+        ArrayList<User> data = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            data.add(new User("User" + i, new Timestamp(System.currentTimeMillis())));                                 // Creo usuaris de test del 0 al 9
+        }
+
+        for (User info : data) {
+            tree.addElement(info.getUsername().hashCode(), info, info.getUsername());                                           // Afegim users al arbre
+        }
+
+        System.out.println("Inicial");
+        tree.inOrder(tree.root, 0);
+        System.out.println("Borro node 2");
+        tree.deleteElement(82025895);
+        tree.inOrder(tree.root, 0);
+        System.out.println("Borro node 3");
+        tree.deleteElement(82025896);
+        tree.inOrder(tree.root, 0);
+        System.out.println("Borro node 0");
+        tree.deleteElement(82025893);
+        tree.inOrder(tree.root, 0);
+        System.out.println("Borro node 1");
+        tree.deleteElement(82025894);
+        tree.inOrder(tree.root, 0);
+
+        User test = (User)tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
+        System.out.println("Trobat el: "+ test.getUsername());
+        User test2 = (User)tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
+        System.out.println("Trobat el: "+ test2.getUsername());
+
     }
 
 
