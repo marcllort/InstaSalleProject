@@ -105,7 +105,7 @@ public class Importador {
         User test = (User)tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
         System.out.println("Trobat el: "+ test.getUsername());
         User test2 = (User)tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
-        System.out.println("Trobat el: "+ test2.getUsername());
+        //System.out.println("Trobat el: "+ test2.getUsername());
 
     }
 

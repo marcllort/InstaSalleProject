@@ -7,9 +7,8 @@ public class Main {
 
     private static Scanner input;
     private static boolean follow = false;
-    private static Funcions funcio = new Funcions();
-
-
+    public static Importador importer = new Importador();
+    private static Funcions funcio = new Funcions(importer);
 
     public static void main(String[] args) {
         int menuInicial;
@@ -95,7 +94,7 @@ public class Main {
     }
 
     private static void switchImportacio(int opcio, String importRoute) {
-        Importador importer = new Importador();
+
         switch (opcio) {
             case 1:
                 break;
@@ -159,6 +158,7 @@ public class Main {
                 break;
 
             case 3:
+                importer.tree.inOrder(importer.tree.root, 0);
                 break;
 
             case 4:
@@ -178,9 +178,10 @@ public class Main {
     }
 
     private static void switchInsercio(int opcio) {
+        //Primer cal demanar a quina estructura volem afegirho
         switch (opcio) {
             case 1:
-                funcio.insercioUser();
+                //funcio.insercioUser();
                 break;
 
             case 2:

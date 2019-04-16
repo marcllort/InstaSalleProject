@@ -12,53 +12,84 @@ public class Funcions {
     private Scanner input;
     private boolean follow = false;
     private String stringUsuari;
+    private Importador impoter;
 
-    public Funcions() {
+    public Funcions(Importador importer) {
         input = new Scanner(System.in);
+        this.impoter = importer;
     }
-
-    //TOTES AQUESTES FUNCIONS, CAL SABER A QUINA ESTRUCTURA FER? HEM DE PREGUNTAR A PERNIA------------------------------
 
 
     // INSERCIÓ INFORMACIÓ
 
-    public void insercioUser() {
+    public User insercioUser(int structure) {
 
         User usuari = new User();
-        //usuari.setUsername=input.nextLine ....
 
         System.out.println("Nom d'usuari:");
         String nouUser = input.nextLine();
-        //Comprovem que no existeixi ja el usuari-----------------------------------------------------------------------
 
-        usuari.setUsername(nouUser);
+        boolean exists = checkUserExists(nouUser, structure);                                                                            //Comprovem que no existeixi ja el usuari
 
+        if (!exists) {
+            usuari.setUsername(nouUser);
 
-        System.out.println("Data creació:");
-        int dataCreacio = input.nextInt();
-        usuari.setCreation(Timestamp.valueOf(input.nextLine()));
-
-
-        System.out.println("Usuaris que seguirà {Y/N]:");
-        String answer = input.nextLine();
-        follow = (answer.equalsIgnoreCase("Y") ? true : false);
+            System.out.println("Data creació:");
+            //int dataCreacio = input.nextInt();
+            usuari.setCreation(Timestamp.valueOf(input.nextLine()));
 
 
-        while (follow) {
-            // Mirem si ja el segueix, o no existeix el usuari----------------------------------------------------------
-            usuari.addFollwing(input.nextLine());
-            // Afegim usuari als follow de nouUser
             System.out.println("Usuaris que seguirà {Y/N]:");
-            answer = input.nextLine();
+            String answer = input.nextLine();
             follow = (answer.equalsIgnoreCase("Y") ? true : false);
+
+            while (follow) {
+                String userToFollow = input.nextLine();
+                boolean followed = usuari.getTo_follow().contains(userToFollow) ? true : false;                                  // Mirem si ja el segueix, o no existeix el usuari
+                if (followed) {
+                    System.out.println("Usuari " + userToFollow + " ja seguit!");
+                } else {
+                    usuari.addFollwing(userToFollow);
+                }
+                // Afegim usuari als follow de nouUser
+                System.out.println("Usuaris que seguirà {Y/N]:");
+                answer = input.nextLine();
+                follow = (answer.equalsIgnoreCase("Y") ? true : false);
+            }
+
+            return usuari;                                                                                                      // Retornem el usuari, per afegir-lo a la estructura que toqui
+
+        } else {
+            System.out.println("Usuari ja existeix!");
+            return null;
         }
-
-        // Funcio afegir a la estructura que toqui----------------------------------------------------------------------
-
-        System.out.println("Usuari afegit amb èxit!");
     }
 
-    public void insercioPost() {
+    private boolean checkUserExists(String nouUser, int structure) {
+        switch (structure) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                User usuari = (User) impoter.tree.search(nouUser.hashCode());
+                return usuari != null ? true : false;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
+        }
+        return false;
+    }
+
+    public Post insercioPost() {
 
         Post post = new Post();
 
@@ -121,9 +152,7 @@ public class Funcions {
             liked = (answer.equalsIgnoreCase("Y") ? true : false);
         }
 
-        // Funcio afegir a la estructura que toqui----------------------------------------------------------------------
-
-        System.out.println("Post afegit amb èxit!");
+        return post;
 
     }
 

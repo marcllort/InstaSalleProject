@@ -25,7 +25,7 @@ public class Menu {
     // MENUS
 
     public int MenuInicial() {
-        System.out.println("INSTASALLE");
+        System.out.println("\n\nINSTASALLE");
         System.out.println("Seleccioni acció a realitzar:");
         System.out.println("    1. Importar dades");
         System.out.println("    2. Exportar dades");
