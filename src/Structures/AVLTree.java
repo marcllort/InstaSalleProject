@@ -118,33 +118,36 @@ public class AVLTree<E> {                                                       
             System.out.println("Error al borrar, l'arrel de l'arbre és null");
         } else {
             root = deleteTo(root, key);
-            System.out.println("sd");
         }
     }
 
     private NodeAVL<E> deleteTo(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
             node = deleteNode(node);                                                                                              // Borrem el node
+            if (node == null) return null;
         } else if (key > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, no podem borrar
                 System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
+                return null;
             } else {
                 node.setRightSon(deleteTo(node.getRightSon(), key));                                                                              // Crida recursiva, on el root sera el fill dret
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
-                balanceFactor(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+                balanceFactorDelete(node);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
 
             }
 
         } else if (key < node.getKey()) {
             if (node.getLeftSon() == null) {                                                                                    // Si no existeix el node esquerra, no podem borrar
                 System.out.println("No s'ha pogut borrar el node " + key + ", no està al arbre!");
+                return null;
             } else {
                 node.setLeftSon(deleteTo(node.getLeftSon(), key));                                                                             // Crida recursiva, on el root sera el fill esquerre
                 node.setHeight(reCalculateHeight(node));                                                                        // Recalculem alçada, del node pare, un cop el node ja ha sigut inserit
-                balanceFactor(node, key);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
+                balanceFactorDelete(node);                                                                                             // Un cop inserit el node, es possible que ens calgui balancejar el arbre
 
             }
         }
+
         return node;
     }
 
@@ -236,7 +239,41 @@ public class AVLTree<E> {                                                       
             }
 
         }
+
+        if(node.getLeftSon() != null){
+            balanceFactor(node.getLeftSon(), node.getLeftSon().getKey());
+        }
+        if (node.getRightSon() != null && node.getRightSon().getKey()==82025900 ){
+            balanceFactor(node.getRightSon(), node.getRightSon().getKey());
+        }
+        //System.out.println("balanced");
     }
+
+    private void balanceFactorDelete(NodeAVL<E> node) {
+        node.setBalanceFactor(calculateBalanceFactor(node));
+
+        if (node.getBalanceFactor() > 1) {
+
+            if (calculateBalanceFactor(node.getLeftSon()) >= 0) {                                                                       // El key del node inserit es menor al del fill esquerre del node root
+                LeftLeft(node);                                                                                                 // Vol dir que han inserit a l'esquerra del fill esquerra --> LL
+            } else {
+                RightRight(node.getLeftSon());                                                                                  // En cas de que el inserit sigui mes gran, vol dir que es major que el fill esquerre de root
+                LeftLeft(node);                                                                                                 // Vol dir que han inserit a la dreta del fill esquerra --> LR
+            }
+
+        } else if (node.getBalanceFactor() < -1) {
+
+            if (calculateBalanceFactor(node.getRightSon()) <= 0) {                                                                      // El key del node inserit es major al del fill dret del node root
+                RightRight(node);                                                                                               // Vol dir que han inserit a l'dreta del fill dret --> RR
+            } else {
+                LeftLeft(node.getRightSon());                                                                                   // En cas de que el inserit sigui menor, vol dir que es menor que el fill dret de root
+                RightRight(node);                                                                                               // Vol dir que han inserit a la esquerra del fill dret --> RL
+            }
+
+        }
+
+    }
+
 
     private int calculateBalanceFactor(NodeAVL<E> node) {
         int leftHeight = 0;
@@ -279,9 +316,7 @@ public class AVLTree<E> {                                                       
         }
     }
 
-    public void printaArbre() {
 
-    }
 
 
 }

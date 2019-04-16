@@ -78,12 +78,12 @@ public class Importador {
             tree.addElement(info.getId(), info, info.getPublished_by());
         }*/
 
-        tree.inOrder(tree.root,0);
+        //tree.inOrder(tree.root,0);
         tree.deleteElement(82025895);
         tree.deleteElement(82025896);
         tree.deleteElement(82025893);
-        tree.deleteElement(82025894);
         System.out.println("ELIMINANT");
+        tree.deleteElement(82025894);
         tree.inOrder(tree.root,0);
         return true;
     }
