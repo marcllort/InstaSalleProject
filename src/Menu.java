@@ -60,6 +60,12 @@ public class Menu {
         return llegeixOpcioEstructures();
     }
 
+    public int MenuBasic() {
+        System.out.println("A quina estructura desitja realitzar la operció?");
+        printaEstructures();
+        return llegeixOpcioEstructures();
+    }
+
     private void printaEstructures() {
         System.out.println("    1. Trie");
         System.out.println("    2. R-Tree");

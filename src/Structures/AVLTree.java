@@ -191,7 +191,7 @@ public class AVLTree<E> {                                                       
 
     private E searchElementByNode(NodeAVL<E> node, int key) {
         if (key == node.getKey()) {
-            System.out.println(node.getElementName() + "trobat");
+            System.out.println(node.getElementName() + " trobat");
             return node.getElement();                                                                                           // Retornem el Element guardat, quan trobem que el key coincideix amb el buscat
         } else if (key > node.getKey()) {
             if (node.getRightSon() == null) {                                                                                   // Si no existeix el node dret, node no trobat, retornem null

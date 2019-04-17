@@ -1,3 +1,4 @@
+import Model.Post;
 import Model.User;
 import Utils.Funcions;
 import Utils.Importador;
@@ -16,6 +17,7 @@ public class Main {
         input = new Scanner(System.in);
         boolean exit = false;
         Menu menu = new Menu();
+        int op;
 
         while (!exit) {
             menuInicial = menu.MenuInicial();
@@ -68,18 +70,21 @@ public class Main {
                     break;
 
                 case 4:
+                    op = menu.MenuBasic();
                     int insercio = menu.printaMenuInsercio();
-                    switchInsercio(insercio);
+                    switchInsercio(insercio, op);
                     break;
 
                 case 5:
+                    op = menu.MenuBasic();
                     int eliminacio = menu.printaMenuEliminacio();
-                    switchEliminacio(eliminacio);
+                    switchEliminacio(eliminacio, op);
                     break;
 
                 case 6:
+                    op = menu.MenuBasic();
                     int cerca = menu.printaMenuCerca();
-                    switchCerca(cerca);
+                    switchCerca(cerca, op);
                     break;
 
                 case 7:
@@ -104,7 +109,7 @@ public class Main {
                 break;
 
             case 3:
-                importer.AVLImporter();
+                importer.AVLImporter(importRoute);
                 break;
 
             case 4:
@@ -178,16 +183,58 @@ public class Main {
         }
     }
 
-    private static void switchInsercio(int opcio) {
-        //Primer cal demanar a quina estructura volem afegirho
-        switch (opcio) {
+    private static void switchInsercio(int insercio, int opcio) {
+        switch (insercio) {
             case 1:
-                User user = funcio.insercioUser(3);
-                if (user != null) importer.tree.addElement(user.getUsername().hashCode(),user,user.getUsername());
+                User user = funcio.insercioUser(opcio);
+                if (user != null) {
+                    switch (opcio) {
+                        case 1:
+                            break;
+
+                        case 2:
+                            break;
+
+                        case 3:
+                            importer.tree.addElement(user.getUsername().hashCode(), user, user.getUsername());
+                            break;
+
+                        case 4:
+                            break;
+
+                        case 5:
+                            break;
+
+                        case 6:
+                            break;
+                    }
+                }
                 break;
 
             case 2:
-                funcio.insercioPost();
+                Post post = funcio.insercioPost(opcio);
+                if (post != null) {
+                    switch (opcio) {
+                        case 1:
+                            break;
+
+                        case 2:
+                            break;
+
+                        case 3:
+                            //importer.tree.addElement(post.getUsername().hashCode(), user, user.getUsername());
+                            break;
+
+                        case 4:
+                            break;
+
+                        case 5:
+                            break;
+
+                        case 6:
+                            break;
+                    }
+                }
                 break;
 
             default:
@@ -197,8 +244,8 @@ public class Main {
         }
     }
 
-    private static void switchEliminacio(int opcio) {
-        switch (opcio) {
+    private static void switchEliminacio(int eliminacio, int opcio) {
+        switch (eliminacio) {
             case 1:
                 funcio.eliminacioUser();
                 break;
@@ -214,8 +261,8 @@ public class Main {
         }
     }
 
-    private static void switchCerca(int opcio) {
-        switch (opcio) {
+    private static void switchCerca(int cerca, int opcio) {
+        switch (cerca) {
             case 1:
                 funcio.cercaUser(true);
                 break;
@@ -237,7 +284,7 @@ public class Main {
                 break;
 
             default:
-                System.out.println("Error de opcio! (SwitchCerca)  Opcio:" + opcio);
+                System.out.println("Error de opcio! (SwitchCerca)  Opcio:" + cerca);
                 break;
         }
 

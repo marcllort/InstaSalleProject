@@ -29,13 +29,13 @@ public class Funcions {
         System.out.println("Nom d'usuari:");
         String nouUser = input.nextLine();
 
-        boolean exists = checkUserExists(nouUser, structure);                                                                    //Comprovem que no existeixi ja el usuari
+        boolean exists = checkUserExists(nouUser, structure);                                                                   //Comprovem que no existeixi ja el usuari
 
         if (!exists) {
             usuari.setUsername(nouUser);
 
             System.out.println("Data creació: (yyyy-mm-dd)");
-            usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00"));
+            usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                              // Per defecte posem hora a les 12 de la nit
 
 
             System.out.println("Usuaris que seguirà {Y/N]:");
@@ -44,7 +44,7 @@ public class Funcions {
 
             while (follow) {
                 String userToFollow = input.nextLine();
-                exists = checkUserExists(userToFollow, structure);                                                               //Comprovem que no existeixi ja el usuari
+                exists = checkUserExists(userToFollow, structure);                                                               // Comprovem que no existeixi ja el usuari
                 if (exists) {
                     boolean followed = usuari.getTo_follow().contains(userToFollow) ? true : false;                              // Mirem si ja el segueix, o no existeix el usuari
                     if (followed) {
@@ -91,73 +91,115 @@ public class Funcions {
         return false;
     }
 
-    public Post insercioPost() {
+    public Post insercioPost(int structure) {
 
         Post post = new Post();
 
         System.out.println("Id post:");
-        String idPost = input.nextLine();
-        // Cal comprovar que aquest id no existeixi ja------------------------------------------------------------------
-        post.setId(Integer.valueOf(idPost));
-
-        System.out.println("Data creació:");
-        post.setPublished_when(Timestamp.valueOf(input.nextLine()));// cal mirar d'adaptar el format amb el que rebem---
-
-        System.out.println("Usuari del post:");
-        //Cal comprovar que existeixi el usuari-------------------------------------------------------------------------
-        String userPost = input.nextLine();
-        post.setPublished_by(userPost);
-
-
-        System.out.println("Localització post X:");
-        Double[] location = new Double[2];
-        location[0] = input.nextDouble();
+        int idPost = input.nextInt();
         input.nextLine();
+        boolean exists = checkPostExists(idPost, structure);                                                                    // Comprovem que no existeixi ja el post
+        if (!exists) {
+            post.setId(Integer.valueOf(idPost));
 
-        System.out.println("Localització post Y:");
-        location[1] = input.nextDouble();
-        input.nextLine();
+            System.out.println("Data creació:");
+            post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                          // Per defecte posem hora a les 12 de la nit
 
-        post.setLocation(location);
+            System.out.println("Usuari del post:");
+            String userPost = input.nextLine();
+            boolean existsUser = checkUserExists(userPost, structure);                                                          // Comprovem que no existeixi ja el usuari
 
-        System.out.println("Hashtags:");
-        String hashtag = input.nextLine();
+            if (existsUser) {
+                post.setPublished_by(userPost);
 
-        System.out.println("Hashtags {Y/N]:");
-        String answer = input.nextLine();
-        boolean yes = (answer.equalsIgnoreCase("Y") ? true : false);
+                System.out.println("Localització post X:");
+                Double[] location = new Double[2];
+                location[0] = input.nextDouble();
+                input.nextLine();
 
-        String hashtags;
-        while (yes) {
-            hashtags = input.nextLine();
-            //Comprovem que no estigui ja afegit------------------------------------------------------------------------
-            post.addHashtag(hashtags);
+                System.out.println("Localització post Y:");
+                location[1] = input.nextDouble();
+                input.nextLine();
 
-            System.out.println("Hashtags {Y/N]:");
-            answer = input.nextLine();
-            yes = (answer.equalsIgnoreCase("Y") ? true : false);
+                post.setLocation(location);
+
+                System.out.println("Hashtags {Y/N]:");
+                String answer = input.nextLine();
+                boolean yes = (answer.equalsIgnoreCase("Y") ? true : false);
+
+                while (yes) {
+                    String hashtag = input.nextLine();
+                    boolean added = post.getHashtags().contains(hashtag) ? true : false;                                        // Mirem si el hashtag ja esta al array de hashtags
+
+                    if (added) {
+                        System.out.println("Hashtag: " + hashtag + " ja afegit a la llista de hashtags!");
+                    } else {
+                        post.addHashtag(hashtag);
+                    }
+
+                    System.out.println("Hashtags {Y/N]:");
+                    answer = input.nextLine();
+                    yes = (answer.equalsIgnoreCase("Y") ? true : false);
+                }
+
+
+                System.out.println("Usuaris que han donat like {Y/N]:");
+                answer = input.nextLine();
+                boolean liked = (answer.equalsIgnoreCase("Y") ? true : false);
+
+                String userLiked;
+                while (liked) {
+                    userLiked = input.nextLine();
+                    existsUser = checkUserExists(userLiked, structure);                                                         // Comprovem que no existeixi ja el usuari
+                    if (existsUser) {
+                        boolean likedby = post.getLiked_by().contains(userLiked) ? true : false;                                //Mirem si ha donat like ja, o si no existeix el usuari
+                        if (likedby) {
+                            System.out.println("Usuari: " + userLiked + " ja ha donat like!");
+                        } else {
+                            post.addLike(userLiked);
+                        }
+                    } else {
+                        System.out.println("Usuari: " + userLiked + " no existeix!");
+                    }
+                    System.out.println("Usuaris que han donat like {Y/N]:");
+                    answer = input.nextLine();
+                    liked = (answer.equalsIgnoreCase("Y") ? true : false);
+                }
+
+                return post;
+            } else {
+                System.out.println("Usuari inexistent!");
+                return null;
+            }
+        } else {
+            System.out.println("Post ja existeix!");
+            return null;
         }
-
-
-        System.out.println("Usuaris que han donat like {Y/N]:");
-        answer = input.nextLine();
-        boolean liked = (answer.equalsIgnoreCase("Y") ? true : false);
-
-        String userLiked;
-        while (liked) {
-            userLiked = input.nextLine();
-            //Mirem si ha donat like ja, o si no existeix el usuari
-            post.addLike(userLiked);
-
-            System.out.println("Usuaris que han donat like {Y/N]:");
-            answer = input.nextLine();
-            liked = (answer.equalsIgnoreCase("Y") ? true : false);
-        }
-
-        return post;
-
     }
 
+    private boolean checkPostExists(int postId, int structure) {
+        switch (structure) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                Post post = (Post) impoter.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
+                return post != null ? true : false;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
+        }
+        return false;
+    }
 
     // ELIMINACIÓ INFORMACIÓ
 
