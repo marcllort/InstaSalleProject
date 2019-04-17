@@ -12,11 +12,11 @@ public class Funcions {
     private Scanner input;
     private boolean follow = false;
     private String stringUsuari;
-    private Importador impoter;
+    private Importador importer;
 
     public Funcions(Importador importer) {
         input = new Scanner(System.in);
-        this.impoter = importer;
+        this.importer = importer;
     }
 
 
@@ -76,7 +76,7 @@ public class Funcions {
                 break;
 
             case 3:
-                User usuari = (User) impoter.tree.search(nouUser.hashCode());
+                User usuari = (User) importer.tree.search(nouUser.hashCode());
                 return usuari != null ? true : false;
 
             case 4:
@@ -186,7 +186,7 @@ public class Funcions {
                 break;
 
             case 3:
-                Post post = (Post) impoter.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
+                Post post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
                 return post != null ? true : false;
 
             case 4:
@@ -203,39 +203,82 @@ public class Funcions {
 
     // ELIMINACIÓ INFORMACIÓ
 
-    public void eliminacioUser() {
+    public void eliminacioUser(int opcio) {
+
+        boolean borrat = false;
+
         System.out.println("Nom d'usuari que s'esborrarà:");
         String eliminaUser = input.nextLine();
 
         System.out.println("Processant petició...");
-        //Comprovem que existeixi el usuari
-        //Cal borrar tota la informació realcionada (posts...) menys localiotzacio posts, mirar enunciat
 
-        //if(esborraUser(eliminaUser)){
-        System.out.println("L'usuari [" + eliminaUser + "] s'ha esborrat correctament del sistema");
-        //}else{
-        System.out.println("L'usuari [" + eliminaUser + "] NO s'ha esborrat del sistema");
-        //}
+        switch (opcio) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                borrat = importer.tree.deleteElement(eliminaUser.hashCode());
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
+        }
+        //Cal borrar tota la informació realcionada (posts...) menys localitzacio posts, mirar enunciat-----------------
+
+        if (borrat) {
+            System.out.println("L'usuari [" + eliminaUser + "] s'ha esborrat correctament del sistema");
+        } else {
+            System.out.println("L'usuari [" + eliminaUser + "] NO s'ha esborrat del sistema");
+        }
 
     }
 
-    public void eliminacioPost() {
-        try {
-            System.out.println("Id post a eliminar:");
-            String idPost = input.nextLine();
+    public void eliminacioPost(int opcio) {
 
-            System.out.println("Processant petició...");
-            //Comprovem que existeixi el post
+        boolean borrat = false;
 
-            //if(esborraPost(idPost)){
-            System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
-            //}else{
-            System.out.println("El post [" + idPost + "] NO s'ha esborrat del sistema");
-            //}
-        } catch (InputMismatchException e) {
-            System.out.println("Escriu un id correcte!");
-            eliminacioPost();
+        System.out.println("Id post a eliminar:");
+        int idPost = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Processant petició...");
+
+        switch (opcio) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                borrat = importer.tree.deleteElement(idPost);
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
         }
+
+        if (borrat) {
+            System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
+        } else {
+            System.out.println("El post [" + idPost + "] NO s'ha esborrat del sistema");
+        }
+
     }
 
 

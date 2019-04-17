@@ -247,11 +247,11 @@ public class Main {
     private static void switchEliminacio(int eliminacio, int opcio) {
         switch (eliminacio) {
             case 1:
-                funcio.eliminacioUser();
+                funcio.eliminacioUser(opcio);
                 break;
 
             case 2:
-                funcio.eliminacioPost();
+                funcio.eliminacioPost(opcio);
                 break;
 
             default:

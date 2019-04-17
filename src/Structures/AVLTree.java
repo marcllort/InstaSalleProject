@@ -6,6 +6,7 @@ import Structures.Helpers.NodeAVL;
 public class AVLTree<E> {                                                                                                       // Fem un AVLTree genèric, aligual que el Node, per poder fer-lo servir tant per posts com per users
 
     public NodeAVL<E> root;                                                                                                     // Guardem el node root, del qual dependràn la resta de nodes que anirem afegint
+    private boolean deleted;
 
     public AVLTree() {
         root = null;                                                                                                            // Al crear un tree, inicialment root serà null fins afegir-ne un
@@ -110,12 +111,14 @@ public class AVLTree<E> {                                                       
 
     // Eliminació
 
-    public void deleteElement(int key) {
+    public boolean deleteElement(int key) {
         if (root == null) {                                                                                                     // En cas de no tenir root, error, i en cas de tenir-ne crida la el deleteTo, el qual buscarà el node
             System.out.println("Error al borrar, l'arrel de l'arbre és null");
         } else {
+            deleted = false;
             root = deleteTo(root, key);
         }
+        return deleted;
     }
 
     private NodeAVL<E> deleteTo(NodeAVL<E> node, int key) {
@@ -166,6 +169,7 @@ public class AVLTree<E> {                                                       
             node.setRightSon(deleteTo(node.getRightSon(), node.getKey()));
 
         }
+        deleted = true;
         return node;
     }
 
@@ -182,7 +186,7 @@ public class AVLTree<E> {                                                       
 
     public E search(int key) {
         if (root == null) {                                                                                                      // En cas de no tenir root, error, i en cas de tenir-ne crida la cerca de element
-            System.out.println("Error! ArbreAVL buit");
+            System.out.println("Error de busqueda! ArbreAVL buit");
             return null;
         } else {
             return searchElementByNode(root, key);
