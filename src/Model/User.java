@@ -54,7 +54,7 @@ public class User {
     }
 
 
-    private void mostraInformacioUser() {
+    public void mostraInformacioUser() {
 
         System.out.println("Nom d'usuari:");
         System.out.println(username);

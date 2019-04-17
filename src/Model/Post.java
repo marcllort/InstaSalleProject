@@ -90,7 +90,7 @@ public class Post {
         return String.valueOf(id);
     }
 
-    private void mostraInformacioPost() {              //PASSAR A TO STRING DE POST
+    public void mostraInformacioPost() {              //PASSAR A TO STRING DE POST
 
         System.out.println("\n\n id:" + id);
         System.out.println("liked_by:" + Arrays.toString(getLiked_by().toArray()));

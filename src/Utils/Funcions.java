@@ -260,7 +260,7 @@ public class Funcions {
                 break;
 
             case 3:
-                borrat = importer.tree.deleteElement(idPost);
+                borrat = importer.tree.deleteElement(idPost);                                                           // cal completar,a fegir a quin arbre?----------------
                 break;
 
             case 4:
@@ -284,13 +284,13 @@ public class Funcions {
 
     // CERCA INFORMACIÓ
 
-    public void cercaUser(boolean start) {
+    public void cercaUser(boolean start, int opcio) {
 
         if (start) {
-            stringUsuari = "";
+            stringUsuari = "";                                                                                                  // Iniciem el string de autocompletar buit al principi
         }
-
-        stringUsuari.concat(input.nextLine()); //cal mirar si funciona
+        String addUser = input.nextLine();
+        stringUsuari = stringUsuari.concat(addUser); //cal mirar si funciona
 
         System.out.println("Possibles suggeriments:");
         //funcio autocompletar busca a tots usuaris, retorna un arraylist, amb el size sabrem quantes opcions tenim
@@ -299,8 +299,9 @@ public class Funcions {
         for (i = 0; i < nSuggerencies; i++) {
             System.out.println("    " + i + ". ");//+ arraylist.getUsername
         }
-
         System.out.println("    " + i + ". Cap dels suggerits");
+
+
         try {
             int seleccio = input.nextInt();
             input.nextLine();
@@ -313,36 +314,85 @@ public class Funcions {
             boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
 
             if (carregaCerca) {
-                //User usuari= getInfoUser(stringUsuari);
-                //mostraInformacioUser(usuari); o millor sout(usuari.toString());
+                User usuari = buscaUserEstructura(opcio);                                                                       // Busquem el usuari, i mostrem la seva info
+                if (usuari != null) usuari.mostraInformacioUser();
             } else {
-                cercaUser(false);
+                cercaUser(false, opcio);
             }
 
         } catch (InputMismatchException e) {
             System.out.println("Opció incorrecte!");
-            cercaUser(false);
+            cercaUser(false, opcio);
         }
-
 
     }
 
-    public void cercaPost() {
+    private User buscaUserEstructura(int opcio) {
+        User user = new User();
+        switch (opcio) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                user = (User) importer.tree.search(stringUsuari.hashCode());
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
+        }
+        return user;
+    }
+
+    public void cercaPost(int opcio) {
         try {
             System.out.println("ID del post:");
             int idPost = input.nextInt();
             input.nextLine();
+            Post post = buscaPostEstructura(idPost, opcio);
+            if (post != null) post.mostraInformacioPost();
+
         } catch (InputMismatchException e) {
             System.out.println("Escriu un id correcte!");
-            cercaPost();
+            cercaPost(opcio);
         }
 
-
-        //Post post = getInfoPost(idPost);
-        //System.out.println(post.toString);
     }
 
-    public void cercaHashtag() {
+    private Post buscaPostEstructura(int idPost, int opcio) {
+        Post post = new Post();
+        switch (opcio) {
+            case 1:
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                post = (Post) importer.tree.search(idPost);
+                break;
+
+            case 4:
+                break;
+
+            case 5:
+                break;
+
+            case 6:
+                break;
+        }
+        return post;
+    }
+
+    public void cercaHashtag(int opcio) {
         System.out.println("Hashtag a buscar:");
         String hashtag = input.nextLine();
         /*Arraylist de posts = getPostHashtag(hashtag)
@@ -358,7 +408,7 @@ public class Funcions {
         }*/
     }
 
-    public void cercaUbicacio() {
+    public void cercaUbicacio(int opcio) {
         try {
             System.out.println("Latitud:");
             double latitud = input.nextDouble();
@@ -373,7 +423,7 @@ public class Funcions {
             input.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Valor en format incorrecte!");
-            cercaUbicacio();
+            cercaUbicacio(opcio);
         }
         /*Arraylist de posts = getPostUbicacio(latituda,longitud)
         System.out.println("S'han trobat"+posts.size()+" post dintre el radi màxim [< "+radi+" km]");
@@ -385,7 +435,7 @@ public class Funcions {
         }*/
     }
 
-    public void cercaPersonalitzada() {
+    public void cercaPersonalitzada(int opcio) {
         //cal preguntar que ha de fer
     }
 

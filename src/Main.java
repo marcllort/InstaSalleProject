@@ -222,7 +222,7 @@ public class Main {
                             break;
 
                         case 3:
-                            //importer.tree.addElement(post.getUsername().hashCode(), user, user.getUsername());
+                            //importer.tree.addElement(post.getUsername().hashCode(), user, user.getUsername());    // cal completar,a fegir a quin arbre?----------------
                             break;
 
                         case 4:
@@ -264,23 +264,23 @@ public class Main {
     private static void switchCerca(int cerca, int opcio) {
         switch (cerca) {
             case 1:
-                funcio.cercaUser(true);
+                funcio.cercaUser(true,opcio);
                 break;
 
             case 2:
-                funcio.cercaPost();
+                funcio.cercaPost(opcio);
                 break;
 
             case 3:
-                funcio.cercaHashtag();
+                funcio.cercaHashtag(opcio);
                 break;
 
             case 4:
-                funcio.cercaUbicacio();
+                funcio.cercaUbicacio(opcio);
                 break;
 
             case 5:
-                funcio.cercaPersonalitzada();
+                funcio.cercaPersonalitzada(opcio);
                 break;
 
             default:
