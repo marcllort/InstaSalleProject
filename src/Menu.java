@@ -110,7 +110,7 @@ public class Menu {
     // RUTA FITXER
 
     public String RutaFitxer() {
-        System.out.println("Especifiqui la ruta del fitxer a importar: \n");
+        System.out.println("Especifiqui la ruta del fitxer a importar/exportar: \n");
         return input.nextLine();
     }
 

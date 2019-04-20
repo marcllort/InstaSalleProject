@@ -15,7 +15,7 @@ public class AVLTree<E> {                                                       
 
     // Inserció
 
-    public void addElement(int key, E element, String elementName) {                                                             // Funció de add nodes simplificada, comprova si tenim root inicial
+    public void addElement(int key, E element, String elementName) {                                                            // Funció de add nodes simplificada, comprova si tenim root inicial
         if (root == null) {                                                                                                     // En cas de no tenir-ne, el crea, i en cas de tenir-ne crida la inserció normal a partir de root
             root = new NodeAVL<>(key, element, elementName);
         } else {

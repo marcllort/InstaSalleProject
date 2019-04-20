@@ -3,18 +3,15 @@ import Model.User;
 import Utils.Funcions;
 import Utils.Importador;
 
-import java.util.Scanner;
 
 public class Main {
 
-    private static Scanner input;
-    private static boolean follow = false;
     public static Importador importer = new Importador();
     private static Funcions funcio = new Funcions(importer);
 
+
     public static void main(String[] args) {
         int menuInicial;
-        input = new Scanner(System.in);
         boolean exit = false;
         Menu menu = new Menu();
         int op;
@@ -22,26 +19,12 @@ public class Main {
         while (!exit) {
             menuInicial = menu.MenuInicial();
 
-
             switch (menuInicial) {
                 case 1:
                     int importacio = menu.MenuImportacio();
                     String importRoute = menu.RutaFitxer();
-                    switchImportacio(importacio, importRoute);
+                    switchImportacio(importacio, importRoute, menu);
 
-                    menu.printaCarregantInfo();
-                    long initTime = System.currentTimeMillis();
-
-
-                    //Mirem si existeix fitxer i importem, posem imported a true
-                    boolean imported = false;//retornara true si no hi ha cap error
-                    int elements = 0;        //size del arraylist de elements
-                    if (imported) {
-                        long time = System.currentTimeMillis() - initTime;
-                        menu.printaImportatExit(elements, (int) time);
-                    } else {
-                        System.out.println("Error al importar");
-                    }
                     break;
 
                 case 2:
@@ -51,7 +34,6 @@ public class Main {
 
                     menu.printaCarregantInfo();
                     long initTime1 = System.currentTimeMillis();
-
 
                     //Mirem si existeix fitxer i importem, posem exported a true
                     boolean exported = false;//retornara true si no hi ha cap error
@@ -99,7 +81,10 @@ public class Main {
         }
     }
 
-    private static void switchImportacio(int opcio, String importRoute) {
+
+    private static void switchImportacio(int opcio, String importRoute, Menu menu) {
+        long initTime = System.currentTimeMillis();
+        int elements = 0;                                                                                                       //  Nombre de elements importats
 
         switch (opcio) {
             case 1:
@@ -109,7 +94,7 @@ public class Main {
                 break;
 
             case 3:
-                importer.AVLImporter(importRoute);
+                elements = importer.AVLImporter(importRoute);
                 break;
 
             case 4:
@@ -126,6 +111,17 @@ public class Main {
                 break;
 
         }
+
+        menu.printaCarregantInfo();
+        boolean imported = elements != -1;                                                                                      // Si retorna -1 elements, vol dir que no s'ha importat
+
+        if (imported) {
+            long time = System.currentTimeMillis() - initTime;
+            menu.printaImportatExit(elements, (int) time);
+        } else {
+            System.out.println("Error al importar");
+        }
+
     }
 
     private static void switchExportacio(int opcio, String exportRoute) {
@@ -264,7 +260,7 @@ public class Main {
     private static void switchCerca(int cerca, int opcio) {
         switch (cerca) {
             case 1:
-                funcio.cercaUser(true,opcio);
+                funcio.cercaUser(true, opcio);
                 break;
 
             case 2:
@@ -289,6 +285,5 @@ public class Main {
         }
 
     }
-
 
 }

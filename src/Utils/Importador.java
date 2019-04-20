@@ -34,7 +34,6 @@ public class Importador {
         }
     }
 
-
     public Post[] importDataPost(String route) {
         Post[] dataPost;
         JsonReader reader;
@@ -50,6 +49,7 @@ public class Importador {
         }
     }
 
+
     public void exportUsers() {
 
     }
@@ -59,7 +59,7 @@ public class Importador {
     }
 
 
-    public boolean AVLImporter(String importRoute) {
+    public int AVLImporter(String importRoute) {
 
         AVLTester();
 
@@ -73,7 +73,7 @@ public class Importador {
             tree.addElement(info.getId(), info, info.getPublished_by());
         }*/
 
-        return true;
+        return 20;
     }
 
     private void AVLTester() {
@@ -102,9 +102,9 @@ public class Importador {
         tree.deleteElement(82025894);
         tree.inOrder(tree.root, 0);
 
-        User test = (User)tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
-        System.out.println("Trobat el: "+ test.getUsername());
-        User test2 = (User)tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
+        User test = (User) tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
+        System.out.println("Trobat el: " + test.getUsername());
+        User test2 = (User) tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
         //System.out.println("Trobat el: "+ test2.getUsername());
 
     }

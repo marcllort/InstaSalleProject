@@ -77,7 +77,7 @@ public class Funcions {
 
             case 3:
                 User usuari = (User) importer.tree.search(nouUser.hashCode());
-                return usuari != null ? true : false;
+                return usuari != null;
 
             case 4:
                 break;
@@ -187,7 +187,7 @@ public class Funcions {
 
             case 3:
                 Post post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
-                return post != null ? true : false;
+                return post != null;
 
             case 4:
                 break;
