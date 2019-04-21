@@ -57,6 +57,20 @@ public class ArrayListt<E> {
         return array[i];
     }
 
+    public  Object searchElement(Object o){
+        int p = -1;
+        for (int i = 0; i < size; i++) {
+            if (o == array[i]) {
+                p = i;
+            }
+        }
+        if (p!=-1) {
+            return array[p];
+        }else {
+            return null;
+        }
+    }
+
 
     public static void main(String[] args) {
         Integer[] a = {1, 2, 3, 4};
@@ -65,6 +79,7 @@ public class ArrayListt<E> {
         p.addElement(6);
         p.addElement(7);
         p.removeElement(3);
+        System.out.println("OBJECT" + p.searchElement(2));
         System.out.println("AAAA" + p.getElement(2));
 
 
