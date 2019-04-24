@@ -21,9 +21,9 @@ public class Main {
 
             switch (menuInicial) {
                 case 1:
-                    int importacio = menu.MenuImportacio();
+                    int userpost = menu.MenuImportacio();
                     String importRoute = menu.RutaFitxer();
-                    switchImportacio(importacio, importRoute, menu);
+                    switchImportacio(userpost, importRoute, menu);
 
                     break;
 
@@ -52,21 +52,18 @@ public class Main {
                     break;
 
                 case 4:
-                    op = menu.MenuBasic();
                     int insercio = menu.printaMenuInsercio();
-                    switchInsercio(insercio, op);
+                    switchInsercio(insercio);
                     break;
 
                 case 5:
-                    op = menu.MenuBasic();
                     int eliminacio = menu.printaMenuEliminacio();
-                    switchEliminacio(eliminacio, op);
+                    switchEliminacio(eliminacio);
                     break;
 
                 case 6:
-                    op = menu.MenuBasic();
                     int cerca = menu.printaMenuCerca();
-                    switchCerca(cerca, op);
+                    switchCerca(cerca);
                     break;
 
                 case 7:
@@ -88,22 +85,16 @@ public class Main {
 
         switch (opcio) {
             case 1:
+                importer.ArrayListImporter(importRoute);
+                importer.TriesImporter(importRoute);
+                importer.GraphListImporter(importRoute);
                 break;
 
             case 2:
-                break;
-
-            case 3:
+                importer.ArrayListImporter(importRoute);
+                importer.HashTableImporter(importRoute);
+                importer.RTreeImporter(importRoute);
                 elements = importer.AVLImporter(importRoute);
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
                 break;
 
             default:
@@ -130,18 +121,6 @@ public class Main {
                 break;
 
             case 2:
-                break;
-
-            case 3:
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
                 break;
 
             default:
@@ -179,57 +158,20 @@ public class Main {
         }
     }
 
-    private static void switchInsercio(int insercio, int opcio) {
+    private static void switchInsercio(int insercio) {
         switch (insercio) {
             case 1:
-                User user = funcio.insercioUser(opcio);
+                User user = funcio.insercioUser();
                 if (user != null) {
-                    switch (opcio) {
-                        case 1:
-                            break;
-
-                        case 2:
-                            break;
-
-                        case 3:
-                            importer.tree.addElement(user.getUsername().hashCode(), user, user.getUsername());
-                            break;
-
-                        case 4:
-                            break;
-
-                        case 5:
-                            break;
-
-                        case 6:
-                            break;
-                    }
+                    // insert a graph, tries i arraylist
                 }
                 break;
 
             case 2:
-                Post post = funcio.insercioPost(opcio);
+                Post post = funcio.insercioPost();
                 if (post != null) {
-                    switch (opcio) {
-                        case 1:
-                            break;
-
-                        case 2:
-                            break;
-
-                        case 3:
-                            //importer.tree.addElement(post.getUsername().hashCode(), user, user.getUsername());    // cal completar,a fegir a quin arbre?----------------
-                            break;
-
-                        case 4:
-                            break;
-
-                        case 5:
-                            break;
-
-                        case 6:
-                            break;
-                    }
+                    importer.tree.addElement(post.getId(), post, post.getPublished_by());
+                    // insert a rtree, hashtable i arraylist
                 }
                 break;
 
@@ -240,14 +182,14 @@ public class Main {
         }
     }
 
-    private static void switchEliminacio(int eliminacio, int opcio) {
+    private static void switchEliminacio(int eliminacio) {
         switch (eliminacio) {
             case 1:
-                funcio.eliminacioUser(opcio);
+                funcio.eliminacioUser();
                 break;
 
             case 2:
-                funcio.eliminacioPost(opcio);
+                funcio.eliminacioPost();
                 break;
 
             default:
@@ -257,26 +199,22 @@ public class Main {
         }
     }
 
-    private static void switchCerca(int cerca, int opcio) {
+    private static void switchCerca(int cerca) {
         switch (cerca) {
             case 1:
-                funcio.cercaUser(true, opcio);
+                funcio.cercaUser(true);
                 break;
 
             case 2:
-                funcio.cercaPost(opcio);
+                funcio.cercaPost();
                 break;
 
             case 3:
-                funcio.cercaHashtag(opcio);
+                funcio.cercaHashtag();
                 break;
 
             case 4:
-                funcio.cercaUbicacio(opcio);
-                break;
-
-            case 5:
-                funcio.cercaPersonalitzada(opcio);
+                funcio.cercaUbicacio();
                 break;
 
             default:

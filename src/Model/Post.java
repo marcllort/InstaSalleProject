@@ -19,6 +19,12 @@ public class Post {
         hashtags = new ArrayList<>();
     }
 
+    public Post(int id, Timestamp published_when, String published_by) {
+        this.id = id;
+        this.published_when = published_when;
+        this.published_by = published_by;
+    }
+
     public Post(int id, ArrayList<String> liked_by, Timestamp published_when, String published_by, Double[] location, ArrayList<String> hashtags) {
         this.id = id;
         this.liked_by = liked_by;

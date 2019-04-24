@@ -74,18 +74,18 @@ public class Importador {
             tree.addElement(info.getId(), info, info.getPublished_by());
         }*/
 
-        return 20;
+        return 10;
     }
 
     private void AVLTester() {
 
-        ArrayList<User> data = new ArrayList<>();
+        ArrayList<Post> data = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            data.add(new User("User" + i, new Timestamp(System.currentTimeMillis())));                                 // Creo usuaris de test del 0 al 9
+            data.add(new Post(i,new Timestamp(System.currentTimeMillis()),"Post" + i));                                 // Creo usuaris de test del 0 al 9
         }
 
-        for (User info : data) {
-            tree.addElement(info.getUsername().hashCode(), info, info.getUsername());                                           // Afegim users al arbre
+        for (Post info : data) {
+            tree.addElement(info.getId(), info, info.getPublished_by());                                           // Afegim users al arbre
         }
 
         System.out.println("Inicial");
@@ -103,12 +103,26 @@ public class Importador {
         tree.deleteElement(82025894);
         tree.inOrder(tree.root, 0);
 
-        User test = (User) tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
-        System.out.println("Trobat el: " + test.getUsername());
-        User test2 = (User) tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
+        //User test = (User) tree.search(82025897);                                                                            // Busco usuari 4, l'ha de trobar
+        //System.out.println("Trobat el: " + test.getUsername());
+        //User test2 = (User) tree.search(82025895);                                                                           // Busco usuari 2, no l'ha de trobar, està borrat
         //System.out.println("Trobat el: "+ test2.getUsername());
 
     }
 
 
+    public void HashTableImporter(String importRoute) {
+    }
+
+    public void RTreeImporter(String importRoute) {
+    }
+
+    public void ArrayListImporter(String importRoute) {
+    }
+
+    public void GraphListImporter(String importRoute) {
+    }
+
+    public void TriesImporter(String importRoute) {
+    }
 }
