@@ -71,6 +71,20 @@ public class ArrayListt<E> {
         }
     }
 
+    public  Object searchUser(String s){
+        int p = -1;
+        for (int i = 0; i < size; i++) {
+            if (s == array[i]) {
+                p = i;
+            }
+        }
+        if (p!=-1) {
+            return array[p];
+        }else {
+            return null;
+        }
+    }
+
 
     public static void main(String[] args) {
         Integer[] a = {1, 2, 3, 4};

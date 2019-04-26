@@ -3,6 +3,7 @@ package Utils;
 import Model.Post;
 import Model.User;
 import Structures.AVLTree;
+import Structures.ArrayListt;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -17,6 +18,8 @@ public class Importador {
     private Gson gson = new Gson();
     public AVLTree tree = new AVLTree();
     private CSVReader reader = new CSVReader();
+    public ArrayListt<User> arrayUsers = new ArrayListt();
+    public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
 
 
     public User[] importDataUser(String route) {

@@ -2,6 +2,7 @@ package Utils;
 
 import Model.Post;
 import Model.User;
+import Structures.ArrayListt;
 
 import java.sql.Timestamp;
 import java.util.InputMismatchException;
@@ -68,6 +69,7 @@ public class Funcions {
     }
 
     private boolean checkUserExists(String nouUser, int structure) {
+        User usuari = new User();
         switch (structure) {
             case 1:
                 break;
@@ -76,7 +78,7 @@ public class Funcions {
                 break;
 
             case 3:
-                User usuari = (User) importer.tree.search(nouUser.hashCode());
+                usuari = (User) importer.tree.search(nouUser.hashCode());
                 return usuari != null;
 
             case 4:
@@ -86,7 +88,9 @@ public class Funcions {
                 break;
 
             case 6:
-                break;
+                 usuari = (User)importer.arrayUsers.searchUser(nouUser);
+                return usuari != null;
+
         }
         return false;
     }
