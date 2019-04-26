@@ -23,7 +23,9 @@ public class Funcions {
 
     // INSERCIÓ INFORMACIÓ
 
-    public User insercioUser(int structure) {
+    public User insercioUser() {                                                                                                // hardcoded que les funcions de checkuserexist miri al graph, si volem canviar canviem el 5
+
+        int structure = 5;
 
         User usuari = new User();
 
@@ -95,23 +97,23 @@ public class Funcions {
         return false;
     }
 
-    public Post insercioPost(int structure) {
+    public Post insercioPost() {                                                                                                //hardcoded que les funcions de checkpostexist miri al avl
 
         Post post = new Post();
 
         System.out.println("Id post:");
         int idPost = input.nextInt();
         input.nextLine();
-        boolean exists = checkPostExists(idPost, structure);                                                                    // Comprovem que no existeixi ja el post
+        boolean exists = checkPostExists(idPost, 3);                                                                    // Comprovem que no existeixi ja el post
         if (!exists) {
             post.setId(Integer.valueOf(idPost));
 
-            System.out.println("Data creació:");
+            System.out.println("Data creació: (yyyy-mm-dd)");
             post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                          // Per defecte posem hora a les 12 de la nit
 
             System.out.println("Usuari del post:");
             String userPost = input.nextLine();
-            boolean existsUser = checkUserExists(userPost, structure);                                                          // Comprovem que no existeixi ja el usuari
+            boolean existsUser = checkUserExists(userPost, 3);                                                          // Comprovem que no existeixi ja el usuari
 
             if (existsUser) {
                 post.setPublished_by(userPost);
@@ -154,7 +156,7 @@ public class Funcions {
                 String userLiked;
                 while (liked) {
                     userLiked = input.nextLine();
-                    existsUser = checkUserExists(userLiked, structure);                                                         // Comprovem que no existeixi ja el usuari
+                    existsUser = checkUserExists(userLiked, 3);                                                         // Comprovem que no existeixi ja el usuari
                     if (existsUser) {
                         boolean likedby = post.getLiked_by().contains(userLiked) ? true : false;                                //Mirem si ha donat like ja, o si no existeix el usuari
                         if (likedby) {
@@ -207,7 +209,7 @@ public class Funcions {
 
     // ELIMINACIÓ INFORMACIÓ
 
-    public void eliminacioUser(int opcio) {
+    public void eliminacioUser() {
 
         boolean borrat = false;
 
@@ -216,26 +218,11 @@ public class Funcions {
 
         System.out.println("Processant petició...");
 
-        switch (opcio) {
-            case 1:
-                break;
 
-            case 2:
-                break;
+        // borrat =funcio... Borrem a Tries
+        // Borrem a graph
+        // Borrem a arraylisy
 
-            case 3:
-                borrat = importer.tree.deleteElement(eliminaUser.hashCode());
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
-                break;
-        }
         //Cal borrar tota la informació realcionada (posts...) menys localitzacio posts, mirar enunciat-----------------
 
         if (borrat) {
@@ -246,7 +233,7 @@ public class Funcions {
 
     }
 
-    public void eliminacioPost(int opcio) {
+    public void eliminacioPost() {
 
         boolean borrat = false;
 
@@ -256,26 +243,11 @@ public class Funcions {
 
         System.out.println("Processant petició...");
 
-        switch (opcio) {
-            case 1:
-                break;
+        borrat = importer.tree.deleteElement(idPost);                                                           // cal completar,a fegir a quin arbre?----------------
+        //borrem RTREE
+        //borrem HASHTABLE
+        //borrem ARRAYLIST
 
-            case 2:
-                break;
-
-            case 3:
-                borrat = importer.tree.deleteElement(idPost);                                                           // cal completar,a fegir a quin arbre?----------------
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
-                break;
-        }
 
         if (borrat) {
             System.out.println("El post [" + idPost + "] s'ha esborrat correctament del sistema");
@@ -288,7 +260,7 @@ public class Funcions {
 
     // CERCA INFORMACIÓ
 
-    public void cercaUser(boolean start, int opcio) {
+    public void cercaUser(boolean start) {
 
         if (start) {
             stringUsuari = "";                                                                                                  // Iniciem el string de autocompletar buit al principi
@@ -318,85 +290,38 @@ public class Funcions {
             boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
 
             if (carregaCerca) {
-                User usuari = buscaUserEstructura(opcio);                                                                       // Busquem el usuari, i mostrem la seva info
+                User usuari = null; //= //funcio de busqyeda a estructura, nose si cal fer graph o tries, cal preguntar               // Busquem el usuari, i mostrem la seva info------------------------------------------------
                 if (usuari != null) usuari.mostraInformacioUser();
             } else {
-                cercaUser(false, opcio);
+                cercaUser(false);
             }
 
         } catch (InputMismatchException e) {
             System.out.println("Opció incorrecte!");
-            cercaUser(false, opcio);
+            cercaUser(false);
         }
 
     }
 
-    private User buscaUserEstructura(int opcio) {
-        User user = new User();
-        switch (opcio) {
-            case 1:
-                break;
 
-            case 2:
-                break;
+    public void cercaPost() {
 
-            case 3:
-                user = (User) importer.tree.search(stringUsuari.hashCode());
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
-                break;
-        }
-        return user;
-    }
-
-    public void cercaPost(int opcio) {
         try {
             System.out.println("ID del post:");
             int idPost = input.nextInt();
             input.nextLine();
-            Post post = buscaPostEstructura(idPost, opcio);
+            Post post = (Post) importer.tree.search(idPost);
             if (post != null) post.mostraInformacioPost();
 
         } catch (InputMismatchException e) {
             System.out.println("Escriu un id correcte!");
-            cercaPost(opcio);
+            cercaPost();
         }
 
     }
 
-    private Post buscaPostEstructura(int idPost, int opcio) {
-        Post post = new Post();
-        switch (opcio) {
-            case 1:
-                break;
 
-            case 2:
-                break;
-
-            case 3:
-                post = (Post) importer.tree.search(idPost);
-                break;
-
-            case 4:
-                break;
-
-            case 5:
-                break;
-
-            case 6:
-                break;
-        }
-        return post;
-    }
-
-    public void cercaHashtag(int opcio) {
+    public void cercaHashtag() {
         System.out.println("Hashtag a buscar:");
         String hashtag = input.nextLine();
         /*Arraylist de posts = getPostHashtag(hashtag)
@@ -412,7 +337,7 @@ public class Funcions {
         }*/
     }
 
-    public void cercaUbicacio(int opcio) {
+    public void cercaUbicacio() {
         try {
             System.out.println("Latitud:");
             double latitud = input.nextDouble();
@@ -427,7 +352,7 @@ public class Funcions {
             input.nextLine();
         } catch (InputMismatchException e) {
             System.out.println("Valor en format incorrecte!");
-            cercaUbicacio(opcio);
+            cercaUbicacio();
         }
         /*Arraylist de posts = getPostUbicacio(latituda,longitud)
         System.out.println("S'han trobat"+posts.size()+" post dintre el radi màxim [< "+radi+" km]");
@@ -439,8 +364,5 @@ public class Funcions {
         }*/
     }
 
-    public void cercaPersonalitzada(int opcio) {
-        //cal preguntar que ha de fer
-    }
 
 }

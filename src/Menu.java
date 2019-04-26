@@ -42,15 +42,15 @@ public class Menu {
     public int MenuImportacio() {
         System.out.println("Importació de l'estat de l'estructura");
         System.out.println("Quina estructura desitja importar?");
-        printaEstructures();
-        return llegeixOpcioEstructures();
+        printaUserPost();
+        return llegeixOpcioUserPost();
     }
 
     public int MenuExportacio() {
         System.out.println("Exportació de l'estat de l'estructura");
         System.out.println("Quina estructura desitja exportar?");
-        printaEstructures();
-        return llegeixOpcioEstructures();
+        printaUserPost();
+        return llegeixOpcioUserPost();
     }
 
     public int MenuVisualitzacio() {
@@ -60,10 +60,10 @@ public class Menu {
         return llegeixOpcioEstructures();
     }
 
-    public int MenuBasic() {
-        System.out.println("A quina estructura desitja realitzar la operció?");
-        printaEstructures();
-        return llegeixOpcioEstructures();
+
+    private void printaUserPost() {
+        System.out.println("    1. Users");
+        System.out.println("    2. Posts\n");
     }
 
     private void printaEstructures() {
@@ -90,12 +90,28 @@ public class Menu {
         return opcioInicial;
     }
 
+    private int llegeixOpcioUserPost() {
+        try {
+            this.opcioEstrutures = input.nextInt();
+            input.nextLine();
+
+            while (opcioEstrutures < 1 || opcioEstrutures > 2) {
+                System.out.println("Opció Incorrecte! Escriu una opció correcta:");
+                llegeixOpcioUserPost();
+            }
+        } catch (Exception e) {
+            System.out.println("Opció incorrecte!");
+        }
+
+        return opcioEstrutures;
+    }
+
     private int llegeixOpcioEstructures() {
         try {
             this.opcioEstrutures = input.nextInt();
             input.nextLine();
 
-            while (opcioEstrutures < 0 || opcioEstrutures > 6) {
+            while (opcioEstrutures < 1 || opcioEstrutures > 6) {
                 System.out.println("Opció Incorrecte! Escriu una opció correcta:");
                 llegeixOpcioEstructures();
             }
@@ -204,12 +220,11 @@ public class Menu {
         System.out.println("    1. Usuari");
         System.out.println("    2. Post");
         System.out.println("    3. Segons hashtag");
-        System.out.println("    4. Segons ubicació");
-        System.out.println("    5. Personalitzada");
+        System.out.println("    4. Segons ubicació\n");
 
         int opcio = llegeixOpcioCerca();
         System.out.println(opcio);
-        if (opcio < 0 || opcio > 5) {
+        if (opcio < 1 || opcio > 4) {
             System.out.println("Opció incorrecte!");
             return -1;
         }
