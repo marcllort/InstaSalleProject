@@ -67,23 +67,23 @@ public class ArrayListt<E> {
         return array[i];
     }
 
-    public  Object searchElement(Object o){
+    public Object searchElement(Object o) {
         int p = -1;
         for (int i = 0; i < size; i++) {
             if (o == array[i]) {
                 p = i;
             }
         }
-        if (p!=-1) {
+        if (p != -1) {
             return array[p];
-        }else {
+        } else {
             return null;
         }
     }
 
-    public  Object searchUser(String s){
+    public Object searchUser(String s) {
         int p = -1;
-        User a ;
+        User a;
         for (int i = 0; i < size; i++) {
             a = (User) array[i];
             if (a.compareTo(s) == 1) {
@@ -91,30 +91,49 @@ public class ArrayListt<E> {
                 p = i;
             }
         }
-        if (p!=-1) {
+        if (p != -1) {
             return array[p];
-        }else {
+        } else {
             return null;
         }
 
     }
 
-    public  Object searchPost(int s){
+    public Object searchPost(int s) {
         int p = -1;
         for (int i = 0; i < size; i++) {
-            Post post =(Post) array[i];
+            Post post = (Post) array[i];
 
-            if (post.compareTo(s)==1) {
+            if (post.compareTo(s) == 1) {
                 p = i;
             }
         }
-        if (p!=-1) {
+        if (p != -1) {
             return array[p];
-        }else {
+        } else {
             return null;
         }
 
     }
+
+    public Object[] searchPostPosition(int radi, int x, int y) {
+        int p = -1;
+
+        for (int i = 0; i < size; i++) {
+
+
+            if (post.compareTo(s) == 1) {
+                p = i;
+            }
+        }
+        if (p != -1) {
+            return array[p];
+        } else {
+            return null;
+        }
+
+    }
+
 
 
     public static void main(String[] args) {
@@ -128,15 +147,11 @@ public class ArrayListt<E> {
         p.addElement(b);
 
 
-
-
-        User j = (User)p.getElement(0);
+        User j = (User) p.getElement(0);
         System.out.println(j.getUsername());
 
-        User r = (User)p.searchUser("alex");
+        User r = (User) p.searchUser("alex");
         System.out.println("OBJECT" + r.getUsername());
-
-
 
 
     }
