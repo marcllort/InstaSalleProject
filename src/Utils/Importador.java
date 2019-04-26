@@ -22,6 +22,7 @@ public class Importador {
     public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
 
 
+
     public User[] importDataUser(String route) {
         User[] dataUser;
         JsonReader reader;

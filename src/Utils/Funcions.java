@@ -170,6 +170,7 @@ public class Funcions {
                     System.out.println("Usuaris que han donat like {Y/N]:");
                     answer = input.nextLine();
                     liked = (answer.equalsIgnoreCase("Y") ? true : false);
+
                 }
 
                 return post;
