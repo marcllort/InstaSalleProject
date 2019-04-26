@@ -106,4 +106,5 @@ public class Post {
         System.out.println("hashtags:" + Arrays.toString(getHashtags().toArray()));
 
     }
+
 }
