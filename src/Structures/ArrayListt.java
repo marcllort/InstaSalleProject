@@ -74,7 +74,22 @@ public class ArrayListt<E> {
     public  Object searchUser(String s){
         int p = -1;
         for (int i = 0; i < size; i++) {
-            if (s == array[i]) {
+            if (array[i].equals(s)) {
+                p = i;
+            }
+        }
+        if (p!=-1) {
+            return array[p];
+        }else {
+            return null;
+        }
+
+    }
+
+    public  Object searchPost(int s){
+        int p = -1;
+        for (int i = 0; i < size; i++) {
+            if (array[i].equals(s)) {
                 p = i;
             }
         }

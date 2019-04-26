@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Post {
+public class Post implements Comparable<Integer>{
 
     private int id;
     private ArrayList<String> liked_by;
@@ -94,6 +94,11 @@ public class Post {
     @Override
     public String toString() {
         return String.valueOf(id);
+    }
+
+    @Override
+    public int compareTo(Integer idd){
+        return idd == id ? 1 : 0 ;
     }
 
     public void mostraInformacioPost() {              //PASSAR A TO STRING DE POST

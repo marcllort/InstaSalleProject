@@ -185,6 +185,8 @@ public class Funcions {
     }
 
     private boolean checkPostExists(int postId, int structure) {
+        Post post;
+        Integer posti = postId;
         switch (structure) {
             case 1:
                 break;
@@ -193,7 +195,7 @@ public class Funcions {
                 break;
 
             case 3:
-                Post post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
+                 post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
                 return post != null;
 
             case 4:
@@ -203,7 +205,8 @@ public class Funcions {
                 break;
 
             case 6:
-                break;
+                post = (Post) importer.arrayPosts.searchPost(posti);
+                return post != null;
         }
         return false;
     }

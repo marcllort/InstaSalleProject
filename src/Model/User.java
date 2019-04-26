@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class User implements Comparable<User>{
+public class User implements Comparable<String>{
 
     private String username;
     private Timestamp creation;
@@ -54,8 +54,8 @@ public class User implements Comparable<User>{
     }
 
     @Override
-    public int compareTo(User user){
-        return user.username == username? 1 : 0 ;
+    public int compareTo(String user){
+        return user == username? 1 : 0 ;
     }
 
 
