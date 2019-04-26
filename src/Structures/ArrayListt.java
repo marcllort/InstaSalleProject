@@ -1,5 +1,9 @@
 package Structures;
 
+import Model.Post;
+import Model.User;
+import javafx.geometry.Pos;
+
 import javax.xml.bind.Element;
 
 public class ArrayListt<E> {
@@ -9,6 +13,7 @@ public class ArrayListt<E> {
 
     public ArrayListt() {
         array = new Object[DEFAULT_CAPACITY];
+        size = 0;
     }
 
     public ArrayListt(Object[] array) {
@@ -31,9 +36,14 @@ public class ArrayListt<E> {
                 i++;
             }
             arraynou[size] = e;
+
             array = arraynou;
         }
-        array[size++] = e;
+        //System.out.println(e.toString());
+        array[size] = e;
+        System.out.println(array[size].toString());
+
+        size++;
     }
 
     public void removeElement(int p) {
@@ -73,8 +83,11 @@ public class ArrayListt<E> {
 
     public  Object searchUser(String s){
         int p = -1;
+        User a ;
         for (int i = 0; i < size; i++) {
-            if (array[i].equals(s)) {
+            a = (User) array[i];
+            if (a.compareTo(s) == 1) {
+                System.out.println("AAAAA");
                 p = i;
             }
         }
@@ -89,7 +102,9 @@ public class ArrayListt<E> {
     public  Object searchPost(int s){
         int p = -1;
         for (int i = 0; i < size; i++) {
-            if (array[i].equals(s)) {
+            Post post =(Post) array[i];
+
+            if (post.compareTo(s)==1) {
                 p = i;
             }
         }
@@ -103,19 +118,26 @@ public class ArrayListt<E> {
 
 
     public static void main(String[] args) {
-        Integer[] a = {1, 2, 3, 4};
-        ArrayListt<Integer> p = new ArrayListt<Integer>(a);
-        p.addElement(5);
-        p.addElement(6);
-        p.addElement(7);
-        p.removeElement(3);
-        System.out.println("OBJECT" + p.searchElement(2));
-        System.out.println("AAAA" + p.getElement(2));
+        User a = new User();
+        a.setUsername("alex");
+        User b = new User();
+        b.setUsername("bala");
+
+        ArrayListt<User> p = new ArrayListt<User>();
+        p.addElement(a);
+        p.addElement(b);
 
 
-        for (int i = 0; i < p.getSize(); i++) {
-            System.out.println(p.array[i]);
-        }
+
+
+        User j = (User)p.getElement(0);
+        System.out.println(j.getUsername());
+
+        User r = (User)p.searchUser("alex");
+        System.out.println("OBJECT" + r.getUsername());
+
+
+
 
     }
 }
