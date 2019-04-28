@@ -118,22 +118,28 @@ public class ArrayListt<E> {
 
     public Object[] searchPostPosition(int radi, int x, int y) {
         int p = -1;
+        ArrayListt<Post> post= new ArrayListt();
 
         for (int i = 0; i < size; i++) {
 
 
-            if (post.compareTo(s) == 1) {
-                p = i;
+            if (pointInside(radi,x,y,(Post) array[i]) == 1) {
+               post.addElement((Post)array[i]);
+               p = 0;
             }
         }
         if (p != -1) {
-            return array[p];
+            return post.array;
         } else {
             return null;
         }
 
     }
 
+private int pointInside(int radi, int x, int y, Post post){
+    double distance = Math.sqrt((y - post.getLocation()[1]) * ((y - post.getLocation()[1]) + (x - post.getLocation()[0]) * (x - post.getLocation()[0])));
+    return distance > radi ? 1 : 0;
+}
 
 
     public static void main(String[] args) {
