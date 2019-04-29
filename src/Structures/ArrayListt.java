@@ -41,7 +41,7 @@ public class ArrayListt<E> {
         }
         //System.out.println(e.toString());
         array[size] = e;
-        System.out.println(array[size].toString());
+        //System.out.println(array[size].toString());
 
         size++;
     }
@@ -87,7 +87,6 @@ public class ArrayListt<E> {
         for (int i = 0; i < size; i++) {
             a = (User) array[i];
             if (a.compareTo(s) == 1) {
-                System.out.println("AAAAA");
                 p = i;
             }
         }
@@ -116,48 +115,66 @@ public class ArrayListt<E> {
 
     }
 
-    public Object[] searchPostPosition(int radi, int x, int y) {
+    public Post[] getArray() {
+        Post[] p = new Post[size];
+        for (int i = 0 ; i< size; i++) {
+            Post m = (Post) array[i];
+            p[i] = m;
+        }
+        return p;
+
+    }
+
+    public Post[] searchPostPosition(int radi, int x, int y) {
         int p = -1;
-        ArrayListt<Post> post= new ArrayListt();
+        ArrayListt<Post> post = new ArrayListt();
 
         for (int i = 0; i < size; i++) {
 
 
-            if (pointInside(radi,x,y,(Post) array[i]) == 1) {
-               post.addElement((Post)array[i]);
-               p = 0;
+            if (pointInside(radi, x, y, (Post) array[i]) == 0) {
+                System.out.println("ENTRA");
+                post.addElement((Post) array[i]);
+                p = 0;
             }
         }
         if (p != -1) {
-            return post.array;
+            return post.getArray();
         } else {
             return null;
         }
 
     }
 
-private int pointInside(int radi, int x, int y, Post post){
-    double distance = Math.sqrt((y - post.getLocation()[1]) * ((y - post.getLocation()[1]) + (x - post.getLocation()[0]) * (x - post.getLocation()[0])));
-    return distance > radi ? 1 : 0;
-}
+    private int pointInside(int radi, int x, int y, Post post) {
+
+        double distance = Math.sqrt(Math.abs((y - post.getLocation()[1]) * (y - post.getLocation()[1]) + (x - post.getLocation()[0]) * (x - post.getLocation()[0])));
+        System.out.println("DISTANCE "+distance);
+        return distance > radi ? 1 : 0;
+    }
 
 
     public static void main(String[] args) {
-        User a = new User();
-        a.setUsername("alex");
-        User b = new User();
-        b.setUsername("bala");
+        Post a = new Post();
+        a.setId(1);
+        Double[] f = {1.0,2.0};
+        a.setLocation(f);
 
-        ArrayListt<User> p = new ArrayListt<User>();
+        Post b = new Post();
+        b.setId(2);
+        Double[] l = {10.0,10.0};
+        b.setLocation(l);
+
+        ArrayListt<Post> p = new ArrayListt<Post>();
         p.addElement(a);
         p.addElement(b);
 
+        System.out.println("ID Pos 0 "+p.getElement(0)+ " 1 "+p.getElement(1));
 
-        User j = (User) p.getElement(0);
-        System.out.println(j.getUsername());
+        Post[] m =  new Post[3];
+         m = p.searchPostPosition(13,1,1);
 
-        User r = (User) p.searchUser("alex");
-        System.out.println("OBJECT" + r.getUsername());
+        System.out.println(m.length);
 
 
     }
