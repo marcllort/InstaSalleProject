@@ -84,9 +84,11 @@ public class Funcions {
                 return usuari != null;
 
             case 4:
+
                 break;
 
             case 5:
+                //usuari = importer.graph.searchUser(nouUser);
                 break;
 
             case 6:

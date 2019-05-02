@@ -22,6 +22,38 @@ public class ArrayListt<E> {
 
     }
 
+    public void setElement(int index, E element) {
+        if(index > size) { //caso de indice mas grande que medida array se crea un nuevo array de la medida del indice
+            Object[] arraynou = new Object[index + 1];
+            int i = 0;
+            for (Object a : array) {
+                arraynou[i] = a;
+                i++;
+            }
+            size = index + 1;
+            array = arraynou;
+            array[index] = element;
+        }
+        else if(array[index] == null) { // si casilla vacia
+            array[index] = element;
+            size++;
+        }
+        else {
+            Object[] arraynou = new Object[size + 1];
+            int i = 0;
+            for(Object a : array) {
+                if(i == index) {
+                    arraynou[index] = element;   //en index va element, lo reemplazamos
+                    i++;      //aumentamos i
+                }
+                else {
+                    arraynou[i] = a;
+                    i++;
+                }
+            }
+        }
+    }
+
     public int getSize() {
         return size;
     }
@@ -60,6 +92,20 @@ public class ArrayListt<E> {
 
         array = arraynou;
 
+        size--;
+    }
+
+    public void removeElement(E element) {
+
+        Object[] arraynou = new Object[size - 1];
+        int j = 0;
+        for(int i = 0; i < size; i++) {
+            if(!array[i].equals(element)) {
+                arraynou[j] = array[i];
+                j++;
+            }
+        }
+        array = arraynou;
         size--;
     }
 
