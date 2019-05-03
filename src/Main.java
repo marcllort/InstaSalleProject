@@ -14,7 +14,6 @@ public class Main {
         int menuInicial;
         boolean exit = false;
         Menu menu = new Menu();
-        int op;
 
         while (!exit) {
             menuInicial = menu.MenuInicial();

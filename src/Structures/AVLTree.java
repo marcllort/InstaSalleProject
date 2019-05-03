@@ -91,20 +91,20 @@ public class AVLTree<E> {                                                       
         }
 
 
-        node.setRightSon(rrnode);                                                                                                // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
+        node.setRightSon(rrnode);                                                                                               // El nou leftSon del node, serè el fill esquerre del fill esquerre del node inicial
         node.setLeftSon(new NodeAVL<>(node.getKey(), node.getElement(), node.getLeftSon(), rlnode, node.getElementName()));     // El nou rightSon serà el node inicial, però ara tindrà com a fill esquerre el fill dret del fill esquerre del node incial
-        node.setKey(right.getKey());                                                                                             // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
-        node.setElement(right.getElement());                                                                                     // Copiem el objecte
-        node.setElementName(right.getElementName());                                                                           // Copiem el seu nom
+        node.setKey(right.getKey());                                                                                            // El nou node "inicial", serà el anterior leftSon, aquí copiem el key
+        node.setElement(right.getElement());                                                                                    // Copiem el objecte
+        node.setElementName(right.getElementName());                                                                            // Copiem el seu nom
 
-        if (node.getLeftSon() != null) {                                                                                         // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+        if (node.getLeftSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
             node.getLeftSon().setHeight(reCalculateHeight(node.getLeftSon()));
         }
-        if (node.getRightSon() != null) {                                                                                        // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
+        if (node.getRightSon() != null) {                                                                                       // En cas de no ser null, al haver hagut una rotació, cal calcular-li la nova alçada
             node.getRightSon().setHeight(reCalculateHeight(node.getRightSon()));
         }
 
-        node.setHeight(reCalculateHeight(node));                                                                                 // Recalculem l'alçada del node inicial
+        node.setHeight(reCalculateHeight(node));                                                                                // Recalculem l'alçada del node inicial
 
     }
 
@@ -173,7 +173,7 @@ public class AVLTree<E> {                                                       
         return node;
     }
 
-    private NodeAVL<E> lowerNodeRight(NodeAVL<E> node) {                                                                              // Funcio recursiva per trobar el node més baix del subarbre
+    private NodeAVL<E> lowerNodeRight(NodeAVL<E> node) {                                                                        // Funcio recursiva per trobar el node més baix del subarbre
         if (node.getLeftSon() == null) {
             return node;
         } else {
@@ -185,7 +185,7 @@ public class AVLTree<E> {                                                       
     // Busqueda
 
     public E search(int key) {
-        if (root == null) {                                                                                                      // En cas de no tenir root, error, i en cas de tenir-ne crida la cerca de element
+        if (root == null) {                                                                                                     // En cas de no tenir root, error, i en cas de tenir-ne crida la cerca de element
             System.out.println("Error de busqueda! ArbreAVL buit");
             return null;
         } else {
@@ -296,7 +296,7 @@ public class AVLTree<E> {                                                       
 
     // Test
 
-    public void inOrder(NodeAVL node, int nivell) {                                                                                                  // Serveix per visualitzar el inOrdre del arbre/subarbre
+    public void inOrder(NodeAVL node, int nivell) {                                                                             // Serveix per visualitzar el inOrdre del arbre/subarbre
 
         if (node != null) {
             inOrder(node.getLeftSon(), nivell + 1);
