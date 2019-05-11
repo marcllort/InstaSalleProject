@@ -2,27 +2,36 @@ package Structures;
 
 public class TrieNode {
     private TrieNode[] fills;
-    private boolean finalParaula;
+    private int finalParaula;
     public static final int LLETRES = 24;
 
     public TrieNode(){
-        finalParaula = false;
+        finalParaula = 0;
         fills = new TrieNode[LLETRES];
+        for (int i = 0; i < LLETRES; i++){
+            fills[i] = null;
+        }
     }
 
-    public boolean isFinalParaula() {
+    public int isFinalParaula() {
         return finalParaula;
     }
 
     public TrieNode[] getFills() {
         return fills;
     }
+    public TrieNode getFill(int i) {
+        return fills[i];
+    }
 
-    public void setFinalParaula(boolean finalParaula) {
+    public void setFinalParaula(int finalParaula) {
         this.finalParaula = finalParaula;
     }
 
     public void setFills(TrieNode[] fills) {
         this.fills = fills;
+    }
+    public void setFill(TrieNode fill, int i) {
+        this.fills[i] = fill;
     }
 }
