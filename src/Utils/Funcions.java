@@ -111,7 +111,7 @@ public class Funcions {
             post.setId(Integer.valueOf(idPost));
 
             System.out.println("Data creació: (yyyy-mm-dd)");
-            post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                          // Per defecte posem hora a les 12 de la nit
+            post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00").getTime());                                          // Per defecte posem hora a les 12 de la nit
 
             System.out.println("Usuari del post:");
             String userPost = input.nextLine();

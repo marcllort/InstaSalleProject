@@ -8,7 +8,7 @@ public class Post implements Comparable<Integer>{
 
     private int id;
     private ArrayList<String> liked_by;
-    private Timestamp published_when;
+    private long published_when;
     private String published_by;
     private Double[] location;
     private ArrayList<String> hashtags;
@@ -19,13 +19,13 @@ public class Post implements Comparable<Integer>{
         hashtags = new ArrayList<>();
     }
 
-    public Post(int id, Timestamp published_when, String published_by) {
+    public Post(int id, long published_when, String published_by) {
         this.id = id;
         this.published_when = published_when;
         this.published_by = published_by;
     }
 
-    public Post(int id, ArrayList<String> liked_by, Timestamp published_when, String published_by, Double[] location, ArrayList<String> hashtags) {
+    public Post(int id, ArrayList<String> liked_by, long published_when, String published_by, Double[] location, ArrayList<String> hashtags) {
         this.id = id;
         this.liked_by = liked_by;
         this.published_when = published_when;
@@ -50,11 +50,11 @@ public class Post implements Comparable<Integer>{
         this.liked_by = liked_by;
     }
 
-    public Timestamp getPublished_when() {
+    public long getPublished_when() {
         return published_when;
     }
 
-    public void setPublished_when(Timestamp published_when) {
+    public void setPublished_when(long published_when) {
         this.published_when = published_when;
     }
 
@@ -106,7 +106,7 @@ public class Post implements Comparable<Integer>{
         System.out.println("\n\n id:" + id);
         System.out.println("liked_by:" + Arrays.toString(getLiked_by().toArray()));
         System.out.println("published_by:" + published_by);
-        System.out.println("published_when:" + published_when.toString());
+        System.out.println("published_when:" + published_when);
         System.out.println("location:" + Arrays.toString(location));
         System.out.println("hashtags:" + Arrays.toString(getHashtags().toArray()));
 
