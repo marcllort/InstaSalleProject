@@ -66,7 +66,7 @@ public class Importador {
 
     public void exportUsers(String exportRoute) {
         Gson gson = new Gson();
-        String json = gson.toJson(arrayUsers);
+        String json = gson.toJson(arrayUsers.getArray());
 
         try {
             Files.write(Paths.get(exportRoute + "users.json"), json.getBytes(), StandardOpenOption.CREATE);
@@ -77,8 +77,8 @@ public class Importador {
 
     public void exportPosts(String exportRoute) {
         Gson gson = new Gson();
-        String json = gson.toJson(arrayPosts);
-
+        String json = gson.toJson(arrayPosts.getArray());
+        System.out.println(json);
         try {
             Files.write(Paths.get(exportRoute + "posts.json"), json.getBytes(), StandardOpenOption.CREATE);
         } catch (IOException e) {
@@ -104,10 +104,13 @@ public class Importador {
 
     public void ArrayListImporter(int opcio) {
         if (opcio == 1) {
-
-
+            for (User info : dataUser) {
+                arrayUsers.addElement(info);
+            }
         } else if (opcio == 2) {
-
+            for (Post info : dataPost) {
+                arrayPosts.addElement(info);
+            }
         }
     }
 
