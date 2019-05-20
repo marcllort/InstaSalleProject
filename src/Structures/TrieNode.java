@@ -3,7 +3,7 @@ package Structures;
 public class TrieNode {
     private TrieNode[] fills;
     private int finalParaula;
-    public static final int LLETRES = 24;
+    public static final int LLETRES = 26;
 
     public TrieNode(){
         finalParaula = 0;

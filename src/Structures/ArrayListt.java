@@ -171,6 +171,16 @@ public class ArrayListt<E> {
 
     }
 
+    public LlistaStrings[] getArrayLl() {
+        LlistaStrings[] p = new LlistaStrings[size];
+        for (int i = 0 ; i< size; i++) {
+            LlistaStrings m = (LlistaStrings) array[i];
+            p[i] = m;
+        }
+        return p;
+
+    }
+
     public Post[] searchPostPosition(int radi, int x, int y) {
         int p = -1;
         ArrayListt<Post> post = new ArrayListt();
@@ -192,6 +202,12 @@ public class ArrayListt<E> {
 
     }
 
+    public void concat(ArrayListt<E> array2){
+        for (int i = 0; i< array2.size; i++){
+            this.addElement((E)array2.getElement(i));
+        }
+    }
+
     private int pointInside(int radi, int x, int y, Post post) {
 
         double distance = Math.sqrt(Math.abs((y - post.getLocation()[1]) * (y - post.getLocation()[1]) + (x - post.getLocation()[0]) * (x - post.getLocation()[0])));
@@ -200,27 +216,17 @@ public class ArrayListt<E> {
     }
 
 
+
     public static void main(String[] args) {
-        Post a = new Post();
-        a.setId(1);
-        Double[] f = {1.0,2.0};
-        a.setLocation(f);
+        Trie t = new Trie();
+        t.insert("alex");
+        t.insert("aaaa");
+        t.insert("almansa");
 
-        Post b = new Post();
-        b.setId(2);
-        Double[] l = {10.0,10.0};
-        b.setLocation(l);
-
-        ArrayListt<Post> p = new ArrayListt<Post>();
-        p.addElement(a);
-        p.addElement(b);
-
-        System.out.println("ID Pos 0 "+p.getElement(0)+ " 1 "+p.getElement(1));
-
-        Post[] m =  new Post[3];
-         m = p.searchPostPosition(13,1,1);
-
-        System.out.println(m.length);
+        ArrayListt<String>  a = t.search("a");
+        for (int i = 0; i< a.getSize(); i++){
+            System.out.println(a.getElement(i));
+        }
 
 
     }
