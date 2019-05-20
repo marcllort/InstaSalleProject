@@ -92,7 +92,7 @@ public class Funcions {
                 break;
 
             case 6:
-                 usuari = (User)importer.arrayUsers.searchUser(nouUser);
+                usuari = (User)importer.arrayUsers.searchUser(nouUser);
                 return usuari != null;
 
         }
@@ -200,7 +200,7 @@ public class Funcions {
                 break;
 
             case 3:
-                 post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
+                post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
                 return post != null;
 
             case 4:
