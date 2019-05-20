@@ -84,16 +84,18 @@ public class Main {
 
         switch (opcio) {
             case 1:
-                importer.ArrayListImporter(importRoute);
-                importer.TriesImporter(importRoute);
-                importer.GraphListImporter(importRoute);
+                elements = importer.importDataUser(importRoute);
+                importer.ArrayListImporter(opcio);
+                importer.TriesImporter();
+                importer.GraphListImporter();
                 break;
 
             case 2:
-                importer.ArrayListImporter(importRoute);
-                importer.HashTableImporter(importRoute);
-                importer.RTreeImporter(importRoute);
-                elements = importer.AVLImporter(importRoute);
+                elements = importer.importDataPost(importRoute);
+                importer.ArrayListImporter(opcio);
+                importer.HashTableImporter();
+                importer.RTreeImporter();
+                importer.AVLImporter();
                 break;
 
             default:
@@ -117,9 +119,11 @@ public class Main {
     private static void switchExportacio(int opcio, String exportRoute) {
         switch (opcio) {
             case 1:
+                importer.exportUsers(exportRoute);
                 break;
 
             case 2:
+                importer.exportPosts(exportRoute);
                 break;
 
             default:

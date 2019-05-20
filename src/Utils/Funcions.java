@@ -25,7 +25,7 @@ public class Funcions {
 
     public User insercioUser() {                                                                                                // hardcoded que les funcions de checkuserexist miri al graph, si volem canviar canviem el 5
 
-        int structure = 5;
+        int structure = 5;                                                                                                      // Buscarem el usuari a la estrucutra de graph
 
         User usuari = new User();
 
@@ -101,21 +101,24 @@ public class Funcions {
 
     public Post insercioPost() {                                                                                                //hardcoded que les funcions de checkpostexist miri al avl
 
+        int structurePost = 3;                                                                                                  // Buscarem el Post a la estrucutra de avl
+        int structureUser = 5;                                                                                                  // Buscarem el user a la estrucutra de graph
+
         Post post = new Post();
 
         System.out.println("Id post:");
         int idPost = input.nextInt();
         input.nextLine();
-        boolean exists = checkPostExists(idPost, 3);                                                                    // Comprovem que no existeixi ja el post
+        boolean exists = checkPostExists(idPost, structurePost);                                                                    // Comprovem que no existeixi ja el post
         if (!exists) {
             post.setId(Integer.valueOf(idPost));
 
             System.out.println("Data creació: (yyyy-mm-dd)");
-            post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                          // Per defecte posem hora a les 12 de la nit
+            post.setPublished_when(Timestamp.valueOf(input.nextLine() + " 00:00:00").getTime());                                // Per defecte posem hora a les 12 de la nit
 
             System.out.println("Usuari del post:");
             String userPost = input.nextLine();
-            boolean existsUser = checkUserExists(userPost, 3);                                                          // Comprovem que no existeixi ja el usuari
+            boolean existsUser = checkUserExists(userPost, structureUser);                                                          // Comprovem que no existeixi ja el usuari a graph
 
             if (existsUser) {
                 post.setPublished_by(userPost);
@@ -158,7 +161,7 @@ public class Funcions {
                 String userLiked;
                 while (liked) {
                     userLiked = input.nextLine();
-                    existsUser = checkUserExists(userLiked, 3);                                                         // Comprovem que no existeixi ja el usuari
+                    existsUser = checkUserExists(userLiked, structureUser);                                                         // Comprovem que no existeixi ja el usuari
                     if (existsUser) {
                         boolean likedby = post.getLiked_by().contains(userLiked) ? true : false;                                //Mirem si ha donat like ja, o si no existeix el usuari
                         if (likedby) {

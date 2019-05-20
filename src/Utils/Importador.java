@@ -8,8 +8,13 @@ import Structures.Graph;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -24,70 +29,103 @@ public class Importador {
     public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
 
 
+    private Post[] dataPost;
+    private User[] dataUser;
 
-    public User[] importDataUser(String route) {
-        User[] dataUser;
+
+    public int importDataUser(String route) {
+
         JsonReader reader;
         try {
             reader = new JsonReader(new FileReader(route));
             dataUser = gson.fromJson(reader, User[].class);
 
-            return dataUser;
+            return dataUser.length;
 
         } catch (FileNotFoundException e) {
             System.err.println("No s'ha pogut trobar el fitxer.");
-            return null;
+            return -1;
         }
     }
 
-    public Post[] importDataPost(String route) {
-        Post[] dataPost;
+    public int importDataPost(String route) {
+
         JsonReader reader;
         try {
             reader = new JsonReader(new FileReader(route));
             dataPost = gson.fromJson(reader, Post[].class);
 
-            return dataPost;
+            return dataPost.length;
 
         } catch (FileNotFoundException e) {
             System.err.println("No s'ha pogut trobar el fitxer.");
-            return null;
+            return -1;
         }
     }
 
 
-    public void exportUsers() {
+    public void exportUsers(String exportRoute) {
+        Gson gson = new Gson();
+        String json = gson.toJson(arrayUsers.getArray());
 
-    }
-
-    public void exportPosts() {
-
-
-    }
-
-
-    public int AVLImporter(String importRoute) {
-
-        AVLTester();
-
-        /*User[] data = importDataUser("");
-        for (User info : data) {
-            tree.addElement(info.getUsername().hashCode(), info, info.getUsername());
+        try {
+            Files.write(Paths.get(exportRoute + "users.json"), json.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        */
-        /*Post[] data2 = importDataPost("");
-        for (Post info : data2) {
+    }
+
+    public void exportPosts(String exportRoute) {
+        Gson gson = new Gson();
+        String json = gson.toJson(arrayPosts.getArray());
+        System.out.println(json);
+        try {
+            Files.write(Paths.get(exportRoute + "posts.json"), json.getBytes(), StandardOpenOption.CREATE);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public void AVLImporter() {
+
+        for (Post info : dataPost) {
             tree.addElement(info.getId(), info, info.getPublished_by());
-        }*/
+        }
 
-        return 10;
     }
+
+
+    public void HashTableImporter() {
+    }
+
+    public void RTreeImporter() {
+    }
+
+    public void ArrayListImporter(int opcio) {
+        if (opcio == 1) {
+            for (User info : dataUser) {
+                arrayUsers.addElement(info);
+            }
+        } else if (opcio == 2) {
+            for (Post info : dataPost) {
+                arrayPosts.addElement(info);
+            }
+        }
+    }
+
+    public void GraphListImporter() {
+    }
+
+    public void TriesImporter() {
+    }
+
 
     private void AVLTester() {
 
         ArrayList<Post> data = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            data.add(new Post(i,new Timestamp(System.currentTimeMillis()),"Post" + i));                                 // Creo usuaris de test del 0 al 9
+            data.add(new Post(i, System.currentTimeMillis(), "Post" + i));                                 // Creo usuaris de test del 0 al 9
         }
 
         for (Post info : data) {
@@ -116,19 +154,4 @@ public class Importador {
 
     }
 
-
-    public void HashTableImporter(String importRoute) {
-    }
-
-    public void RTreeImporter(String importRoute) {
-    }
-
-    public void ArrayListImporter(String importRoute) {
-    }
-
-    public void GraphListImporter(String importRoute) {
-    }
-
-    public void TriesImporter(String importRoute) {
-    }
 }
