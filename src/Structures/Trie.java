@@ -62,7 +62,7 @@ public class Trie {
         ArrayListt<String> strings = new ArrayListt<String>();
         LlistaStrings l;
         for (int p = 0 ; p< result.getSize(); p++){
-            l = (LlistaStrings)result.getElement(p);
+           l = (LlistaStrings)result.getElement(p);
             strings.addElement(l.getParaula());
         }
 
@@ -70,7 +70,7 @@ public class Trie {
 
         return strings;
     }
-    //Funcio que serveix per que un cop mostrades les opcions, actualitza el numero de cops que hem utilitzat la que escollim
+//Funcio que serveix per que un cop mostrades les opcions, actualitza el numero de cops que hem utilitzat la que escollim
     public void actualitzaParaula(String paraula){
         TrieNode nodeAct;
         nodeAct = root;
@@ -89,7 +89,7 @@ public class Trie {
     }
 
 
-    //Metode que afegeix totes les paraules que queden a un arraylist de Strings
+//Metode que afegeix totes les paraules que queden a un arraylist de Strings
     public ArrayListt<LlistaStrings> afegeixTotesParaules(TrieNode node, LlistaStrings paraula, String search){
         ArrayListt<LlistaStrings> llista = new ArrayListt<LlistaStrings>();
         if (search == "zzzz"){
@@ -113,7 +113,7 @@ public class Trie {
             }
         }
 
-        return llista;
+       return llista;
 
     }
 
