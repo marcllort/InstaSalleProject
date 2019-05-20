@@ -4,6 +4,8 @@ public class TrieNode {
     private TrieNode[] fills;
     private int finalParaula;
     public static final int LLETRES = 26;
+    private boolean buit;
+    private int nfills;
 
     public TrieNode(){
         finalParaula = 0;
@@ -11,6 +13,8 @@ public class TrieNode {
         for (int i = 0; i < LLETRES; i++){
             fills[i] = null;
         }
+        buit = true;
+        nfills = 0;
     }
 
     public int isFinalParaula() {

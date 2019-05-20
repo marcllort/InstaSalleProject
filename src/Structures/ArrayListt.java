@@ -227,7 +227,14 @@ public class ArrayListt<E> {
         for (int i = 0; i< a.getSize(); i++){
             System.out.println(a.getElement(i));
         }
+        System.out.println("------------------");
 
+        t.remove("aaaa");
+        ArrayListt<String>  p = t.search("a");
+        for (int i = 0; i< p.getSize(); i++){
+            System.out.println(p.getElement(i));
+        }
+        t.remove("aaaaa");
 
     }
 }

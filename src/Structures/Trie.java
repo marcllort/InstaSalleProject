@@ -1,45 +1,57 @@
 package Structures;
 
+import java.util.ArrayList;
+
 public class Trie {
-    private TrieNode root;
     private final int LLETRESABC = 26;
+    private TrieNode root;
+    private int paraules;
+    private int limitParaules;
 
     public Trie() {
-
+        paraules = 0;
+        limitParaules = 50;
         root = new TrieNode();
+
     }
 
-    public void insert(String paraula){
-        TrieNode nodeAct;
-        nodeAct = root;
-        int  length, index;
+    public void insert(String paraula) {
+        if (limitParaules > paraules) {
+            TrieNode nodeAct;
+            nodeAct = root;
+            int length, index;
 
-        length = paraula.length();
+            length = paraula.length();
 
-        for (int i = 0; i< length; i++){
-            index = paraula.charAt(i) - 'a';
+            for (int i = 0; i < length; i++) {
+                index = paraula.charAt(i) - 'a';
 
-            if (nodeAct.getFills()[index] == null){
-                nodeAct.setFill( new TrieNode(),index);
+                if (nodeAct.getFills()[index] == null) {
+                    nodeAct.setFill(new TrieNode(), index);
+                }
+                nodeAct = nodeAct.getFill(index);
+
             }
-            nodeAct = nodeAct.getFill(index);
-
+            nodeAct.setFinalParaula(1);
+            paraules++;
+        }else {
+            System.out.println("Màxim de paraules als tries ");
         }
-        nodeAct.setFinalParaula(1);
+
     }
 
-    public ArrayListt<String> search(String paraula){
+    public ArrayListt<String> search(String paraula) {
         TrieNode nodeAct;
         nodeAct = root;
-        int  length, index;
+        int length, index;
         ArrayListt<LlistaStrings> result = new ArrayListt<>();
 
         length = paraula.length();
 
-        for (int i = 0; i < length ; i++){
+        for (int i = 0; i < length; i++) {
             index = paraula.charAt(i) - 'a';
 
-            if (nodeAct.getFill(index) == null){
+            if (nodeAct.getFill(index) == null) {
 
                 return null;
             }
@@ -47,7 +59,6 @@ public class Trie {
             nodeAct = nodeAct.getFill(index);
 
         }
-
 
         //Arribat aquest punt estem al final de la paraula que ens han entrat i construirem una llista de possibles paraules ordenades pel pes de les mateixes.
 
@@ -61,50 +72,32 @@ public class Trie {
         //Passo el resultat a arraylist d'string un altre cop
         ArrayListt<String> strings = new ArrayListt<String>();
         LlistaStrings l;
-        for (int p = 0 ; p< result.getSize(); p++){
-           l = (LlistaStrings)result.getElement(p);
+        for (int p = 0; p < result.getSize(); p++) {
+            l = (LlistaStrings) result.getElement(p);
             strings.addElement(l.getParaula());
         }
 
 
-
         return strings;
     }
-//Funcio que serveix per que un cop mostrades les opcions, actualitza el numero de cops que hem utilitzat la que escollim
-    public void actualitzaParaula(String paraula){
-        TrieNode nodeAct;
-        nodeAct = root;
-        int  length, index;
-        ArrayListt<LlistaStrings> result = new ArrayListt<>();
-
-        length = paraula.length();
-
-        for (int i = 0; i < length ; i++){
-            index = paraula.charAt(i) - 'a';
-
-            nodeAct = nodeAct.getFill(index);
-
-        }
-        nodeAct.setFinalParaula(nodeAct.isFinalParaula()+1);
-    }
 
 
-//Metode que afegeix totes les paraules que queden a un arraylist de Strings
-    public ArrayListt<LlistaStrings> afegeixTotesParaules(TrieNode node, LlistaStrings paraula, String search){
+    //Metode que afegeix totes les paraules que queden a un arraylist de Strings
+    public ArrayListt<LlistaStrings> afegeixTotesParaules(TrieNode node, LlistaStrings paraula, String search) {
         ArrayListt<LlistaStrings> llista = new ArrayListt<LlistaStrings>();
-        if (search == "zzzz"){
-            search =  paraula.getParaula();
+        if (search == "zzzz") {
+            search = paraula.getParaula();
         }
 
         char a;
 
-        for(int i = 0; i < LLETRESABC; i++ ){
-            if (node.getFill(i) != null){
+        for (int i = 0; i < LLETRESABC; i++) {
+            if (node.getFill(i) != null) {
                 a = 'a';
-                a+= i;
+                a += i;
                 search += a;
 
-                if (node.getFill(i).isFinalParaula() >= 1){
+                if (node.getFill(i).isFinalParaula() >= 1) {
                     LlistaStrings nova = new LlistaStrings(search, node.getFill(i).isFinalParaula());
                     llista.addElement(nova);
                 }
@@ -113,12 +106,30 @@ public class Trie {
             }
         }
 
-       return llista;
+        return llista;
 
     }
 
+    //Funcio que serveix per que un cop mostrades les opcions, actualitza el numero de cops que hem utilitzat la que escollim
+    public void actualitzaParaula(String paraula) {
+        TrieNode nodeAct;
+        nodeAct = root;
+        int length, index;
+        ArrayListt<LlistaStrings> result = new ArrayListt<>();
 
-    public ArrayListt <LlistaStrings> Ordena(ArrayListt<LlistaStrings> llista){
+        length = paraula.length();
+
+        for (int i = 0; i < length; i++) {
+            index = paraula.charAt(i) - 'a';
+
+            nodeAct = nodeAct.getFill(index);
+
+        }
+        nodeAct.setFinalParaula(nodeAct.isFinalParaula() + 1);
+    }
+
+
+    public ArrayListt<LlistaStrings> Ordena(ArrayListt<LlistaStrings> llista) {
         LlistaStrings b[] = llista.getArrayLl();
         MyQuickSort sort = new MyQuickSort(b);
         b = sort.getArray();
@@ -126,9 +137,82 @@ public class Trie {
         return retorna;
     }
 
+    public int getLimitParaules() {
+        return limitParaules;
+    }
+
+//Canvio el limit de paraules i en cas que sigui menor, elimino les menys utilitzades
+    public void setLimitParaules(int limitParaules) {
+        this.limitParaules = limitParaules;
+        ArrayListt<String> paraules = new ArrayListt<String>();
+        paraules = this.search("");
+        if (paraules.getSize() > limitParaules){
+            for (int i = paraules.getSize(); i > limitParaules; i--){
+                this.remove((String )paraules.getElement(i));
+            }
+        }
+    }
+    //Funció que elimina una paraula dels tries
+    public void remove(String paraula){
+
+        TrieNode nodeAct = goTo(paraula);
+        //El if controla que no haigin entrat una paraula que no existia.
+        if(nodeAct != null) {
+            //NodeAct es el ultim node de la paraula
+            nodeAct.setFinalParaula(0);             //Faig que deixi de ser final de paraula
+            boolean fills = false;
+            int index;
+            for (int l = 1; l < paraula.length(); l++) {
+                for (int p = 0; p < LLETRESABC; p++) {
+                    if (nodeAct.getFill(p) != null) {
+                        fills = true;
+                        break;
+                    }
+                }
+                if (fills == false) {
+                    //Elimino la ultima lletra i vaig a la seguent
+
+                    index = paraula.charAt(paraula.length() - 1) - 'a';
+                    paraula = paraula.substring(0, paraula.length() - 1);
+                    goTo(paraula);
+                    //Ara que ja estic al node 'pare' poso el fill a null
+                    nodeAct.setFill(null, index);
+
+                } else {
+                    //Si hi ha algun fill més no vull que faci més voltes
+                    l = paraula.length();
+                }
+
+            }
+            paraules--;
+        }else {
+            System.out.println("Paraula a eliminar '"+paraula+"' inexistent!");
+        }
+
+    }
+    //Funció que serveix per anar a un punt en concret del trie
+    private TrieNode goTo(String paraula){
+        TrieNode nodeAct;
+        nodeAct = root;
+        int length, index=0;
+        ArrayListt<LlistaStrings> result = new ArrayListt<>();
+
+        length = paraula.length();
+
+        for (int i = 0; i < length; i++) {
+            index = paraula.charAt(i) - 'a';
+            if (nodeAct != null) {
+                nodeAct = nodeAct.getFill(index);
+            }else {
+                return null;
+            }
+
+        }
+        return nodeAct;
+
+    }
 
 }
-
 
 
 class MyQuickSort {

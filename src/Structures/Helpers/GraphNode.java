@@ -2,7 +2,7 @@ package Structures.Helpers;
 
 import Structures.ArrayListt;
 
-public class GraphNode {
+public class GraphNode<E> {
   
     private int id;
     private E element;

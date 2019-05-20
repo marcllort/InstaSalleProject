@@ -3,6 +3,7 @@ package Utils;
 import Model.Post;
 import Model.User;
 import Structures.ArrayListt;
+import Structures.Trie;
 
 import java.sql.Timestamp;
 import java.util.InputMismatchException;
@@ -14,10 +15,12 @@ public class Funcions {
     private boolean follow = false;
     private String stringUsuari;
     private Importador importer;
+    private Trie tries;
 
     public Funcions(Importador importer) {
         input = new Scanner(System.in);
         this.importer = importer;
+        tries = new Trie();
     }
 
 

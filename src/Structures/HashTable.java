@@ -7,7 +7,7 @@ package Structures;
 import Model.Post;
 import Structures.Helpers.HashNode;
 
-
+/*
 public class HashTable<E> {
 
     private static final int MAX_CAPACITY = 50;                                                                 //Longitud máxima de la tabla de Hash. Servira para generar la llave de los elementos o para encontrar el indice de donde se encuentran los elementos
@@ -166,5 +166,4 @@ public class HashTable<E> {
                 node.setElement((E)posts);
             }
         }
-    }
-}
+    }*/
