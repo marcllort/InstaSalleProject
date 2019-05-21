@@ -28,6 +28,7 @@ public class RTree {
         }
     }
 
+
     private void showRoot(NodeRTree.NodeRTreeArray root) {
         int i = 0;
         while (root.getNodos().getElement(i) != null){
