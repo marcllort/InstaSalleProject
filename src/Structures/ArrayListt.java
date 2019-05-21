@@ -223,18 +223,18 @@ public class ArrayListt<E> {
         t.insert("aaaa");
         t.insert("almansa");
 
-        ArrayListt<String>  a = t.search("a");
+        ArrayListt<String>  a = t.search("");
         for (int i = 0; i< a.getSize(); i++){
             System.out.println(a.getElement(i));
         }
         System.out.println("------------------");
 
-        t.remove("aaaa");
+        t.setLimitParaules(1);
         ArrayListt<String>  p = t.search("a");
         for (int i = 0; i< p.getSize(); i++){
             System.out.println(p.getElement(i));
         }
-        t.remove("aaaaa");
+
 
     }
 }

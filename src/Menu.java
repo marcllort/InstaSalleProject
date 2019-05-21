@@ -10,7 +10,7 @@ public class Menu {
     private int opcioInsericio;
     private int opcioEliminacio;
     private int opcioCerca;
-    private int paraulesMemoria = 0;
+    private int paraulesMemoria = 50;
     private Scanner input;
 
 
@@ -250,10 +250,10 @@ public class Menu {
 
     // CONFIGURACIO AUTOCOMPLETAR
 
-    public void configAutocompletar() {
+    public int configAutocompletar() {
         try {
             System.out.println("Limitar memoria per autocompletar");
-            System.out.println("Actualment el limit es troba a [50] paraules");
+            System.out.println("Actualment el limit es troba a [" + paraulesMemoria + "] paraules");
             System.out.println("Quin vols que sigui el nou limit?");
             paraulesMemoria = input.nextInt();
             input.nextLine();
@@ -262,11 +262,13 @@ public class Menu {
             System.out.println("Processant petició");
             //canviem el nombre de paraules de la funcio autocompletar
 
-            System.out.println("El limit de paraules s'ha actualitzat a [" + paraulesMemoria + "] paraules");
+            return paraulesMemoria;
 
         } catch (InputMismatchException e) {
             System.out.println("Valor en format incorrecte!");
+            System.out.println("Valor posat per defetcte : 100");
             configAutocompletar();
+            return 100;
         }
 
     }

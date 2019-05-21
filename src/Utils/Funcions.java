@@ -16,12 +16,12 @@ public class Funcions {
     private boolean follow = false;
     private String stringUsuari;
     private Importador importer;
-    private Trie tries;
+
 
     public Funcions(Importador importer) {
         input = new Scanner(System.in);
         this.importer = importer;
-        tries = new Trie();
+
     }
 
 
@@ -381,6 +381,8 @@ public class Funcions {
             i++;
         }*/
     }
-
+    public void actualitzaTries(int limit){
+        importer.trie.setLimitParaules(limit);
+    }
 
 }

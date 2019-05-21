@@ -138,9 +138,7 @@ public class Trie {
         MyQuickSort sort = new MyQuickSort(b);
         sort.sort(b);
         b = sort.getArray();
-        for(int p =0 ; p< b.length-1; p++){
-            System.out.println("USER " +b[p].getParaula()+ "PES "+ b[p].getPes());
-        }
+
         ArrayListt retorna = new ArrayListt<LlistaStrings>(b);
         return retorna;
     }
@@ -154,8 +152,10 @@ public class Trie {
         this.limitParaules = limitParaules;
         ArrayListt<String> paraules = new ArrayListt<String>();
         paraules = this.search("");
+        System.out.println("PARAULES.SIZE "+paraules.getSize()+" LIMIT "+limitParaules);
         if (paraules.getSize() > limitParaules){
-            for (int i = paraules.getSize(); i > limitParaules; i--){
+            for (int i = paraules.getSize()-1; i >= limitParaules; i--){
+                System.out.println("AAAAAAAAAAA");
                 this.remove((String )paraules.getElement(i));
             }
         }
@@ -208,7 +208,7 @@ public class Trie {
         length = paraula.length();
 
         for (int i = 0; i < length; i++) {
-            index = paraula.charAt(i) - 'a';
+            index = paraula.charAt(i);
             if (nodeAct != null) {
                 nodeAct = nodeAct.getFill(index);
             }else {

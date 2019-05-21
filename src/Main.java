@@ -69,7 +69,8 @@ public class Main {
                     break;
 
                 case 7:
-                    menu.configAutocompletar();
+                    int limit = menu.configAutocompletar();
+                    funcio.actualitzaTries(limit);
                     break;
 
                 default:
@@ -91,6 +92,8 @@ public class Main {
                 importer.ArrayListImporter(opcio);
                 importer.TriesImporter();
                 importer.GraphListImporter();
+                importer.trieImporter();
+
                 break;
 
             case 2:
@@ -99,6 +102,8 @@ public class Main {
                 //importer.ArrayListImporter(opcio);
                 importer.HashTableImporter();
                 importer.AVLImporter();
+
+
                 break;
 
             default:
