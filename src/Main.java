@@ -1,5 +1,8 @@
+
 import Model.Post;
 import Model.User;
+import Structures.Helpers.LeafNode;
+import Structures.RTree;
 import Utils.Funcions;
 import Utils.Importador;
 
@@ -92,16 +95,15 @@ public class Main {
 
             case 2:
                 elements = importer.importDataPost(importRoute);
-                importer.ArrayListImporter(opcio);
-                importer.HashTableImporter();
                 importer.RTreeImporter();
+                //importer.ArrayListImporter(opcio);
+                importer.HashTableImporter();
                 importer.AVLImporter();
                 break;
 
             default:
                 System.out.println("Error de opcio! (SwitchImportacio)");
                 break;
-
         }
 
         menu.printaCarregantInfo();
@@ -174,6 +176,9 @@ public class Main {
                 Post post = funcio.insercioPost();
                 if (post != null) {
                     importer.tree.addElement(post.getId(), post, post.getPublished_by());
+
+                    LeafNode leafNode = new LeafNode(post);
+                    importer.rTree.insertPost(leafNode);
                     // insert a rtree, hashtable i arraylist
                 }
                 break;
@@ -223,6 +228,8 @@ public class Main {
             default:
                 System.out.println("Error de opcio! (SwitchCerca)  Opcio:" + cerca);
                 break;
+
+
         }
 
     }
