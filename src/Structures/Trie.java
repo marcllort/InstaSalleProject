@@ -63,13 +63,16 @@ public class Trie {
             nodeAct = nodeAct.getFill(index);
 
         }
+        if (nodeAct.isFinalParaula()>0){
+            result.addElement(new LlistaStrings(paraula, nodeAct.isFinalParaula()));
+        }
 
         //Arribat aquest punt estem al final de la paraula que ens han entrat i construirem una llista de possibles paraules ordenades pel pes de les mateixes.
 
         LlistaStrings a = new LlistaStrings(paraula, nodeAct.isFinalParaula()); //Paraula i node del que partim
 
 
-        result = afegeixTotesParaules(nodeAct, a, "zzzz");                              //Metode que afegeix totes les paraules restants
+        result.concat(afegeixTotesParaules(nodeAct, a, "zzzz"));                              //Metode que afegeix totes les paraules restants
         result = Ordena(result);                                                //Metode que ordena els resultats
 
 
@@ -152,10 +155,9 @@ public class Trie {
         this.limitParaules = limitParaules;
         ArrayListt<String> paraules = new ArrayListt<String>();
         paraules = this.search("");
-        System.out.println("PARAULES.SIZE "+paraules.getSize()+" LIMIT "+limitParaules);
         if (paraules.getSize() > limitParaules){
             for (int i = paraules.getSize()-1; i >= limitParaules; i--){
-                System.out.println("AAAAAAAAAAA");
+
                 this.remove((String )paraules.getElement(i));
             }
         }

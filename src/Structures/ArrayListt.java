@@ -217,13 +217,13 @@ public class ArrayListt<E> {
 
 
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
         Trie t = new Trie();
         t.insert("alex");
         t.insert("aaaa");
         t.insert("almansa");
 
-        ArrayListt<String>  a = t.search("");
+        ArrayListt<String>  a = t.search("alex");
         for (int i = 0; i< a.getSize(); i++){
             System.out.println(a.getElement(i));
         }
@@ -236,5 +236,5 @@ public class ArrayListt<E> {
         }
 
 
-    }
+    }*/
 }

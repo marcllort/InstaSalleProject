@@ -278,45 +278,57 @@ public class Funcions {
         if (start) {
             stringUsuari = "";                                                                                                  // Iniciem el string de autocompletar buit al principi
         }
+        System.out.println("Entra el nom del usuari a cercar");
         String addUser = input.nextLine();
         stringUsuari = stringUsuari.concat(addUser); //cal mirar si funciona
         ArrayListt<String> arraylist;
-        System.out.println("ADUSER "+addUser);
+
         arraylist = importer.trie.search(addUser);
-        System.out.println("Possibles suggeriments:" + arraylist.getSize());
-        //funcio autocompletar busca a tots usuaris, retorna un arraylist, amb el size sabrem quantes opcions tenim
-        int nSuggerencies = arraylist.getSize();
-        int i;
-        for (i = 0; i < nSuggerencies; i++) {
-            System.out.println("    " + i + ". "+ arraylist.getElement(i));
-        }
-        System.out.println("    " + i + ". Cap dels suggerits");
-
-
-        try {
-
-            int seleccio = input.nextInt();
-            input.nextLine();
-            if (seleccio != i) {
-                stringUsuari= (String)arraylist.getElement(seleccio);
+        if (arraylist != null) {
+            System.out.println("Possibles suggeriments:" + arraylist.getSize());
+            //funcio autocompletar busca a tots usuaris, retorna un arraylist, amb el size sabrem quantes opcions tenim
+            int nSuggerencies = arraylist.getSize();
+            int i;
+            for (i = 0; i < nSuggerencies; i++) {
+                System.out.println("    " + i + ". " + arraylist.getElement(i));
             }
+            System.out.println("    " + i + ". Cap dels suggerits");
 
-            System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
-            String answer = input.nextLine();
-            boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
 
-            if (carregaCerca) {
-                importer.trie.actualitzaParaula(stringUsuari);
-                System.out.println("USER " +stringUsuari + "actualitzat");
-                User usuari = null; //= //funcio de busqyeda a estructura, nose si cal fer graph o tries, cal preguntar               // Busquem el usuari, i mostrem la seva info------------------------------------------------
-                if (usuari != null) usuari.mostraInformacioUser();
-            } else {
+            try {
+
+                int seleccio = input.nextInt();
+                input.nextLine();
+                if (seleccio != i) {
+                    stringUsuari = (String) arraylist.getElement(seleccio);
+                    System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
+                    String answer = input.nextLine();
+                    boolean carregaCerca = (answer.equalsIgnoreCase("Y") ? true : false);
+
+                    if (carregaCerca) {
+                        importer.trie.actualitzaParaula(stringUsuari);
+                        System.out.println("USER " + stringUsuari + "actualitzat");
+                        User usuari = null; //= //funcio de busqyeda a estructura, nose si cal fer graph o tries, cal preguntar               // Busquem el usuari, i mostrem la seva info------------------------------------------------
+                        if (usuari != null) {
+
+                            usuari.mostraInformacioUser();
+                        }
+                    } else {
+                        cercaUser(false);
+                    }
+
+                }else {
+                    cercaUser(false);
+                }
+
+
+
+            } catch (InputMismatchException e) {
+                System.out.println("Opció incorrecte!");
                 cercaUser(false);
             }
-
-        } catch (InputMismatchException e) {
-            System.out.println("Opció incorrecte!");
-            cercaUser(false);
+        }else {
+            System.out.println("Usuari no trobat!");
         }
 
     }
