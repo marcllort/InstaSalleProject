@@ -127,7 +127,7 @@ public class Funcions {
                 post.setPublished_by(userPost);
 
                 System.out.println("Localització post X:");
-                Double[] location = new Double[2];
+                double[] location = new double[2];
                 location[0] = input.nextDouble();
                 input.nextLine();
 

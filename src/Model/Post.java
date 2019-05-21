@@ -10,7 +10,7 @@ public class Post implements Comparable<Integer>{
     private ArrayList<String> liked_by;
     private long published_when;
     private String published_by;
-    private Double[] location;
+    private double[] location;
     private ArrayList<String> hashtags;
 
 
@@ -25,7 +25,7 @@ public class Post implements Comparable<Integer>{
         this.published_by = published_by;
     }
 
-    public Post(int id, ArrayList<String> liked_by, long published_when, String published_by, Double[] location, ArrayList<String> hashtags) {
+    public Post(int id, ArrayList<String> liked_by, long published_when, String published_by, double[] location, ArrayList<String> hashtags) {
         this.id = id;
         this.liked_by = liked_by;
         this.published_when = published_when;
@@ -66,11 +66,11 @@ public class Post implements Comparable<Integer>{
         this.published_by = published_by;
     }
 
-    public Double[] getLocation() {
+    public double[] getLocation() {
         return location;
     }
 
-    public void setLocation(Double[] location) {
+    public void setLocation(double[] location) {
         this.location = location;
     }
 

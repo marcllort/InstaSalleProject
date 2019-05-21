@@ -5,6 +5,8 @@ import Model.User;
 import Structures.AVLTree;
 import Structures.ArrayListt;
 import Structures.Graph;
+import Structures.Helpers.LeafNode;
+import Structures.RTree;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -24,6 +26,7 @@ public class Importador {
     private Gson gson = new Gson();
     public AVLTree tree = new AVLTree();
     public Graph graph = new Graph();
+    public RTree rTree = new RTree();
     private CSVReader reader = new CSVReader();
     public ArrayListt<User> arrayUsers = new ArrayListt();
     public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
@@ -100,6 +103,14 @@ public class Importador {
     }
 
     public void RTreeImporter() {
+        LeafNode leafNode;
+
+        for (Post info : dataPost) {
+            //System.out.println(" --------------- POST CON ID: " + info.getId() + " -------------------");
+            leafNode = new LeafNode(info);
+
+            rTree.insertPost(leafNode);
+        }
     }
 
     public void ArrayListImporter(int opcio) {
@@ -154,4 +165,11 @@ public class Importador {
 
     }
 
+    public Post[] getDataPost() {
+        return dataPost;
+    }
+
+    public void setDataPost(Post[] dataPost) {
+        this.dataPost = dataPost;
+    }
 }
