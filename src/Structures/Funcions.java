@@ -40,7 +40,7 @@ public class Funcions {
             usuari.setUsername(nouUser);
 
             System.out.println("Data creació: (yyyy-mm-dd)");
-            usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                              // Per defecte posem hora a les 12 de la nit
+           // usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00"));                                              // Per defecte posem hora a les 12 de la nit
 
 
             System.out.println("Usuaris que seguirà {Y/N]:");

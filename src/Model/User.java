@@ -1,20 +1,22 @@
 package Model;
 
+import java.math.BigInteger;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class User implements Comparable<String>{
 
     private String username;
-    private Timestamp creation;
+    private BigInteger creation;
     private ArrayList<String> to_follow;
 
     public User() {
         to_follow = new ArrayList<>();
     }
 
-    public User(String username, Timestamp creation) {
+    public User(String username, BigInteger creation) {
         this.username = username;
         this.creation = creation;
         to_follow = new ArrayList<>();
@@ -28,11 +30,11 @@ public class User implements Comparable<String>{
         this.username = username;
     }
 
-    public Timestamp getCreation() {
+    public BigInteger getCreation() {
         return creation;
     }
 
-    public void setCreation(Timestamp creation) {
+    public void setCreation(BigInteger creation) {
         this.creation = creation;
     }
 

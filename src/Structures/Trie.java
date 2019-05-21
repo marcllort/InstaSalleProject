@@ -3,7 +3,7 @@ package Structures;
 import java.util.ArrayList;
 
 public class Trie {
-    private final int LLETRESABC = 26;
+    private final int LLETRESABC = 126;
     private TrieNode root;
     private int paraules;
     private int limitParaules;
@@ -15,7 +15,7 @@ public class Trie {
 
     }
 
-    public void insert(String paraula) {
+    public int insert(String paraula) {
         if (limitParaules > paraules) {
             TrieNode nodeAct;
             nodeAct = root;
@@ -24,7 +24,9 @@ public class Trie {
             length = paraula.length();
 
             for (int i = 0; i < length; i++) {
-                index = paraula.charAt(i) - 'a';
+
+                index = paraula.charAt(i);
+
 
                 if (nodeAct.getFills()[index] == null) {
                     nodeAct.setFill(new TrieNode(), index);
@@ -34,8 +36,10 @@ public class Trie {
             }
             nodeAct.setFinalParaula(1);
             paraules++;
+            return 1;
         }else {
             System.out.println("Màxim de paraules als tries ");
+            return 0;
         }
 
     }
@@ -49,7 +53,7 @@ public class Trie {
         length = paraula.length();
 
         for (int i = 0; i < length; i++) {
-            index = paraula.charAt(i) - 'a';
+            index = paraula.charAt(i);
 
             if (nodeAct.getFill(index) == null) {
 
@@ -93,16 +97,16 @@ public class Trie {
 
         for (int i = 0; i < LLETRESABC; i++) {
             if (node.getFill(i) != null) {
-                a = 'a';
-                a += i;
-                search += a;
+
+                a =(char)i;
+                search +=a;
 
                 if (node.getFill(i).isFinalParaula() >= 1) {
                     LlistaStrings nova = new LlistaStrings(search, node.getFill(i).isFinalParaula());
                     llista.addElement(nova);
                 }
                 llista.concat(afegeixTotesParaules(node.getFill(i), paraula, search));
-
+                search = search.substring(0, search.length() - 1);
             }
         }
 
@@ -120,7 +124,7 @@ public class Trie {
         length = paraula.length();
 
         for (int i = 0; i < length; i++) {
-            index = paraula.charAt(i) - 'a';
+            index = paraula.charAt(i);
 
             nodeAct = nodeAct.getFill(index);
 
@@ -132,7 +136,11 @@ public class Trie {
     public ArrayListt<LlistaStrings> Ordena(ArrayListt<LlistaStrings> llista) {
         LlistaStrings b[] = llista.getArrayLl();
         MyQuickSort sort = new MyQuickSort(b);
+        sort.sort(b);
         b = sort.getArray();
+        for(int p =0 ; p< b.length-1; p++){
+            System.out.println("USER " +b[p].getParaula()+ "PES "+ b[p].getPes());
+        }
         ArrayListt retorna = new ArrayListt<LlistaStrings>(b);
         return retorna;
     }
@@ -141,7 +149,7 @@ public class Trie {
         return limitParaules;
     }
 
-//Canvio el limit de paraules i en cas que sigui menor, elimino les menys utilitzades
+    //Canvio el limit de paraules i en cas que sigui menor, elimino les menys utilitzades
     public void setLimitParaules(int limitParaules) {
         this.limitParaules = limitParaules;
         ArrayListt<String> paraules = new ArrayListt<String>();
@@ -172,7 +180,7 @@ public class Trie {
                 if (fills == false) {
                     //Elimino la ultima lletra i vaig a la seguent
 
-                    index = paraula.charAt(paraula.length() - 1) - 'a';
+                    index = paraula.charAt(paraula.length() - 1);
                     paraula = paraula.substring(0, paraula.length() - 1);
                     goTo(paraula);
                     //Ara que ja estic al node 'pare' poso el fill a null
@@ -252,10 +260,10 @@ class MyQuickSort {
              * from right side which is less then the pivot value. Once the search
              * is done, then we exchange both numbers.
              */
-            while (array[i].getPes() < pivot) {
+            while (array[i].getPes() > pivot) {
                 i++;
             }
-            while (array[j].getPes() > pivot) {
+            while (array[j].getPes() < pivot) {
                 j--;
             }
             if (i <= j) {

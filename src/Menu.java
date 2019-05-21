@@ -253,7 +253,7 @@ public class Menu {
     public void configAutocompletar() {
         try {
             System.out.println("Limitar memoria per autocompletar");
-            System.out.println("Actualment el limit es troba a [" + paraulesMemoria + "] paraules");
+            System.out.println("Actualment el limit es troba a [50] paraules");
             System.out.println("Quin vols que sigui el nou limit?");
             paraulesMemoria = input.nextInt();
             input.nextLine();

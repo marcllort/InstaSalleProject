@@ -2,11 +2,8 @@ package Utils;
 
 import Model.Post;
 import Model.User;
-import Structures.AVLTree;
-import Structures.ArrayListt;
-import Structures.Graph;
+import Structures.*;
 import Structures.Helpers.LeafNode;
-import Structures.RTree;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
 
@@ -27,9 +24,11 @@ public class Importador {
     public AVLTree tree = new AVLTree();
     public Graph graph = new Graph();
     public RTree rTree = new RTree();
+    public Trie trie = new Trie();
     private CSVReader reader = new CSVReader();
     public ArrayListt<User> arrayUsers = new ArrayListt();
     public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
+
 
 
     private Post[] dataPost;
@@ -97,6 +96,17 @@ public class Importador {
         }
 
     }
+    public void trieImporter() {
+        int p;
+        for (User info : dataUser) {
+            p = trie.insert(info.getUsername());
+            if(p ==0 ){
+                break;
+            }
+        }
+
+    }
+
 
 
     public void HashTableImporter() {
