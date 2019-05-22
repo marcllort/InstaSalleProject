@@ -222,6 +222,41 @@ public class Trie {
 
     }
 
+    public void visualitzaInformacio(){
+        soutParaula(root,"" );
+
+    }
+
+    public void soutParaula(TrieNode node, String search) {
+        System.out.println(search);
+
+        ArrayListt<LlistaStrings> llista = new ArrayListt<LlistaStrings>();
+        LlistaStrings paraula = new LlistaStrings("",1);
+        if (search == "zzzz") {
+            search = paraula.getParaula();
+        }
+
+        char a;
+
+        for (int i = 0; i < LLETRESABC; i++) {
+            if (node.getFill(i) != null) {
+
+                a =(char)i;
+                search +=a;
+
+
+                if (node.getFill(i).isFinalParaula() >= 1) {
+                    LlistaStrings nova = new LlistaStrings(search, node.getFill(i).isFinalParaula());
+                    llista.addElement(nova);
+                }
+                llista.concat(afegeixTotesParaules(node.getFill(i), paraula, search));
+                search = search.substring(0, search.length() - 1);
+            }
+        }
+
+
+    }
+
 }
 
 

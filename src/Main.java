@@ -143,6 +143,7 @@ public class Main {
     private static void switchVisualitzacio(int opcio) {
         switch (opcio) {
             case 1:
+                importer.trie.visualitzaInformacio();
                 break;
 
             case 2:
@@ -173,6 +174,17 @@ public class Main {
             case 1:
                 User user = funcio.insercioUser();
                 if (user != null) {
+                    long initTime = System.currentTimeMillis();
+
+                    importer.trie.insert(user.getUsername());
+                    long time = System.currentTimeMillis() - initTime;
+                    System.out.println("Temps per inserir a trie" + time);
+
+                    initTime = System.currentTimeMillis();
+                    importer.arrayUsers.addElement(user);
+                    time = System.currentTimeMillis() - initTime;
+                    System.out.println("Temps per inserir a Array" + time);
+
                     // insert a graph, tries i arraylist
                 }
                 break;
@@ -180,10 +192,21 @@ public class Main {
             case 2:
                 Post post = funcio.insercioPost();
                 if (post != null) {
+
+                    Long initTime = System.currentTimeMillis();
                     importer.tree.addElement(post.getId(), post, post.getPublished_by());
+                    Long time = System.currentTimeMillis() - initTime;
+                    System.out.println("Temps per inserir a AVL" + time);
+
 
                     LeafNode leafNode = new LeafNode(post);
+
+                    initTime = System.currentTimeMillis();
                     importer.rTree.insertPost(leafNode);
+                    time = System.currentTimeMillis() - initTime;
+                    System.out.println("Temps per inserir a rTree" + time);
+
+
                     // insert a rtree, hashtable i arraylist
                 }
                 break;
