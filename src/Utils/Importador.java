@@ -89,23 +89,13 @@ public class Importador {
 
 
     public void AVLImporter() {
-
+        Long timein = System.currentTimeMillis();
         for (Post info : dataPost) {
             tree.addElement(info.getId(), info, info.getPublished_by());
         }
-
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per importar avl "+ time);
     }
-    public void trieImporter() {
-        int p;
-        for (User info : dataUser) {
-            p = trie.insert(info.getUsername());
-            if(p ==0 ){
-                break;
-            }
-        }
-
-    }
-
 
 
     public void HashTableImporter() {
@@ -116,6 +106,7 @@ public class Importador {
     }
 
     public void RTreeImporter() {
+        Long timein = System.currentTimeMillis();
         LeafNode leafNode;
 
         for (Post info : dataPost) {
@@ -124,24 +115,40 @@ public class Importador {
 
             rTree.insertPost(leafNode);
         }
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per importar rtree "+ time);
     }
 
     public void ArrayListImporter(int opcio) {
+        Long timein = System.currentTimeMillis();
         if (opcio == 1) {
             for (User info : dataUser) {
                 arrayUsers.addElement(info);
             }
+
         } else if (opcio == 2) {
             for (Post info : dataPost) {
                 arrayPosts.addElement(info);
             }
         }
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per importar Array "+ time);
     }
 
     public void GraphListImporter() {
     }
 
     public void TriesImporter() {
+        int p;
+        Long timein = System.currentTimeMillis();
+        for (User info : dataUser) {
+            p = trie.insert(info.getUsername());
+            if(p ==0 ){
+                break;
+            }
+        }
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per importar Tries "+ time);
     }
 
 

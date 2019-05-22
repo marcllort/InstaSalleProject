@@ -92,7 +92,7 @@ public class Main {
                 importer.ArrayListImporter(opcio);
                 importer.TriesImporter();
                 importer.GraphListImporter();
-                importer.trieImporter();
+
 
                 break;
 
