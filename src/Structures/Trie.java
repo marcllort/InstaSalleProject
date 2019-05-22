@@ -223,15 +223,16 @@ public class Trie {
     }
 
     public void visualitzaInformacio(){
-        soutParaula(root,"" );
+        LlistaStrings paraula = new LlistaStrings("",1);
+        soutParaula(root,"" , paraula);
 
     }
 
-    public void soutParaula(TrieNode node, String search) {
-        System.out.println(search);
+    public void soutParaula(TrieNode node, String search, LlistaStrings paraula) {
+
 
         ArrayListt<LlistaStrings> llista = new ArrayListt<LlistaStrings>();
-        LlistaStrings paraula = new LlistaStrings("",1);
+
         if (search == "zzzz") {
             search = paraula.getParaula();
         }
@@ -244,12 +245,12 @@ public class Trie {
                 a =(char)i;
                 search +=a;
 
-
+                System.out.println(search);
                 if (node.getFill(i).isFinalParaula() >= 1) {
                     LlistaStrings nova = new LlistaStrings(search, node.getFill(i).isFinalParaula());
                     llista.addElement(nova);
                 }
-                llista.concat(afegeixTotesParaules(node.getFill(i), paraula, search));
+                soutParaula(node.getFill(i), search,paraula);
                 search = search.substring(0, search.length() - 1);
             }
         }
