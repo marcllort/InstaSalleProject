@@ -86,7 +86,12 @@ public class Funcions {
                 break;
 
             case 3:
+                Long timein = System.currentTimeMillis();
+
                 usuari = (User) importer.tree.search(nouUser.hashCode());
+                Long time = System.currentTimeMillis() - timein;
+                System.out.println("Temps: "+time);
+
                 return usuari != null;
 
             case 4:
@@ -98,7 +103,10 @@ public class Funcions {
                 break;
 
             case 6:
+                timein = System.currentTimeMillis();
                 usuari = (User)importer.arrayUsers.searchUser(nouUser);
+                time = System.currentTimeMillis() - timein;
+                System.out.println("Temps: "+time);
                 return usuari != null;
 
         }
@@ -206,7 +214,10 @@ public class Funcions {
                 break;
 
             case 3:
+                long timein = System.currentTimeMillis();
                 post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
+                long time = System.currentTimeMillis() - timein;
+                System.out.println("Temps: "+time);
                 return post != null;
 
             case 4:
@@ -216,7 +227,11 @@ public class Funcions {
                 break;
 
             case 6:
+               timein = System.currentTimeMillis();
                 post = (Post) importer.arrayPosts.searchPost(posti);
+
+                 time = System.currentTimeMillis() - timein;
+                 System.out.println("Temps: "+time);
                 return post != null;
         }
         return false;
@@ -233,7 +248,13 @@ public class Funcions {
 
         System.out.println("Processant petició...");
 
+
+        Long timein = System.currentTimeMillis();
+
         importer.trie.remove(eliminaUser);
+
+        Long time = System.currentTimeMillis();
+        System.out.println("Temps: "+time);
         // borrat =funcio... Borrem a Tries
         // Borrem a graph
         // Borrem a arraylisy
@@ -257,10 +278,22 @@ public class Funcions {
         input.nextLine();
 
         System.out.println("Processant petició...");
-
+        Long timein = System.currentTimeMillis();
         borrat = importer.tree.deleteElement(idPost);                                                           // cal completar,a fegir a quin arbre?----------------
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per tree: "+time);
+
         Post post = (Post) importer.tree.search(idPost);
+
+        timein = System.currentTimeMillis();
         importer.rTree.eliminaPost(post, importer.rTree.getrTreeRoot());
+        time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per rTree: "+time);
+
+        timein = System.currentTimeMillis();
+        importer.arrayPosts.removeElement(importer.arrayPosts.searchPosition(post));
+        time = System.currentTimeMillis() - timein;
+        System.out.println("Temps per Array: "+time);
 
         //borrem HASHTABLE
         //borrem ARRAYLIST
@@ -344,6 +377,7 @@ public class Funcions {
             System.out.println("ID del post:");
             int idPost = input.nextInt();
             input.nextLine();
+
             Post post = (Post) importer.tree.search(idPost);
             if (post != null) post.mostraInformacioPost();
 

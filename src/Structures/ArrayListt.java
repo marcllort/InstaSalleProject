@@ -127,6 +127,16 @@ public class ArrayListt<E> {
         }
     }
 
+    public int searchPosition(Object o) {
+        int p = -1;
+        for (int i = 0; i < size; i++) {
+            if (o == array[i]) {
+                return i;
+            }
+        }
+        return 0;
+    }
+
     public Object searchUser(String s) {
         int p = -1;
         User a;
