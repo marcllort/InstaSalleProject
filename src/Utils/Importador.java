@@ -25,7 +25,6 @@ public class Importador {
     public Graph graph = new Graph();
     public RTree rTree = new RTree();
     public Trie trie = new Trie();
-    private CSVReader reader = new CSVReader();
     public ArrayListt<User> arrayUsers = new ArrayListt();
     public ArrayListt<Post> arrayPosts = new ArrayListt<Post>();
 
@@ -110,6 +109,10 @@ public class Importador {
 
 
     public void HashTableImporter() {
+        for (Post info : dataPost) {
+           // hash.addElement();
+        }
+
     }
 
     public void RTreeImporter() {

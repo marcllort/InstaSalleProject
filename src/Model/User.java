@@ -50,6 +50,8 @@ public class User implements Comparable<String>{
         to_follow.add(user);
     }
 
+    public void deleteFollowing(String username) { to_follow.remove(username); }
+
     @Override
     public String toString() {
         return username;

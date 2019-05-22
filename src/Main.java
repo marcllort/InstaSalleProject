@@ -99,7 +99,7 @@ public class Main {
             case 2:
                 elements = importer.importDataPost(importRoute);
                 importer.RTreeImporter();
-                //importer.ArrayListImporter(opcio);
+                importer.ArrayListImporter(opcio);
                 importer.HashTableImporter();
                 importer.AVLImporter();
 

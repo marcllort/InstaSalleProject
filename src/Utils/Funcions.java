@@ -257,7 +257,9 @@ public class Funcions {
         System.out.println("Processant petició...");
 
         borrat = importer.tree.deleteElement(idPost);                                                           // cal completar,a fegir a quin arbre?----------------
-        //borrem RTREE
+        Post post = (Post) importer.tree.search(idPost);
+        importer.rTree.eliminaPost(post, importer.rTree.getrTreeRoot());
+
         //borrem HASHTABLE
         //borrem ARRAYLIST
 
