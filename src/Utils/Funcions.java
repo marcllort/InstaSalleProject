@@ -35,6 +35,7 @@ public class Funcions {
 
         System.out.println("Nom d'usuari:");
         String nouUser = input.nextLine();
+        importer.trie.insert(nouUser);
 
         boolean exists = checkUserExists(nouUser, structure);                                                                   //Comprovem que no existeixi ja el usuari
 
@@ -60,6 +61,7 @@ public class Funcions {
                         usuari.addFollwing(userToFollow);
                     }
                 }
+
                 // Afegim usuari als follow de nouUser
                 System.out.println("Usuaris que seguirà {Y/N]:");
                 answer = input.nextLine();
@@ -231,7 +233,7 @@ public class Funcions {
 
         System.out.println("Processant petició...");
 
-
+        importer.trie.remove(eliminaUser);
         // borrat =funcio... Borrem a Tries
         // Borrem a graph
         // Borrem a arraylisy
