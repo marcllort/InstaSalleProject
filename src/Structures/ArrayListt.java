@@ -142,7 +142,7 @@ public class ArrayListt<E> {
         User a;
         for (int i = 0; i < size; i++) {
             a = (User) array[i];
-            if (a.compareTo(s) == 1) {
+            if (a.getUsername().compareTo(s) == 1) {
                 p = i;
             }
         }

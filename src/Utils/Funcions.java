@@ -363,7 +363,7 @@ public class Funcions {
                         time = System.currentTimeMillis() - timein;
                         System.out.println("Temps de cerca a array: " + time);
                         if (usuari != null) {
-
+                            System.out.println("AAA");
                             usuari.mostraInformacioUser();
                         }
                     } else {
