@@ -124,7 +124,7 @@ public class Funcions {
         int idPost = input.nextInt();
         input.nextLine();
         boolean exists = checkPostExists(idPost, structurePost);                                                                    // Comprovem que no existeixi ja el post
-        if (exists) {
+        if (!exists) {
             post.setId(Integer.valueOf(idPost));
 
             System.out.println("Data creació: (yyyy-mm-dd)");
@@ -255,6 +255,12 @@ public class Funcions {
 
         Long time = System.currentTimeMillis() - timein;
         System.out.println("Temps a eliminar User a tries : "+time);
+        if (borrat) {
+            timein = System.currentTimeMillis();
+            importer.arrayUsers.removeElement(importer.arrayUsers.searchUserPos(eliminaUser));
+            time = System.currentTimeMillis() - timein;
+            System.out.println("Temps a eliminar User a array : "+time);
+        }
         // borrat =funcio... Borrem a Tries
         // Borrem a graph
         // Borrem a arraylisy
@@ -296,10 +302,10 @@ public class Funcions {
         time = System.currentTimeMillis() - timein;
         System.out.println("Temps per rTree: "+time);
 
-        timein = System.currentTimeMillis();
+       /* timein = System.currentTimeMillis();
         importer.arrayPosts.removeElement(importer.arrayPosts.searchPosition(post));
         time = System.currentTimeMillis() - timein;
-        System.out.println("Temps per Array: "+time);
+        System.out.println("Temps per Array: "+time);*/
 
         //borrem HASHTABLE
         //borrem ARRAYLIST

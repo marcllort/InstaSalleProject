@@ -144,12 +144,31 @@ public class ArrayListt<E> {
         User a;
         for (int i = 0; i < size; i++) {
             a = (User) array[i];
+            if (a.getUsername().equals(s)) {
+                p = i;
+
+            }
+
+        }
+        if (p != -1) {
+            return array[p];
+        } else{
+            return null;
+        }
+
+    }
+
+    public int searchUserPos(String s) {
+        int p = -1;
+        User a;
+        for (int i = 0; i < size; i++) {
+            a = (User) array[i];
             if (a.getUsername().compareTo(s) == 1) {
-                return array[i];
+                return i;
 
             }
         }
-        return null;
+        return 0;
 
 
     }
