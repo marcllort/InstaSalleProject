@@ -43,7 +43,7 @@ public class Funcions {
             usuari.setUsername(nouUser);
 
             System.out.println("Data creació: (yyyy-mm-dd)");
-            //usuari.setCreation(Instant.(input.nextLine() + " 00:00:00"));                                              // Per defecte posem hora a les 12 de la nit
+            usuari.setCreation(Timestamp.valueOf(input.nextLine() + " 00:00:00").getTime());                                // Per defecte posem hora a les 12 de la nit
 
 
             System.out.println("Usuaris que seguirà {Y/N]:");
@@ -116,7 +116,7 @@ public class Funcions {
     public Post insercioPost() {                                                                                                //hardcoded que les funcions de checkpostexist miri al avl
 
         int structurePost = 3;                                                                                                  // Buscarem el Post a la estrucutra de avl
-        int structureUser = 5;                                                                                                  // Buscarem el user a la estrucutra de graph
+        int structureUser = 6;                                                                                                  // Buscarem el user a la estrucutra de graph
 
         Post post = new Post();
 
@@ -124,7 +124,7 @@ public class Funcions {
         int idPost = input.nextInt();
         input.nextLine();
         boolean exists = checkPostExists(idPost, structurePost);                                                                    // Comprovem que no existeixi ja el post
-        if (!exists) {
+        if (exists) {
             post.setId(Integer.valueOf(idPost));
 
             System.out.println("Data creació: (yyyy-mm-dd)");
@@ -217,7 +217,7 @@ public class Funcions {
                 long timein = System.currentTimeMillis();
                 post = (Post) importer.tree.search(postId);                                                                 // Si fos un string, ja li farem un hash, cal mirar a quin arbre hu busquem
                 long time = System.currentTimeMillis() - timein;
-                System.out.println("Temps: "+time);
+                System.out.println("Temps a cercar : "+time);
                 return post != null;
 
             case 4:

@@ -9,14 +9,14 @@ import java.util.Arrays;
 public class User implements Comparable<String>{
 
     private String username;
-    private BigInteger creation;
+    private Long creation;
     private ArrayList<String> to_follow;
 
     public User() {
         to_follow = new ArrayList<>();
     }
 
-    public User(String username, BigInteger creation) {
+    public User(String username, Long creation) {
         this.username = username;
         this.creation = creation;
         to_follow = new ArrayList<>();
@@ -30,11 +30,11 @@ public class User implements Comparable<String>{
         this.username = username;
     }
 
-    public BigInteger getCreation() {
+    public Long getCreation() {
         return creation;
     }
 
-    public void setCreation(BigInteger creation) {
+    public void setCreation(Long creation) {
         this.creation = creation;
     }
 

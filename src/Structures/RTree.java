@@ -824,21 +824,23 @@ public class RTree {
     }
 
     public void eliminaPost (Post post, NodeRTree.NodeRTreeArray rTreeRoot){
-        double[] localizacion = post.getLocation();
+        if(post != null) {
+            double[] localizacion = post.getLocation();
 
-        for (int i = 0; i < rTreeRoot.getNodos().getSize(); i++){
-            NodeRTree lookingNode = (NodeRTree) rTreeRoot.getNodos().getElement(i);
+            for (int i = 0; i < rTreeRoot.getNodos().getSize(); i++) {
+                NodeRTree lookingNode = (NodeRTree) rTreeRoot.getNodos().getElement(i);
 
-            if ((localizacion[0] >= lookingNode.getBestX()[0] && localizacion[0] <= lookingNode.getBestX()[1])
-                    && (localizacion[1] >= lookingNode.getBestY()[0] && localizacion[1] <= lookingNode.getBestY()[1])){
+                if ((localizacion[0] >= lookingNode.getBestX()[0] && localizacion[0] <= lookingNode.getBestX()[1])
+                        && (localizacion[1] >= lookingNode.getBestY()[0] && localizacion[1] <= lookingNode.getBestY()[1])) {
 
-                if (lookingNode.getHijosLeaf() == null && lookingNode.getHijosRTree() != null) {
-                    eliminaPost(post, lookingNode.getHijosRTree());
+                    if (lookingNode.getHijosLeaf() == null && lookingNode.getHijosRTree() != null) {
+                        eliminaPost(post, lookingNode.getHijosRTree());
 
-                } else {
-                    for (int j = 0; j < lookingNode.getHijosLeaf().getLeafNodes().getSize(); j++){
-                        if (((LeafNode)lookingNode.getHijosLeaf().getLeafNodes().getElement(j)).getPost().equals(post)){
-                            ((LeafNode)lookingNode.getHijosLeaf().getLeafNodes().getElement(j)).setActivated(false);
+                    } else {
+                        for (int j = 0; j < lookingNode.getHijosLeaf().getLeafNodes().getSize(); j++) {
+                            if (((LeafNode) lookingNode.getHijosLeaf().getLeafNodes().getElement(j)).getPost().equals(post)) {
+                                ((LeafNode) lookingNode.getHijosLeaf().getLeafNodes().getElement(j)).setActivated(false);
+                            }
                         }
                     }
                 }

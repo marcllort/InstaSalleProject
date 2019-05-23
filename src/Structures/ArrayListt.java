@@ -5,6 +5,8 @@ import Model.User;
 import javafx.geometry.Pos;
 
 import javax.xml.bind.Element;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class ArrayListt<E> {
     public Object[] array;
@@ -143,14 +145,12 @@ public class ArrayListt<E> {
         for (int i = 0; i < size; i++) {
             a = (User) array[i];
             if (a.getUsername().compareTo(s) == 1) {
-                p = i;
+                return array[i];
+
             }
         }
-        if (p != -1) {
-            return array[p];
-        } else {
-            return null;
-        }
+        return null;
+
 
     }
 
@@ -229,11 +229,18 @@ public class ArrayListt<E> {
         ArrayListt<Post> result = new ArrayListt<Post>();
         for (int i = 0; i< array.length; i++){
             Post post = (Post) array[i];
-            if (post.getPublished_by().equals(username)){
-                result.addElement(post);
+            if (post != null) {
+                if (post.getPublished_by().equals(username)) {
+                    result.addElement(post);
+                }
             }
         }
         return result;
+    }
+    public void sort() {
+
+        Comparator<Object> comparator = new ComparatorObject();
+        Arrays.sort(array, comparator);
     }
 
 

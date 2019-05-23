@@ -89,6 +89,7 @@ public class Main {
         switch (opcio) {
             case 1:
                 elements = importer.importDataUser(importRoute);
+
                 importer.ArrayListImporter(opcio);
                 importer.TriesImporter();
                 importer.GraphListImporter();
