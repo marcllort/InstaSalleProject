@@ -251,16 +251,22 @@ public class Funcions {
 
         Long timein = System.currentTimeMillis();
 
-        importer.trie.remove(eliminaUser);
+       borrat =  importer.trie.remove(eliminaUser);
 
-        Long time = System.currentTimeMillis();
-        System.out.println("Temps: "+time);
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps a eliminar User a tries : "+time);
         // borrat =funcio... Borrem a Tries
         // Borrem a graph
         // Borrem a arraylisy
 
         //Cal borrar tota la informació realcionada (posts...) menys localitzacio posts, mirar enunciat-----------------
-
+        ArrayListt <Post> posts = importer.arrayPosts.searchPosts(eliminaUser);
+        for (int i = 0; i < posts.getSize(); i++){
+            Post post = (Post)posts.getElement(i);
+            System.out.println("ID"+post.getId());
+            importer.tree.deleteElement(post.getId());
+            importer.rTree.eliminaPost(post, importer.rTree.getrTreeRoot());
+        }
         if (borrat) {
             System.out.println("L'usuari [" + eliminaUser + "] s'ha esborrat correctament del sistema");
         } else {
@@ -320,7 +326,11 @@ public class Funcions {
         stringUsuari = stringUsuari.concat(addUser); //cal mirar si funciona
         ArrayListt<String> arraylist;
 
+        Long timein = System.currentTimeMillis();
         arraylist = importer.trie.search(addUser);
+        Long time = System.currentTimeMillis() - timein;
+        System.out.println("Temps de cerca a trie: " + time);
+
         if (arraylist != null) {
             System.out.println("Possibles suggeriments:" + arraylist.getSize());
             //funcio autocompletar busca a tots usuaris, retorna un arraylist, amb el size sabrem quantes opcions tenim
@@ -337,6 +347,7 @@ public class Funcions {
                 int seleccio = input.nextInt();
                 input.nextLine();
                 if (seleccio != i) {
+
                     stringUsuari = (String) arraylist.getElement(seleccio);
                     System.out.println("Carregar informació de l'usuari [" + stringUsuari + "] [Y/N]");
                     String answer = input.nextLine();
@@ -345,7 +356,12 @@ public class Funcions {
                     if (carregaCerca) {
                         importer.trie.actualitzaParaula(stringUsuari);
                         System.out.println("USER " + stringUsuari + "actualitzat");
+
                         User usuari = null; //= //funcio de busqyeda a estructura, nose si cal fer graph o tries, cal preguntar               // Busquem el usuari, i mostrem la seva info------------------------------------------------
+                        timein = System.currentTimeMillis();
+                        usuari = (User)importer.arrayUsers.searchUser(stringUsuari);
+                        time = System.currentTimeMillis() - timein;
+                        System.out.println("Temps de cerca a array: " + time);
                         if (usuari != null) {
 
                             usuari.mostraInformacioUser();

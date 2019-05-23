@@ -147,6 +147,8 @@ public class Main {
                 break;
 
             case 2:
+                System.out.println("------------------- EMPEZAMOS VISUALIZACIÓN RTREE ------------------");
+                importer.rTree.visualizaEstructura(importer.rTree.getrTreeRoot());
                 break;
 
             case 3:

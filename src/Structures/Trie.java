@@ -162,8 +162,9 @@ public class Trie {
             }
         }
     }
+
     //Funció que elimina una paraula dels tries
-    public void remove(String paraula){
+    public boolean remove(String paraula){
 
         TrieNode nodeAct = goTo(paraula);
         //El if controla que no haigin entrat una paraula que no existia.
@@ -193,10 +194,13 @@ public class Trie {
                     l = paraula.length();
                 }
 
+
             }
             paraules--;
+            return true;
         }else {
             System.out.println("Paraula a eliminar '"+paraula+"' inexistent!");
+            return false;
         }
 
     }

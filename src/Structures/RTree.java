@@ -846,6 +846,23 @@ public class RTree {
         }
     }
 
+    public void visualizaEstructura(NodeRTree.NodeRTreeArray root){
+        for (int i = 0; i < root.getNodos().getSize();i++){
+            if (root.getNodos().getElement(i) instanceof NodeRTree){
+                if (((NodeRTree) root.getNodos().getElement(i)).getHijosLeaf() == null){
+                    visualizaEstructura(((NodeRTree) root.getNodos().getElement(i)).getHijosRTree());
+
+                }else {
+                    System.out.println();
+                    System.out.println("Posts en el mismo rectángulo");
+                    for (int j = 0; j < ((NodeRTree) root.getNodos().getElement(i)).getHijosLeaf().getLeafNodes().getSize(); j++){
+                        LeafNode leafNode = (LeafNode) ((NodeRTree) root.getNodos().getElement(i)).getHijosLeaf().getLeafNodes().getElement(j);
+                        System.out.println("    ---> " + j + ". Post con ID" + leafNode.getPost().getId());
+                    }
+                }
+            }
+        }
+    }
 
     public ArrayListt getPosts() { return posts; }
     public void setPosts(ArrayListt posts) { this.posts = posts; }

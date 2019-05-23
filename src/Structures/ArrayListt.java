@@ -225,6 +225,17 @@ public class ArrayListt<E> {
         return distance > radi ? 1 : 0;
     }
 
+    public ArrayListt<Post> searchPosts(String username){
+        ArrayListt<Post> result = new ArrayListt<Post>();
+        for (int i = 0; i< array.length; i++){
+            Post post = (Post) array[i];
+            if (post.getPublished_by().equals(username)){
+                result.addElement(post);
+            }
+        }
+        return result;
+    }
+
 
 
    /* public static void main(String[] args) {
