@@ -7,4 +7,4 @@ Once imported, we will be able to add / delete information, visualize the struct
 The program also offers the possibility to export the current status of the structure as json files, then import them, and continue from the saved state of the structure.
 
 
-For a more detailed explanation, read the InstaSalleProject PDF, where there are the comparative graphs and conclusions of the project.
+For a more detailed explanation, read the InstaSalleProject PDF (Automatic translation from catalan to english, you will probably find many translation errors), where there are the comparative graphs and conclusions of the project.
